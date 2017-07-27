@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="db-title">
+            Engagement Team Summary
+        </div>
+    </div>
+</div>
+
+<div class="db-body">
+
+    <div class="row db-item-team-summary-control-panel">
+        <!--<div class="db-item-team-summary-selector">-->
+
+        <div class="col-xs-1 db-team-summary-filter-title">
+            Filters
+            <button class="btn btn-xs db-team-summary-filter-reset-button"
+                    ng-click="db_ts.resetFilters()">Reset
+            </button>
+        </div>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-type" class="control-label">Type:</label><br>
+                <select id="filter-type" ng-model="db_ts.filter_type">
+                    <option>All</option>
+                    <option>Early Innovation</option>
+                    <option>Technical Cooperation</option>
+                    <option>Business Development</option>
+                    <option>Internal Project</option>
+                </select>
+            </div>
+        </form>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-cm" class="control-label">Bizdev Owner:</label><br>
+                <select id="filter-cm" ng-model="db_ts.filter_bdOwner">
+
+                    <option>All</option>
+                    <option ng-repeat="bdOwner in db_ts.bizDevOwnerSearchList">{{bdOwner.profile.name}}</option>
+                </select>
+            </div>
+        </form>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-2">
+                <label for="filter-status" class="control-label">Status:</label><br>
+                <select id="filter-status" ng-model="db_ts.filter_status">
+                    <option>Active</option>
+                    <option>Executing</option>
+                    <option>On Hold</option>
+                    <option>Closed</option>
+                    <option>All</option>
+                </select>
+            </div>
+        </form>
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-search" class="control-label">Search:</label><br>
+                <input  id="filter-search" class="form-control input-sm" ng-model="db_ts.filter_search" placeholder="Filter by keyword...">
+
+                </input>
+            </div>
+        </form>
+
+
+    </div>
+
+
+    <div class=" row db-team-summary ">
+        <div class="col-xs-12 ">
+
+
+            <table class="table table-condensed table-head">
+                <tr>
+                    <td class="db-team-summary-table-body-col"
+                        ng-click = "db_ts.setSortOptions('organization')"
+                        style="color:darkred;"
+                        title="Click to sort">Organization</td>
+                    <td class="db-team-summary-table-body-col"
+                        ng-click = "db_ts.setSortOptions('resource')"
+                        style="color:darkred;"
+                        title="Click to sort">Resource</td>
+                    <td class="db-team-summary-table-body-col">Subject</td>
+                    <td class="db-team-summary-table-body-col"
+                        ng-click = "db_ts.setSortOptions('lab')"
+                        style="color:darkred;"
+                        title="Click to sort">Lab</td>
+                    <td class="db-team-summary-table-body-col"
+                        ng-click = "db_ts.setSortOptions('bdOwner')"
+                        style="color:darkred;"
+                        title="Click to sort">BD Owner</td>
+                    <td class="db-team-summary-table-body-col">Latest</td>
+                    <td class="db-team-summary-table-body-col">Next Step</td>
+                    <td class="db-team-summary-table-body-col-date"
+                        ng-click = "db_ts.setSortOptions('updated')"
+                        style="color:darkred;"
+                        title="Click to sort">Updated</td>
+
+                </tr>
+            </table>
+
+            <div class="db-team-summary-table-body-wrapper"
+                 id="db-team-summary-table-body">
+
+                <table class="table table-condensed table-body db-team-summary-table-body">
+                    <tr ng-repeat="engagement in db_ts.engagementCollection"
+                        ng-click="db_ts.viewEngagementDetail(engagement._id)"
+                        ng-class="db_ts.overdue(engagement)">
+
+                        <td class="db-team-summary-table-body-col">{{engagement.contractingPartnersLabel[0]}}</td>
+                        <td class="db-team-summary-table-body-col">{{engagement.cooperationResourcesLabel[0]}}</td>
+                        <td class="db-team-summary-table-body-col">{{engagement.title}}</td>
+                        <td class="db-team-summary-table-body-col"> {{engagement.tempLab}}</td>
+                        <td class="db-team-summary-table-body-col">{{engagement.bdOwnerLabel}}</td>
+                        <td class="db-team-summary-table-body-col">{{engagement.currentStatus}}</td>
+                        <td class="db-team-summary-table-body-col">{{engagement.nextStep}}</td>
+                        <td class="db-team-summary-table-body-col-date">{{db_ts.formatDate(engagement.lastUpdated)}}
+                        </td>
+
+                    </tr>
+
+                </table>
+
+                <!--                <div class="db-team-summary-footer">
+                                    <h2> FOOTER</h2>
+
+
+                                </div>-->
+            </div>
+
+
+        </div> <!--column-->
+    </div> <!--row-->
+</div><!-- / tab panel-->
+
+
+<!--
+<div style="position: fixed; bottom:0">
+    <h5 >Diagnostics:</h5>
+    <strong>BD Owner:</strong> {{db_ts.filter_bdOwner}}
+</div>
+-->

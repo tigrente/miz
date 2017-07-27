@@ -1,0 +1,228 @@
+/*Style sheet for search results*/
+
+/*Search Result Main Page*/
+
+/*********************************************************************************************************************/
+/*** Genneral templates                                                                                            ***/
+/*********************************************************************************************************************/
+
+.search-result-main-page-background {
+
+    margin: -19px 10px -10px -10px;
+    padding: 0;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    overflow: hidden;
+}
+
+.search-result-header {
+    margin-left: 0px;
+    color: white;
+    text-decoration: underline;
+}
+
+.search-result-column {
+    border-left: solid thin darkred;
+    /*border-bottom: solid thin darkred;*/
+    margin: 0 0 0 0px;
+}
+
+
+
+.search-result-main-page-results-wrapper {
+    margin: 0 0 0 18px;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+/*********************************************************************************************************************/
+/*** ENGAGEMENT SEARCH RESULTS                                                                                     ***/
+/*********************************************************************************************************************/
+
+/** Engagement results **/
+
+.search-result-engagement-column {
+    overflow: auto;
+    margin: 0 0 0 0;
+    padding: 0 0 10px 0;
+    display: block;
+
+}
+
+.search-result-box {
+    color: white;
+    border: thin darkgrey solid;
+    margin: 5px 5px 0 3px;
+    border-radius: 10px;
+    padding: 0 0 0 0;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+.search-result-engagement-resources {
+    color: white;
+    font-size: medium;
+    /*font-style: italic;*/
+
+}
+
+.search-result-engagement-partners {
+    color: lightgrey;
+
+}
+
+.search-result-engagement-title {
+    color: orange;
+    font-size: smaller;
+    /*font-style: italic;*/
+
+}
+
+.search-result-engagement-lab {
+    color: cyan;
+    font-size: smaller;
+    /*font-style: italic;*/
+
+}
+
+.search-result-engagement-type {
+    margin: 4px 0 0 -10px;
+    padding: 0 0 0 0;
+    color: lightgrey;
+    font-size: small;
+    /*font-style: italic;*/
+
+}
+
+.search-result-engagement-status {
+    margin: 4px 0 0 -10px;
+    color: red;
+    font-size: smaller;
+    /*font-style: italic;*/
+
+}
+
+.search-result-engagement-status-active {
+    color: green;
+}
+
+.search-result-engagement-status-executing {
+    color: dodgerblue;
+}
+
+.search-result-engagement-status-onhold {
+    color: orangered;
+}
+
+.search-result-engagement-status-closed {
+    color: grey;
+}
+
+/*********************************************************************************************************************/
+/*** UNIVERSITY SEARCH RESULTS                                                                                     ***/
+/*********************************************************************************************************************/
+
+/** Engagement results **/
+
+.search-result-university-column {
+    overflow: auto;
+    margin: 0 0 0 0;
+    padding: 0 0 10px 0;
+    display: block;
+}
+
+.search-result-element-university-container {
+    color: white;
+    border: thin darkgrey solid;
+    margin: 5px 20px 0 0px;
+    border-radius: 10px;
+    padding: 0 0 0 0;
+    background-color: rgba(50,0,0,.5);
+    position: relative;
+
+}
+
+.search-result-element-university-name-column{
+
+}
+
+.search-result-element-university-name {
+max-height: 75px;
+    color: white;
+    font-size: medium;
+    vertical-align: middle;
+    display: table;
+}
+
+.search-result-element-university-logo-column {
+
+}
+
+.frame {
+    max-height: 75px;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center; margin: 5px 0 5px -7px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.search-result-element-university-logo {
+    border-radius: 10%;
+    height: auto;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 75px;
+    background-color: ghostwhite;
+
+}
+
+
+
+
+/*********************************************************************************************************************/
+/*** CUSTOM SEARCH RESULTS                                                                                     ***/
+/*********************************************************************************************************************/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* this targets the default scrollbar (compulsory) */
+
+::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 5px;
+}
+
+/* the new scrollbar will have a flat appearance with the set background color */
+
+::-webkit-scrollbar-thumb {
+    background-color: darkred;
+    border-radius: 5px;
+}
+
+/* this will style the thumb, ignoring the track */
+
+::-webkit-scrollbar-button {
+    background-color: grey;
+}
+
+/* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+
+::-webkit-scrollbar-corner {
+    background-color: black;
+}
+
+/* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+

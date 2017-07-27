@@ -1,0 +1,161 @@
+<h4>Acceptance Team</h4>
+
+<!--EDIT DELIVERABLES-->
+
+<div ng-if="eiat.ui.editAcceptanceTeam" style="border: black thin solid;">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>Name</th>
+                    <th>ID#</th>
+                    <th>Lab</th>
+
+                    <th>Independent
+
+                    </th>
+                    <th>Remove
+                        <button class="btn btn-xs btn-primary" style="float: right"
+                                ng-click="eiat.ui.editAcceptanceTeam = false">
+                            Done
+                        </button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="reviewer in eiat.acceptanceTeam track by $index" style="text-align: center">
+                    <!--track by index because some entries are identical-->
+
+
+                    <td>
+
+                        <input style="text-align: left"
+                               type="text"
+                               placeholder="e.g. Joe Zhen"
+                               ng-model="reviewer.name"
+                               ng-change="eiat.updateAcceptanceTeam()">
+
+                    </td>
+
+                    <td>
+                        <input style="text-align: left"
+                               type="text"
+                               placeholder="e.g. 123456"
+                               ng-model="reviewer.idNumber"
+                               ng-change="eiat.updateAcceptanceTeam()">
+
+                    </td>
+
+
+                    <td>
+                        <input style="text-align: left"
+                               type="text"
+                               placeholder="e.g. America Hardware Lab"
+                               ng-model="reviewer.lab"
+                               ng-change="eiat.updateAcceptanceTeam()">
+
+                    </td>
+
+                    <td>
+                        <input style="text-align: left"
+                               type="checkbox"
+                               placeholder="e.g. Signing, MS1"
+                               ng-model="reviewer.independent"
+                               ng-change="eiat.updateAcceptanceTeam()">
+                        Independent
+
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-danger"
+                                ng-if="$index > 2"
+                                ng-click="eiat.removeAcceptor($index)">
+                            X
+                        </button>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+            <button class="btn btn-xs btn-primary"
+                    style=" margin: -20px 10px 10px 10px"
+                    ng-click="eiat.addAcceptor()">
+                Add Additional Acceptors
+            </button>
+            <button class="btn btn-xs btn-primary"
+                    style="float: right; margin: -20px 10px 10px 0"
+                    ng-click="eiat.ui.editAcceptanceTeam = false;">
+                Done
+            </button>
+
+        </div>  <!--col-->
+    </div><!--rows-->
+
+</div>
+
+<!--DISPLAY ACCEPTANCE TEAM-->
+
+<div ng-if="(eiat.acceptanceTeam.length > 0) && (!eiat.ui.editAcceptanceTeam)" style="border: black thin solid;">
+
+
+    <div class="row">
+        <div class="col-xs-6">
+
+
+            <table class="table">
+                <thead>
+                <tr style="text-align: center">
+                    <th>Name</th>
+                    <th>ID#</th>
+                    <th>Lab</th>
+                    <th style="text-align: center">Independent</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="reviewer in eiat.acceptanceTeam track by $index">
+                    <!--track by index because some entries are identical-->
+
+                    <!--PAYMENT INDEX-->
+                    <td>
+                        {{reviewer.name}}
+                        <i ng-if="!reviewer.name" style="color: red">Unspecified</i>
+                    </td>
+                    <td> {{reviewer.idNumber}}
+                    </td>
+                    <td> {{reviewer.lab}}</td>
+                    <td style="text-align: center"><i style="color: #0F9D58; font-size: x-large;"
+                                                      ng-if="reviewer.independent" class="fa fa-check-circle-o"
+                                                      aria-hidden="true"></i></td>
+                </tr>
+
+
+                </tbody>
+            </table>
+            <button class="btn btn-xs btn-primary"
+                    style="float: right; margin: 10px"
+                    ng-click="eiat.ui.editAcceptanceTeam = true;">
+                Edit Acceptance Team
+            </button>
+        </div>  <!--col-->
+
+        <div class="col-xs-6">
+            <strong>Notes on acceptors:</strong>
+            <ul>
+                <li>There must be at least three acceptors specified.</li>
+                <li>One of the acceptors must be independent. </li>
+                <li>If the accepting team must change, it must be approved via e-flow including lab leader and CEG.</li>
+
+
+            </ul>
+
+        </div>
+    </div><!--rows-->
+
+</div>
+

@@ -1,0 +1,302 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+<div class="row">
+    <div class="col-xs-12" style="height: 25px">
+        <h3 style="margin: 1px; padding: 1px; display: inline">New Engagement</h3>
+
+        <div style="float: right">
+            <button class="btn btn-success"
+                    ng-disabled="en.submissionDisabled"
+                    ng-click="en.createEngagement()">    <!--open and go to partner-->
+                Create and Open
+            </button>
+            <button class="btn btn-default"
+                    ng-click="en.resetForm(); en.updateUserFeedback = ''; ">
+                Reset Form
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-xs-5">
+            <!--SELECT TALENT-->
+            <partner-select ng-if="en.newEngagement"
+                            selector-label="Resource:"
+                            selected-partner-ids="en.newEngagement.cooperationResources"
+                            cooperation-resources-only="true"
+                            title="The talent actually doing the work, e.g. a professor. If a company is being used, select the company name."
+            >
+
+            </partner-select>
+        </div>
+        <div class="col-xs-1">
+            <a style="font-size: large; color:darkgreen;"
+               tabindex="0"
+               data-trigger="focus"
+               role="button"
+               class="fa fa-question-circle po"
+               aria-hidden="true"
+               data-html="true"
+               data-toggle="popover"
+               title="Cooperation Resource"
+               data-placement="bottom"
+               data-content='
+                         <small>The talent actually doing the work, e.g. a professor.
+                         If a company is being used, select the company name. </small>
+        '></a>
+        </div>
+
+        <div class="col-xs-5">
+
+
+            <!--SELECT CONTRACTING PARTNER-->
+            <partner-select ng-if="en.newEngagement"
+                            partner-types="en.contractingPartnerTypes"
+                            selector-label="Contract Entity:"
+                            selected-partner-ids="en.newEngagement.contractingPartners"
+                            title="The entity actually singing the agreement, usually a university or company. If a professor is contracting independently, put the professors name or their LLC here."
+            >
+            </partner-select>
+
+        </div>
+        <div class="col-xs-1">
+            <a style="font-size: large; color:darkgreen;"
+               tabindex="0"
+               data-trigger="focus"
+               role="button"
+               class="fa fa-question-circle po"
+               aria-hidden="true"
+               data-html="true"
+               data-toggle="popover"
+               title="Contract Entity"
+               data-placement="bottom"
+               data-content='
+                         <small>The entity actually singing the agreement, usually a university or company. </small>
+                         <small>If a professor is contracting independently, put the professors name here. </small>
+        '></a>
+        </div>
+    </div> <!--form-group-->
+
+
+    <div class="form-group">
+        <label for="type" class="col-xs-2 control-label ">Type:*</label>
+
+        <div class="col-xs-3">
+            <select class="form-control input-sm"
+                    id="type"
+                    style="display: inline"
+                    ng-model="en.newEngagement.type">
+                <option disabled selected value style="display: none"> -- select an option --</option>
+                <option>Technical Cooperation</option>
+                <option>Early Innovation</option>
+                <option>Business Development</option>
+                <option>Internal Project</option>
+            </select>
+
+        </div>
+        <div class="col-xs-7">
+            <a style="font-size: large; color:darkgreen;"
+               tabindex="0"
+               data-trigger="focus"
+               role="button"
+               class="fa fa-question-circle po"
+               aria-hidden="true"
+               data-html="true"
+               data-toggle="popover"
+               title="Engagement Type Options"
+               data-content='
+                                <strong style="color:darkred">Technical Cooperation</strong><br>
+                                <small> Cooperation that will go through TCMP process</small><br>
+
+                                <strong style="color:darkred"¬>Early Innovation</strong><br>
+                                <small> Early innovation project to be approved by Futurewei PMC.</small><br>
+
+                                <strong style="color:darkred">Business Development</strong><br>
+                                <small> Partner engagement that is not yet a cooperation (e.g. exploration, membership).</small><br>
+
+                                <strong style="color:darkred">Internal Project</strong><br>
+                                <small> Internal project requiring bizdev resources, but not involving external partners.
+                                If external partners are involved, use Bizdev.</small>'
+            ></a>
+        </div>
+    </div>    <!--form-group-->
+
+
+
+
+    <div class="form-group" title="Is this project led by HQ, Futurewei, or another Huawei entity?">
+        <label for="entity" class="col-xs-2 control-label ">Huawei Entity:*</label>
+
+        <div class="col-xs-3">
+            <select class="form-control input-sm"
+                    id="entity"
+                    style="display: inline"
+                    ng-model="en.newEngagement.hwEntity">
+                <option disabled selected value style="display: none"> -- select an option --</option>
+                <option> Futurewei</option>
+                <option> HQ </option>
+                <option> Other Huawei Entity</option>
+            </select>
+
+        </div>
+
+    </div> <!--form-group-->
+
+    <div class="form-group">
+        <label for="title" class="col-xs-2 control-label">Project Name:*</label>
+
+        <div class="col-xs-5">
+            <input type="text"
+                   class="form-control input-sm"
+                   id="title"
+                   placeholder="e.g. Non-Volatile Memory Study"
+                   ng-model="en.newEngagement.title"
+                   title="Enter the name of the project.">
+        </div>
+
+    </div><!--form-group-->
+
+
+    <div class="form-group">
+        <label for="background" class="col-xs-2 control-label">Background:</label>
+
+        <div class="col-xs-5">
+        <textarea id="background"
+                  ng-model="en.newEngagement.background"
+                  placeholder="Provide a little information to remind you of the project context, such as how it was initiated"
+                  class="form-control input-sm"
+                  rows="2"></textarea>
+
+        </div>
+
+    </div><!--form-group-->
+
+    <div class="form-group">
+        <label for="project_manager" class="col-xs-2 control-label">Project Manager:</label>
+
+        <div class="col-xs-5">
+            <input type="text"
+                   class="form-control input-sm"
+                   id="project_manager"
+                   placeholder="e.g. Arthur Curry"
+                   ng-model="en.newEngagement.projectManager"
+                   title="Enter the name of the project.">
+        </div>
+
+    </div><!--form-group-->
+
+    <div class="form-group">
+        <label for="lab" class="col-xs-2 control-label">Lab:</label>
+
+        <div class="col-xs-5">
+            <input type="text"
+                   class="form-control input-sm"
+                   id="lab"
+                   placeholder="e.g. America Software Lab"
+                   ng-model="en.newEngagement.tempLab"
+                   title="The internal customer. This is a placeholder that will be replaced by a fixed lab reference to aggregate deal values, etc.">
+        </div>
+    </div>    <!--form-group-->
+
+
+    <div class="form-group">
+        <label for="hq_cooperation_manager" class="col-xs-2 control-label">HQ Cooperation Mgr:</label>
+
+        <div class="col-xs-5">
+            <input type="text"
+                   class="form-control input-sm"
+                   id="hq_cooperation_manager"
+                   placeholder="e.g. Zhangwei 290607"
+                   ng-model="en.newEngagement.hqCooperationManger"
+                   title="HQ Cooperation Manger assisting this deal.">
+        </div>
+
+    </div><!--form-group-->
+
+    <!--    This script enables formatting of the deal value field to ensure only numbers, place in commas, and enable tabbing
+        through the field.-->
+
+    <script type="text/javascript">
+        function FilterInput(event) {
+            let keyCode = ('which' in event) ? event.which : event.keyCode;
+
+            let isNumeric = (keyCode >= 48 /* KeyboardEvent.DOM_VK_0 */ && keyCode <= 57 /* KeyboardEvent.DOM_VK_9 */) ||
+                (keyCode >= 96 /* KeyboardEvent.DOM_VK_NUMPAD0 */ && keyCode <= 105 /* KeyboardEvent.DOM_VK_NUMPAD9 */);
+            let modifiers = (event.altKey || event.ctrlKey || event.shiftKey);
+            let backspace = (keyCode == (8));
+            if (keyCode == 9) return true;      // Enable tabing through form
+            return isNumeric && !modifiers || backspace;
+        }
+    </script>
+
+    <div class="form-group">
+        <label for="value" class="col-xs-2 control-label">Deal Value (USD):</label>
+
+        <div class="col-xs-3">
+            <input type="text"
+                   onkeydown="return FilterInput(event)"
+                   data-type="number"
+                   min="0"
+                   step="0.01"
+                   class="form-control input-sm"
+                   id="value"
+                   name="value"
+                   placeholder="e.g. 50,000"
+                   ng-model="en.placeholderValue"
+                   title="The internal customer.">
+        </div>
+
+    </div><!--form-group-->
+
+    <div class="form-group">
+        <label for="index" class="col-xs-2 control-label">Personal Index:</label>
+
+        <div class="col-xs-3">
+            <input type="text"
+                   class="form-control input-sm"
+                   id="index"
+                   placeholder="Personal reference"
+                   ng-model="en.newEngagement.index"
+                   title="Reference number for your personal filing (optional.">
+        </div>
+
+    </div><!--form-group-->
+
+
+</form>
+
+
+<div class="row">
+    <div class="col-xs-12" style="height: 25px">
+        <hr>
+        <h3 style="margin: 1px; padding: 1px; display: inline"></h3>
+
+        <div style="float: right">
+            <button class="btn btn-success"
+                    ng-disabled="en.submissionDisabled"
+                    ng-click="en.createEngagement()">    <!--open and go to partner-->
+                Create and Open
+            </button>
+            <button class="btn btn-default"
+                    ng-click="en.resetForm(); en.updateUserFeedback = ''; ">
+                Reset Form
+            </button>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<!--<br><br><br><br>
+<h3> Diangostics </h3>
+<strong>New Entity: </strong> {{en.newEngagement}}-->

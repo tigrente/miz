@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-sm-12"> <!--Parent Partner Header row-->
+
+        <div style="max-height: 250px; overflow:auto;">  <!--Enables Table Scrolling-->
+
+
+            <table class="table table-hover" width="100%" style="border-collapse: collapse;">
+                <!--<col style="width: 10%;">-->
+
+
+                <tr style=" background-color: darkorange;
+                            color:white;
+                            border-bottom-width: 1px;
+                            border-top-width: 1px;
+                            border-top-color:darkred;
+                            border-bottom-color: darkred">
+                    <td>
+                        <b>Resource</b>
+                    </td>
+                    <td>
+                        <b>Contract</b>
+                    </td>
+                    <td>
+                        <b>Lab</b>
+                    </td>
+                    <td>
+                        <b>Title</b>
+                    </td>
+                    <td>
+                        <b>Value</b>
+                    </td>
+                    <td>
+                        <b>BD</b>
+                    </td>
+                    <td>
+                        <b>Status</b>
+                    </td>
+                    <td>
+                        <b>Last Update</b>
+                    </td>
+
+
+                </tr>
+
+                <!--ng-click="partnerDetails.viewPartnerDetail(this.engagement._id)"-->
+                <tr ng-repeat="engagement in pe.engagements"
+
+                    style="border-bottom: 1pt solid lightgrey;"
+                    ng-click="pe.viewEngagement(engagement._id)">
+
+                    <td>
+                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                        <div class="table-cell-truncate"
+                             ng-attr-title="{{ pe.stringOfPartnerNames(engagement.cooperationResources) || '?' }}"></div>
+                    </td>
+
+                    <td>
+                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                        <div class="table-cell-truncate"
+                             ng-attr-title="{{pe.stringOfPartnerNames( engagement.contractingPartners) }}"></div>
+                    </td>
+
+                    <td>
+                        <b>Lab</b>
+                    </td>
+
+                    <td>
+                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                        <div class="table-cell-truncate"
+                             ng-attr-title="{{engagement.title || '?' }}"></div>
+                    </td>
+
+                    <td>
+                        {{engagement.dealValue || "?" }}
+                    </td>
+
+                    <td>
+                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                        <div class="table-cell-truncate"
+                             ng-attr-title="{{pe.stringOfBizdevNames( [engagement.bdOwner]) || '?'}}"></div>
+                    </td>
+                    <td>
+                        {{engagement.status || "?"}}
+                    </td>
+                    <td>
+                        {{engagement.lastUpdated || "?"}}
+                    </td>
+
+
+                </tr>
+            </table>
+
+        </div>
+
+
+    </div>
+</div>  <!--Row Parent Partner and BD Owners-->
+
+<!--<h3>Diagnostics</h3>
+<strong> PartnerID:</strong> {{pe.partnerId}} <br>
+<strong> Engagements </strong> {{pe.engagements}} <br>
+<strong> Referenced Partner Ids: </strong> {{pe.referencedPartnerIds}} <br>
+<strong> Referenced Partners: </strong> {{pe.referencedPartners}} <br>
+<strong> Test
+    stringOfPartnerNames: </strong> {{pe.stringOfPartnerNames(["gMeK8veYFTzFpLDke","eyFxBqn5FHN9wpP2a","MFLLP8krcwbKkHYqx","8B4a4rA7ELgiWqiMf"] )}}
+<br>
+<strong> Referenced BizDev Ids: </strong> {{pe.referencedBizdevIds}} <br>
+<strong> Referenced Partners: </strong> {{pe.referencedBizdevs}} <br>
+<strong> Test stringOfPartnerNames: </strong> {{pe.stringOfPartnerNames(["3DY5phjdyBXyD5ESR" ] )}} <br>-->

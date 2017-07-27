@@ -1,0 +1,107 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<!--This is the wrapping menu bar and interface loaded if there is a user. -->
+<!--suppress ALL -->
+<div ng-if="$root.currentUser">
+
+    <nav class="navbar navbar-default" style="z-index: 100" id="miz-navbar">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"
+                   style="color: brown; font-family: 'Brush Script MT', fantasy; font-size: 27px"> Miz &nbsp; &nbsp;</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/dashboard" ng-click="$rootScope.menuSearchString = ''">Dashboard <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li id="engagement-menu-item" ng-if="isViewEngagements()"><a href="/engagements" ng-click="$rootScope.menuSearchString = ''">Engagements</a>
+                    </li>
+
+                    <li><a href="/partners" ng-click="$rootScope.menuSearchString = ''">Partners</a></li>
+                    <!-- <li><a href="/labs">Labs</a></li>-->
+
+                    <li class="Actions">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false" style="color: darkred">Create... <span class="caret"></span></a>
+                        <ul class="dropdown-menu" >
+                            <li  ng-if="isViewEngagements()"><a href="new-engagement" ng-click="$rootScope.menuSearchString = ''">New Engagement</a></li>
+
+                            <li ng-if="isViewEngagements()" role="separator" class="divider"></li>
+
+                            <li><a href="/new-partner" ng-click="$rootScope.menuSearchString = ''">New Partner</a></li>
+                            <!-- <li role="separator" class="divider"></li>-->
+                            <!--<li><a href="#">Lab Need</a></li>-->
+                            <!--<li><a href="/new-lab">New Lab</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- HOLISTIC SEARCH BAR-->
+                <form class="navbar-form navbar-left miz-search">
+                    <div class="input-group input-group-sm">
+                        <input id="miz-search-bar"
+                               ng-model="$rootScope.menuSearchString"
+                               ng-change="showSearchResults($rootScope.menuSearchString)"
+                               type="text" class="form-control"
+                               placeholder="Search for..."
+                               autofocus>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="showSearchResults($rootScope.menuSearchString)"><span class="glyphicon glyphicon-search"></span>
+                            </button>
+
+      </span>
+                    </div><!-- /input-group -->
+                </form>
+<!--                <small style="color: darkred; font-style: italic" ng-if="$rootScope.menuSearchString.length < 3">
+                    Enter 3 or more letters...
+                </small>-->
+
+                <ul class="nav navbar-nav navbar-right">
+                    <!--REFERENCES-->
+                    <!--<li><a href="/references">References</a></li>-->
+
+                    <!--REPORTING-->
+                    <!--<li><a href="/reports">Reports</a></li>-->
+
+                    <!--ADMIN TOOLS-->
+                    <li class="dropdown"
+                        ng-if="isAdmin()">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/registerUser" ng-click="$rootScope.menuSearchString = ''">Register New User</a></li>
+                            <li><a href="/users" ng-click="$rootScope.menuSearchString = ''">Modify Users</a></li>
+                            <!--                           <li role="separator" class="divider"></li>
+                                                       <li><a href="/backup-restore">Backup/Restore Data</a></li>-->
+                        </ul>
+                    </li>
+                    <li>
+                        <login-buttons align="right"></login-buttons>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+</div> <!-- ng-if currentUser -->
+
+<div ui-view class="container-fluid"></div>
+
+

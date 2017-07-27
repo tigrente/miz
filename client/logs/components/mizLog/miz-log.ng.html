@@ -1,0 +1,1242 @@
+<!--LOG COMPONENT-->
+
+
+<!-- *** NEW ENTRY FAKE MODAL *** -->
+<!-- This only appearss when thenew entry button is selected -->
+<!--*** NEW LOG ENTRY CREATION TEMPLATE ***-->
+<!---->
+<!---->
+
+
+<div ng-show="ml.newEntryTriggered"
+     class="row"
+     style="    background-color: #e8e9e8;
+                border-radius: 20px;
+                margin: 0 0 0 0    ;">
+
+
+    <div class="col-xs-12"
+         style="    color: white;
+                    background-color: darkred;
+                    border-radius: 15px 15px 0 0 ">
+        <h5>New Entry
+            <span class="glyphicon glyphicon-remove"
+                  aria-hidden="true"
+                  style="float: right; color: white"
+                  ng-click="ml.resetNewEntry(); ml.newEntryTriggered = false;"></span>
+        </h5>
+
+    </div>
+
+    <!--*** BEGIN SUB ENTRY GROUPS ***-->
+    <!-- *** NEW ENTRY DATE ***-->
+    <div class="row">
+        <div class="col-xs-3"><strong>
+            <input type="date"
+                   id="datePicker"
+                   name="datePicker"
+                   ng-model="ml.newLogEntry.date"
+                   size="8"
+                   value="<?php echo date('Y-m-d'); ?>"
+                   class="form-control"
+                   autocomplete="off"
+                   style="  background-color: transparent;
+                            border-color: transparent;
+                            margin: 0 0 0 0"></strong>
+
+        </div>
+
+        <!--*** SAVE NEW ENTRY BUTTONS ***-->
+
+        <div class="col-xs-5" style="text-align: center; vertical-align: middle; padding: 5px 0 5px 0">
+            <button class="btn btn-primary"
+                    ng-click="ml.addLogEntry(); ml.newEntryTriggered = false;"
+                    ng-disabled="!ml.newLogEntry.subEntries[0].headline || !ml.newLogEntry.date || ml.uploadLock  ">Save
+            </button>
+            <button class="btn btn-primary"
+                    ng-click="  ml.addLogEntry();
+                                ml.newEntryTriggered = true;"
+                    ng-disabled="!ml.newLogEntry.subEntries[0].headline || !ml.newLogEntry.date || ml.uploadLock  ">
+                <!--todo: fix this to set autofocus-->
+                Save and Add Another
+            </button>
+            <button class="btn btn-default" ng-click="ml.resetNewEntry(); ml.newEntryTriggered = false;">
+                Cancel
+            </button>
+            <br>
+            <i ng-show="ml.uploadLock">
+                <small>Uploading...save enabled after complete.</small>
+                <br></i>
+            <i ng-show="!ml.newLogEntry.subEntries[0].headline">
+                <small>Add a headline...</small>
+            </i>
+        </div>
+
+        <div class="col-xs-3" ng-if="ml.latestLink" style="padding-top: 10px">
+
+            <label class="checkbox-inline"><input ng-model="ml.updateLatestStatus" type="checkbox" value="true">Update
+                "Latest" status</label>
+        </div>
+
+    </div>
+
+    <div name="subentry-wrapper" style="max-height: 500px; overflow: auto">
+        <!-- SUB ENTRY GROUP 0 -->
+
+        <div class="row"
+             style="    background-color: transparent;
+                    border-color: transparent;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0;">
+            <div class="col-xs-12">
+
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-8">
+
+                            <input ng-model="ml.newLogEntry.subEntries[0].headline"
+                                   type="text"
+                                   class="form-control"
+                                   name="newEntryHeadline0"
+                                   id="newEntryHeadline0"
+                                   placeholder="Headline (required)"
+                                   style="font-size: medium; margin: 0 0 0 0 "
+                                   autocomplete="off"
+                                   autofocus>
+
+                            <textarea class="froala"
+                                      froala="ml.froalaOptions"
+                                      ng-model="ml.newLogEntry.subEntries[0].details"></textarea>
+
+                            <!--                        <text-angular ng-model="ml.newLogEntry.subEntries[0].details"
+                                                                  name="newEntryDetails0"
+                                                                  id="newEntryDetails0"
+                                                                  rows="5"
+                                                                  placeholder="Details (copy email, minutes, etc.)"
+                                                    >
+
+                                                    </text-angular>-->
+
+                        </div> <!--col-->
+
+                        <!--*** ATTACHMENTS ***-->
+                        <div class="col-xs-4" style="margin: 0 0 0 0;">
+
+                            <!--<i ng-if="ml.fileUploadProgressQueue.length" class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                            <i ng-if="ml.fileUploadProgressQueue.length" > {{ml.fileUploadProgressQueue.reduce(add,o)}} </i>
+    -->
+
+
+                            <drop-zone options="ml.newEntryDropzoneOptions0" name="dz0"></drop-zone>
+
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.newLogEntry.subEntries[0].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.newLogEntry.subEntries[0].files"
+                                > <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateFileDescription(file)"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p ng-if="!file.fileProcessing"
+                                           style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromNewSubEntry(0,file)"></span></p>
+
+                                        <hr style="margin: 5px 0 5px 0">
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+
+                    </div>
+                </form>
+                <button class="btn btn-default"
+                        ng-click="ml.displaySubEntry[1] = true"
+                        ng-show="!ml.displaySubEntry[1]">
+                    <small>Add Another Headline</small>
+                </button>
+
+            </div> <!--//col sub entry group-->
+
+        </div> <!--//row end sub entry group-->
+
+        <!-- SUB ENTRY GROUP 1 -->
+        <div class="row"
+             ng-show="ml.displaySubEntry[1]"
+             id="new-entry-dropzone-1"
+             style="    background-color: transparent;
+                    border-color: transparent;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0">
+
+            <div class="col-xs-12">
+
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-8">
+
+
+                            <input ng-model="ml.newLogEntry.subEntries[1].headline"
+                                   type="text"
+                                   class="form-control"
+                                   name="newEntryHeadline1"
+                                   id="newEntryHeadline1"
+                                   placeholder="Headline (required)"
+                                   style="font-size: medium; "
+                                   autocomplete="off">
+                            <textarea froala="ml.froalaOptions"
+                                      ng-model="ml.newLogEntry.subEntries[1].details"></textarea>
+
+                        </div> <!--col-->
+
+                        <!--*** ATTACHMENTS ***-->
+                        <div class="col-xs-4">
+                            <drop-zone options="ml.newEntryDropzoneOptions1" name="dz1"></drop-zone>
+
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.newLogEntry.subEntries[1].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.newLogEntry.subEntries[1].files"
+                                > <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateFileDescription(file)"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromNewSubEntry(1,file)"></span></p>
+                                        <hr style="margin: 5px 0 5px 0">
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+
+                    </div><!--Blank new entry, ready to go...-->
+                </form>
+                <button class="btn btn-default"
+                        ng-click="ml.displaySubEntry[2] = true"
+                        ng-show="!ml.displaySubEntry[2]">
+                    <small>Add Another Headline</small>
+                </button>
+            </div> <!--//col sub entry group-->
+        </div> <!--//row end sub entry group-->
+
+
+        <!-- SUB ENTRY GROUP 2 -->
+        <div class="row dropzone"
+             ng-show="ml.displaySubEntry[2]"
+             action="/file-upload"
+             id="new-entry-dropzone-2"
+             style="    background-color: transparent;
+                    border-color: transparent;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0">
+
+            <div class="col-xs-12">
+
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-8">
+
+
+                            <input ng-model="ml.newLogEntry.subEntries[2].headline"
+                                   type="text"
+                                   class="form-control"
+                                   name="newEntryHeadline2"
+                                   id="newEntryHeadline2"
+                                   placeholder="Headline (required)"
+                                   style="font-size: medium; "
+                                   autocomplete="off">
+
+                            <textarea froala="ml.froalaOptions"
+                                      ng-model="ml.newLogEntry.subEntries[2].details"></textarea>
+
+                            <text-angular ng-model="ml.newLogEntry.subEntries[2].details"
+                                          name="newEntryDetails2"
+                                          id="newEntryDetails2"
+                                          rows="5"
+                                          placeholder="Details (copy email, minutes, etc.)">
+
+                            </text-angular>
+
+                        </div> <!--col-->
+
+
+                        <!--*** ATTACHMENTS ***-->
+                        <div class="col-xs-4">
+                            <drop-zone options="ml.newEntryDropzoneOptions2" name="dz2"></drop-zone>
+
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.newLogEntry.subEntries[2].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.newLogEntry.subEntries[2].files"
+                                > <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateFileDescription(file)"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromNewSubEntry(2,file)"></span></p>
+                                        <hr style="margin: 5px 0 5px 0">
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+
+                    </div><!--Blank new entry, ready to go...-->
+                </form>
+                <button class="btn btn-default"
+                        ng-click="ml.displaySubEntry[3] = true"
+                        ng-show="!ml.displaySubEntry[3]">
+                    <small>Add Another Headline</small>
+                </button>
+            </div> <!--//col sub entry group-->
+
+        </div> <!--//row end sub entry group-->
+
+        <!-- SUB ENTRY GROUP 3 -->
+        <div class="row dropzone"
+             ng-show="ml.displaySubEntry[3]"
+             action="/file-upload"
+             id="new-entry-dropzone-3"
+             style="    background-color: transparent;
+                    border-color: transparent;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0">
+
+            <div class="col-xs-12">
+
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-8">
+
+
+                            <input ng-model="ml.newLogEntry.subEntries[3].headline"
+                                   type="text"
+                                   class="form-control"
+                                   name="newEntryHeadline3"
+                                   id="newEntryHeadline3"
+                                   placeholder="Headline (required)"
+                                   style="font-size: medium; "
+                                   autocomplete="off">
+
+                            <textarea froala="ml.froalaOptions"
+                                      ng-model="ml.newLogEntry.subEntries[3].details"></textarea>
+
+
+                        </div> <!--col-->
+
+                        <!--*** ATTACHMENTS ***-->
+                        <div class="col-xs-4">
+                            <drop-zone options="ml.newEntryDropzoneOptions3" name="dz3"></drop-zone>
+                            <!--<div ng-hide="ml.newLogEntry.subEntries[1].files.length">
+                                <small>Drag and drop a file anywhere or click below to browse.</small>
+                                <br>
+                                <span class="btn btn-sm dz-default dz-message btn-success btn-file">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Add files...</span>
+                                        </span>
+                            </div>-->
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.newLogEntry.subEntries[3].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.newLogEntry.subEntries[3].files"
+                                > <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateFileDescription(file)"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromNewSubEntry(3,file)"></span></p>
+                                        <hr style="margin: 5px 0 5px 0">
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+
+                    </div><!--Blank new entry, ready to go...-->
+                </form>
+                <button class="btn btn-default"
+                        ng-click="ml.displaySubEntry[4] = true"
+                        ng-show="!ml.displaySubEntry[4]">
+                    <small>Add Another Headline</small>
+                </button>
+            </div> <!--//col sub entry group-->
+
+        </div> <!--//row end sub entry group-->
+
+        <!-- SUB ENTRY GROUP 4 -->
+        <div class="row dropzone"
+             ng-show="ml.displaySubEntry[4]"
+             action="/file-upload"
+             id="new-entry-dropzone-4"
+             style="    background-color: transparent;
+                    border-color: transparent;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0">
+
+            <div class="col-xs-12">
+
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-8">
+
+
+                            <input ng-model="ml.newLogEntry.subEntries[4].headline"
+                                   type="text"
+                                   class="form-control"
+                                   name="newEntryHeadline4"
+                                   id="newEntryHeadline4"
+                                   placeholder="Headline (required)"
+                                   style="font-size: medium; "
+                                   autocomplete="off">
+
+                            <textarea froala="ml.froalaOptions"
+                                      ng-model="ml.newLogEntry.subEntries[4].details"></textarea>
+
+                            <!--  <text-angular ng-model="ml.newLogEntry.subEntries[4].details"
+                                            name="newEntryDetails4"
+                                            id="newEntryDetails4"
+                                            rows="5"
+                                            placeholder="Details (copy email, minutes, etc.)">
+
+                              </text-angular>-->
+
+                        </div> <!--col-->
+
+                        <!--*** ATTACHMENTS ***-->
+                        <div class="col-xs-4">
+                            <drop-zone options="ml.newEntryDropzoneOptions4" name="dz4"></drop-zone>
+
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.newLogEntry.subEntries[4].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.newLogEntry.subEntries[4].files"
+                                > <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateFileDescription(file)"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromNewSubEntry(4,file)"></span></p>
+                                        <hr style="margin: 5px 0 5px 0">
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+
+                    </div><!--Blank new entry, ready to go...-->
+                </form>
+            </div> <!--//col sub entry group-->
+
+        </div> <!--//row end sub entry group-->
+
+    </div>
+        <!--*** SAVE NEW ENTRY BUTTONS ***-->
+        <div class="row">
+            <!--*** SAVE NEW ENTRY BUTTONS ***-->
+
+            <div class="col-xs-11" style="text-align: center; vertical-align: middle; padding: 5px 0 5px 0">
+                <button class="btn btn-primary"
+                        ng-click="ml.addLogEntry(); ml.newEntryTriggered = false;"
+                        ng-disabled="!ml.newLogEntry.subEntries[0].headline || !ml.newLogEntry.date || ml.uploadLock  ">
+                    Save
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="  ml.addLogEntry();
+                                ml.newEntryTriggered = true;"
+                        ng-disabled="!ml.newLogEntry.subEntries[0].headline || !ml.newLogEntry.date || ml.uploadLock  ">
+                    <!--todo: fix this to set autofocus-->
+                    Save and Add Another
+                </button>
+                <button class="btn btn-default" ng-click="ml.resetNewEntry(); ml.newEntryTriggered = false;">
+                    Cancel
+                </button>
+                <br>
+                <i ng-show="ml.uploadLock">
+                    <small>Uploading...save enabled after complete.</small>
+                </i>
+
+            </div>
+        </div>
+
+    </div> <!--// row-->
+
+    <!--*** NAVIGATION GLYPHS *** -->
+    <div class="row">
+
+        <div class="col-xs-4"
+             style="    display: inline-block;
+                    /*margin: 10px 0 10px 0;*/
+                    text-align: left;
+                    vertical-align: middle;">
+            <h4 style="color: darkred; display: inline-block">
+
+            <span class="glyphicon glyphicon-chevron-up"
+                  aria-hidden="true"
+                  title="Sort by newest"
+                  ng-click="ml.sort = 'newestFirst'"></span>
+
+                <span class="glyphicon glyphicon-chevron-down"
+                      aria-hidden="true"
+                      title="Sort by oldest"
+                      ng-click="ml.sort='oldestFirst'"></span>
+            </h4>
+        </div>
+
+
+        <div class="col-xs-4" style="text-align: center; vertical-align: middle; display: inline-block;">
+            <!--View Options-->
+            <button type="button"
+                    class="btn default"
+                    style=" text-align: center;
+                        /*margin: 5px 0 5px 0;*/
+                        border-radius: 20px;
+                        font-style: italic;
+                        display: inline-block;
+                        background-color: darkred;
+                        color: white;"
+                    ng-click="ml.newEntryTriggered = true; document.getElementById('newEntryHeadline0').focus();"
+                    ng-hide="ml.newEntryTriggered"><strong>Add entry...</strong>
+            </button>
+
+        </div> <!--//col-->
+
+        <div class="col-xs-4"
+             style="    display: inline-block;
+                    /*margin: 10px 0 10px 0;*/
+                    text-align: left;
+                    vertical-align: top;">
+            <!--View Options-->
+            <h3 style="float: right; color:darkred; display: inline-block">
+
+                    <span class="glyphicon glyphicon-collapse-up"
+                          aria-hidden="true"
+                          title="Collapse All"
+                          ng-click="ml.collapseLogs()"></span>
+
+                <span class="glyphicon glyphicon-collapse-down"
+                      aria-hidden="true"
+                      title="Show All"
+                      ng-click="ml.expandLogs()"></span>
+            </h3>
+        </div> <!--//col-->
+
+
+    </div><!--//row-->
+
+    <!--*** LOG ENTRY LIST ***-->
+    <!--<div style="max-height: 1000px; overflow:auto;">  &lt;!&ndash;Enables Scrolling&ndash;&gt;-->
+
+    <!--Top of Collapsible element-->
+
+
+    <div class="panel-group"
+         id="accordion"
+         role="tablist"
+         aria-multiselectable="true">
+        <div id="log-wrapper">
+            <div infinite-scroll="ml.addMoreEntries()" infinite-scroll-parent>
+
+                <div class="panel panel-default"
+                     ng-repeat="entry in ml.logEntries">
+
+                    <div class="panel-heading"
+                         role="tab">
+                        <div class="row">
+                            <!--Date Edit-->
+                            <div class="col-xs-2">
+
+
+                                <h6 style="display: inline"
+                                    ng-click="ml.setEditDate(entry)"
+                                    data-toggle="modal"
+                                    data-target="#date-modal">
+                                    {{entry.date | amDateFormat:'ddd, MMM Do YYYY'}}</h6>
+
+                            </div><!--/col-->
+
+                            <div class="col-xs-7">
+                                <h5 style="  margin: 0;
+                                 padding: 0;
+                                 text-overflow: ellipsis;
+                                 overflow: hidden;
+                                 white-space:nowrap;
+                                 width:100%">
+                                    <a role="button"
+                                       data-toggle="collapse"
+
+                                       data-target="#{{ entry._id }}"
+                                       aria-expanded="true"
+                                       aria-controls="{{ entry._id }}"
+                                       ng-click="entry.panelOpen = !entry.panelOpen"
+                                       style="color:darkred">
+
+                                        {{ entry.subEntries[0].headline }}
+                                    </a>
+                                </h5>
+                            </div>                <!--/col-->
+
+                            <div class="col-xs-3" style="display: table-cell;">
+                                <div style="font-style: italic; float: right; ">
+                                    {{entry.createdByName}}
+
+                                    <span class="glyphicon glyphicon-trash"
+                                          aria-hidden="true"
+                                          ng-click="ml.markedForRemoval = entry; "
+                                          data-toggle="modal"
+                                          data-target="#delete-entry-modal"
+                                          href="#edit-log-entry"></span>&nbsp;&nbsp;
+
+
+                                    <!--Show file icon if there is a file-->
+                                    <a role="button"
+                                       data-toggle="collapse"
+
+                                       data-target="#{{ entry._id }}"
+                                       aria-expanded="true"
+                                       aria-controls="{{ entry._id }}"
+                                       style="color:darkred"
+                                    >
+
+                            <span class="glyphicon glyphicon-file"
+                                  aria-hidden="true"
+                                  ng-show="ml.entryHasFiles(entry)"
+                                  style="color:darkred"></span></a>
+                                    <!--Spacer if no file-->
+                                    <span ng-show="!ml.entryHasFiles(entry)">
+                        &nbsp;&nbsp;
+                        </span>
+
+                                </div>
+                            </div><!--/col-->
+                        </div> <!--/row-->
+                    </div> <!--/panel-heading-->
+
+
+                    <div id="{{ entry._id }}"
+                         class="panel-collapse collapse"
+                         role="tabpanel"
+                         aria-labelledby="{{ entry._id }}">
+                        <div class="panel-body"
+                             id="panel-body"
+                             ng-if="entry.panelOpen">
+                            <div
+                                    ng-repeat="subEntry in entry.subEntries"
+                                    class="row">
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <h5 style="    display: inline;
+                                                    color:darkred;
+                                                    text-decoration: none">
+                                                <a href="#" editable-text="subEntry.headline"
+                                                   onaftersave="ml.updateHeadline(entry._id, $index, subEntry.headline)"
+                                                   style="    display: inline; color:darkred; text-decoration: none; font-style: normal">
+                                                    {{ subEntry.headline }}</a>
+                                            </h5>
+                                        </div>
+
+                                        <div class="col-xs-7">
+                                            <div ng-attr-id="{{ entry._id + '-' + $index + '-display'}}"
+                                                 style="display: inherit">
+
+                                    <span class="glyphicon glyphicon-edit"
+                                          aria-hidden="true"
+                                          style="float: right; color: lightgrey"
+                                          ng-click="ml.editDetail(entry, $index)">
+                                    </span>
+
+
+                                                <div froala-view="subEntry.details"
+                                                ></div>
+                                            </div> <!--//display-->
+
+
+                                            <div ng-attr-id="{{ entry._id + '-' + $index + '-edit'}}"
+                                                 style="display: none ">
+
+
+                                                <div style="float:right;">
+                                                    <button class="btn btn-primary btn-sm"
+                                                            ng-click="ml.saveEditDetail(entry, $index)">Save
+                                                    </button>
+                                                    <button class="btn btn-default btn-sm"
+                                                            ng-click="ml.cancelEditDetail(entry, $index)">
+                                                        Cancel
+                                                    </button>
+
+                                                </div>
+                                                <br> <br>
+
+                                                <textarea froala="ml.froalaOptions"
+                                                          ng-model="subEntry.details"></textarea>
+
+                                                <!--  <text-angular ng-model="subEntry.details">
+                                                  </text-angular>-->
+
+                                                <div style="float:right;">
+                                                    <button class="btn btn-primary btn-sm"
+                                                            ng-click="ml.saveEditDetail(entry, $index)">Save
+                                                    </button>
+                                                    <button class="btn btn-default btn-sm"
+                                                            ng-click="ml.cancelEditDetail(entry, $index)">
+                                                        Cancel
+                                                    </button>
+                                                    <br>
+                                                </div>
+
+
+                                            </div> <!--//edit-->
+                                        </div>                          <!--  //col-->
+                                        <div class="col-xs-3">
+
+                                            <!--Edit Icon and Triggers for no existing files-->
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                        <span class="glyphicon glyphicon-edit"
+                                              style="color: lightgrey; float: right; display: inline-flex  ;"
+                                              aria-hidden="true"
+                                              ng-click="ml.setFileEditEntry(entry, $index)"
+                                              data-toggle="modal"
+                                              data-target="#file-modal"></span>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!--ng-if="!subEntry.files.length"-->
+                                            <div class="row"
+                                                 ng-repeat="file in subEntry.files">
+
+                                                <div class="col-xs-2">
+
+                                                    <h2 style="margin: 0 0 0 0; color: darkred">
+                                                        <a ng-href="{{ ml.fileUrl(file) }}"
+                                                           target="_self"
+                                                           download="{{file.fileName}}"
+                                                           style="color:darkred">
+
+                                                            <div class="file-icon file-icon-md"
+                                                                 data-type="{{ ml.fileDataType(file) }}"
+                                                                 draggable="true"
+                                                                 data-downloadurl="{{ ml.fileUrl(file) }}">
+                                                            </div>
+                                                        </a>
+
+                                                    </h2>
+                                                </div>
+                                                <div class="col-xs-10">
+                                                    <!--Edit Icon and Triggers-->
+
+                                                    <!--  <span class="glyphicon glyphicon-edit"
+                                                            style="color: lightgrey; float: right; display: inline"
+                                                            aria-hidden="true"
+                                                            ng-click="ml.setFileEditEntry(entry, $index)"
+                                                            data-toggle="modal"
+                                                            data-target="#file-modal"
+                                                            ng-if="$index == 0"></span>-->
+
+                                                    <h5 style="display: inline; color: darkred"><a
+                                                            ng-href="{{ ml.fileUrl(file) }}"
+                                                            target="_self"
+                                                            download="{{file.fileName}}"
+                                                            style="color:darkred">
+                                                        {{file.description }}</a></h5><br>
+                                                    <small>{{ file.fileName }}</small>
+                                                    <hr style="margin: 5px 0 5px 0">
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div> <!--row-->
+                                    <!--<hr>-->
+
+                                </div>
+                            </div>
+
+
+                        </div><!--panel body-->
+                    </div> <!--panel-collapse-->
+
+
+                </div> <!--panel-->
+            </div> <!--Ininite Scroll-->
+        </div>
+    </div> <!--/panel-group-->
+
+
+    <!-- *** DELETE ENTRY MODAL *** -->
+    <div class="modal fade" id="delete-entry-modal" tabindex="-1" role="dialog" style="width: 90%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Really delete this entry?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You about to delete the entry with the headline <strong style="color:darkred">{{
+                        ml.markedForRemoval.subEntries[0].headline }}</strong>. It will be permanently lost and all the
+                        files attached to it will be
+                        removed, as well. No take-backs, no do-overs. Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                            ng-click="ml.removeLogEntry(ml.markedForRemoval)">Delete
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            ng-click="ml.markedForRemoval = null;">Cancel
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- *** ENTRY FILE EDIT MODAL ***-->
+    <div class="modal fade" id="file-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-disabled="ml.uploadLock" class="close" data-dismiss="modal">&times;
+                    </button>
+                    <h4 class="modal-title">Add/Remove Files: <strong style="color: darkred">{{ml.fileEditEntry.subEntries[ml.fileEditSubEntryIndex].headline}}</strong>
+                    </h4>
+
+                    To add an attachment, drag and drop a file below.
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <drop-zone class="col-xs-3" options="ml.fileEditDropzoneOptions" name="dzfileEdit"></drop-zone>
+
+
+                        <!--*** EXISTING ATTACHMENTS ***-->
+                        <div class="col-xs-9">
+                            <!--                        <div ng-hide="ml.fileEditEntry.subEntries[0].files.length">
+                                                        <small>Drag and drop a file anywhere or click below to browse.</small>
+                                                        <br>
+                                                        <span class="btn btn-sm dz-default dz-message btn-success btn-file">
+                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                                <span>Add files...</span>
+                                                                </span>
+                                                    </div>-->
+
+                            <div style="background-color: white; border-radius: 5px; padding:5px "
+                                 ng-show="ml.fileEditEntry.subEntries[ml.fileEditSubEntryIndex].files.length">
+                                <div class="row"
+                                     ng-repeat="file in ml.fileEditEntry.subEntries[ml.fileEditSubEntryIndex].files">
+                                    <!--Get the file-->
+
+                                    <!--If uploading,  show a spinner...-->
+                                    <div ng-if="file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                                        <i>{{file.fileUploadProgress}}</i>
+
+                                    </div>
+
+
+                                    <!--If not uploading, show the file icon.-->
+                                    <div ng-if="!file.fileProcessing" class="col-xs-2" style="vertical-align: middle">
+                                        <div class="file-icon file-icon-default"
+                                             data-type="{{ ml.fileDataType(file) }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-10">
+
+                                        <input type="text" class="form-control"
+                                               ng-model="file.description"
+                                               ng-change="ml.updateServerFileDescription(file);"
+                                               placeholder="What is this? (e.g. Contract edits from legal)"
+                                               style="font-size: small;color:darkred">
+
+                                        <!--Show Progress of Dropzone upload-->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 0;">
+                                            <div class="progress-bar progress-bar-default progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileDropzoneUploadProgress"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileDropzoneUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <!--Show Progress of collectionFS ingestion -->
+                                        <div ng-if="file.fileProcessing" class="progress"
+                                             style="height: 10px; margin-bottom: 1px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active"
+                                                 animate="true"
+                                                 role="progressbar"
+                                                 aria-valuenow="file.fileCfsUploadProgressStyle"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 ng-style="file.fileCfsUploadProgressStyle">
+                                            </div>
+                                        </div>
+
+
+                                        <small style="display: inline">{{ file.fileName}}</small>
+                                        <p ng-if="!file.fileProcessing"
+                                           style="margin: 0 0 0 0; color: darkred; float: right; display: inline; ">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                              ng-click="ml.removeFileFromExistingSubEntry(file)"></span></p>
+                                        <hr style="margin: 5px 0 5px 0">
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div> <!--//col attachments-->
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <i ng-show="ml.uploadLock">
+                        <small>Uploading...save enabled after complete.</small>
+                        <br></i>
+                    <button type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal"
+                            ng-disabled="ml.uploadLock"
+                            ng-click="ml.fillEditModalBlankFileDescriptions(ml.fileEditEntry.subEntries[ml.fileEditSubEntryIndex].files)"
+                    >
+                        Close
+                    </button>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- Modal -->
+
+    <!-- ***  DATE EDIT MODAL ***-->
+    <div class="modal fade" id="date-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update entry date for: <strong style="color: darkred">{{ml.dateEditEntry.subEntries[0].headline}}</strong>
+                    </h4>
+
+                    Click the date below to update.
+                </div>
+
+                <div class="modal-body">
+
+
+                    <input type="date"
+                           id="modalDatePicker"
+                           name="datePicker"
+                           ng-model="ml.dateEditEntry.date"
+                           size="8"
+                           value="<?php echo date('Y-m-d'); ?>"
+                           class="form-control"
+                           autocomplete="off"
+
+                           style="width: 13em;">
+
+
+                </div> <!--body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="ml.saveEditedDate()" data-dismiss="modal">
+                        Save
+                        Change
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- Modal -->
+
+

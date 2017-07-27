@@ -1,0 +1,807 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<!--
+<h1>{{ew.testVar}}</h1>
+
+<eng-dashboard engagement-collection="ew.myEngagements"
+               focus-engagement-id="ew.focusEngagementId">
+</eng-dashboard>
+-->
+
+
+<!--*** ENGAGEMENT SIDE MENU ***-->
+<div class="mizmenucontainer clearfix">
+    <div class="mizmenucontent overlapblackbg"></div>
+    <div class="mizmenuexpandermain slideRight">
+        <a id="navToggle" class="engagement-pulltab slideLeft">
+            <span>ENGAGEMENTS</span>
+        </a>
+    </div>
+    <div>
+
+        <!--Main Menu HTML Code-->
+        <nav class="mizmenu slideLeft clearfix">
+
+            <ul class="mobile-sub mizmenu-list clearfix "
+                style="background:  linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+                                    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+                                    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+                                    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+                                    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+                                    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+                       background-color: #131313;
+                       background-size: 20px 20px;">
+
+                <li style="height: 30px;  align-items: center;margin: 0; padding: 0; background-color:lightgrey">
+
+                    <button type="button"
+                            ng-click="ew.focusEngagementId = 'dashboard'; ew.engagementFilterString = ''"
+                            id="dashboardButton"
+                            class="btn btn-round btn-sm btn-primary "
+                            style="width: 20%; border-radius: 0 17px 17px 0">Summary
+                    </button>
+
+                    <div class="btn-group" data-toggle="buttons" style="margin: 0">
+                        <label class="btn btn-sm btn-default active"
+                               style="width: 85px; border-radius: 17px 0 0 17px; font-weight: bold;"
+                               ng-click="ew.engagementFilterFilingStatus = 'active'"
+                               title="Show Your Personal Active, Executing, and On Hold Engagements">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked>Act/Ex/OH
+                        </label>
+
+                        <label class="btn btn-sm btn-default"
+                               style=" width: 70px; border-radius: 0 0px 0px 0;font-weight: bold; "
+                               ng-click="ew.engagementFilterFilingStatus = 'all'"
+                               title="Show Your Personal Active, Executing, On Hold and Closed Engagements">
+                            <input type="radio" name="options" id="option2" autocomplete="off"> +Closed
+                        </label>
+
+                        <label class="btn btn-sm btn-default"
+                               style=" width: 80px; border-radius: 0 17px 17px 0;font-weight: bold; "
+                               ng-click="ew.engagementFilterFilingStatus = 'everyone'"
+                               title="Show Engagements from All CM's. Requires at least three characters">
+                            <input type="radio" name="options" id="option3" autocomplete="off"> All CMs
+                        </label>
+                    </div>
+
+
+                    <button type="button" class="btn btn-sm btn-round btn-success"
+                            style=" width:65px;border-radius: 17px 0 0 17px;float: right"><a href="/new-engagement"
+                                                                                             style="color: white;"> NEW
+                        <i style="color: white" class="fa fa-plus-circle"></i></a>
+                    </button>
+
+
+                </li>
+                <li style="background-color: darkred;
+                color: white !important;
+                height: 44px;
+                text-align: center;
+                vertical-align: middle">
+
+
+                    <input id="engSearch"
+                           class="form-control input-sm"
+                           ng-model="ew.engagementFilterString"
+                           style="width: 80%; display: inline; margin: 8px  0 8px  0;border-radius: 30px 0px 0px 30px "
+                           placeholder="Type to Filter...">
+
+                    <button type="button"
+                            class="btn btn-sm btn-round btn-default"
+                            style="border-radius: 0 17px 17px 0 "
+                            ng-click="ew.engagementFilterString = ''">clear
+                    </button>
+
+
+                </li>
+
+                <!--THIS IS THE COLLAPSIBLE AACCORDION  Re-enable for categories.-->
+
+                <!--
+                                <li style="background: white">
+                                    <a data-toggle="collapse"
+                                       href="#active-collapse"
+                                       aria-expanded="true"
+                                       aria-controls="active-collapse"
+                                       ng-click="">
+                                        <i class="fa fa-exchange"></i>&nbsp;&nbsp;Active - Executing - On Hold&lt;!&ndash;{{currentUser.profile.name}} &ndash;&gt;<span
+                                            class="arrow"></span>
+                                    </a>
+                                </li>-->
+
+
+                <div class="collapse in" id="active-collapse">
+
+
+                    <ul class="mizmenu-submenu">
+
+                        <li
+                                ng-repeat="engagement in ew.mizMenuEngagements"
+                                ng-click="ew.setFocusEngagement(engagement._id)">
+
+                            <a href="#"
+                               style=" white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;"
+                               ng-if="engagement.contractingPartnersLabel[0] != engagement.cooperationResourcesLabel[0] ">
+                                <i class="fa fa-angle-right"></i><b>{{engagement.contractingPartnersLabel[0]}} -
+                                {{engagement.cooperationResourcesLabel[0]}}</b> |
+                                <i>{{engagement.title}}</i>
+                            </a>
+
+
+                            <a href="#"
+                               style=" white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;"
+                               ng-if="engagement.contractingPartnersLabel[0] === engagement.cooperationResourcesLabel[0]">
+                                <i class="fa fa-angle-right"></i><b>{{engagement.contractingPartnersLabel[0]}}</b> |
+                                <i>{{engagement.title}}</i>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!--                <li style="background: white">
+                                    <a data-toggle="collapse"
+                                       href="#executing-collapse"
+                                       aria-expanded="true"
+                                       aria-controls="executing-collapse"
+                                       ng-click="">
+                                        <i class="fa fa-exchange"></i>&nbsp;&nbsp;Executing - &lt;!&ndash;{{currentUser.profile.name}} &ndash;&gt;<span
+                                            class="arrow"></span>
+                                    </a>
+                                </li>
+
+
+                                <div class="collapse in" id="executing-collapse" >
+
+
+                                    <ul class="mizmenu-submenu" >
+                                        &lt;!&ndash;todo: THIS PREVENTS LOADING &#45;&#45; WHY?!&ndash;&gt;
+
+
+                                        <li
+                                                ng-repeat="engagement in ew.myEngagements"
+                                                ng-click="ew.setFocusEngagement(engagement._id)">
+
+                                            <a href="#"
+                                               ng-if="engagement.contractingPartnersLabel[0] != engagement.cooperationResourcesLabel[0] ">
+                                                <i class="fa fa-angle-right"></i><b>{{engagement.contractingPartnersLabel[0]}} -
+                                                {{engagement.cooperationResourcesLabel[0]}}</b> |
+                                                <i>{{engagement.title}}</i>
+                                            </a>
+
+
+                                            <a href="#"
+                                               ng-if="engagement.contractingPartnersLabel[0] === engagement.cooperationResourcesLabel[0]">
+                                                <i class="fa fa-angle-right"></i><b>{{engagement.contractingPartnersLabel[0]}}</b> |
+                                                <i>{{engagement.title}}</i>
+                                            </a>
+
+
+                                        </li>
+                                    </ul>
+                                </div>-->
+
+
+            </ul>
+        </nav>
+
+        <!--*** MAIN DISPLAY OF PERSONAL DASHBOARD ***-->
+        <div ng-if="(ew.focusEngagementId == 'dashboard') ">
+
+            <eng-user-summary engagement-collection="ew.myEngagements"
+                              focus-engagement-id="ew.focusEngagementId"
+                              engagement-filter-filing-status="ew.engagementFilterFilingStatus">
+            </eng-user-summary>
+
+        </div>
+
+        <!--*** MAIN DISPLAY OF TEAM DASHBOARD ***-->
+        <div ng-if="(ew.focusEngagementId == 'team dashboard') ">
+
+            <eng-team-summary focus-engagement-id="ew.focusEngagementId">
+            </eng-team-summary>
+
+
+        </div>
+
+        <div ng-if="ew.focusEngagementId != 'dashboard' && ew.focusEngagementId !=  'team dashboard'">
+
+
+            <!--*** MAIN DISPLAY OF ENGAGEMENT DETAIL ***-->
+            <div
+                    class="row"
+                    style="">
+                <div class="col-xs-5">
+
+
+                    <script>
+                        $('#partner-label').hover(function () {
+
+                            $(this).append('<small style="display: inline;"     class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#partner-selection-modal"></small>')
+                        }, function () {
+
+                            $(this).children("small").remove();
+                        });
+
+                    </script>
+                    <div id="partner-label"> <!--This tag is used by jQuery script to show and hide editing icon-->
+                        <div ng-if="ew.focusEngagement.contractingPartners[0] != ew.focusEngagement.cooperationResources[0]">
+                            <h4 ng-if="ew.contractingPartners.length"
+                                style="display: inline" class="partner-label"
+                                ng-repeat="partner in ew.contractingPartners">
+                                <a style="color:black;" ng-href="/partners/{{partner._id}}" target="_blank">
+                                    {{partner.name}}:
+                                </a>
+
+                            </h4>
+                            <h4 style="display: inline" ng-if="ew.cooperationResources.length"
+                                ng-repeat="resource in ew.cooperationResources">
+                                <a style="color:black;" ng-href="/partners/{{resource._id}}" target="_blank">
+                                    <span ng-if="$first">{{resource.name}}</span>
+                                    <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
+                                </a>
+                            </h4>
+
+                        </div>
+
+                        <div ng-if="ew.focusEngagement.contractingPartners[0] == ew.focusEngagement.cooperationResources[0]">
+                            <h4 style="display: inline" ng-if="ew.cooperationResources.length"
+                                ng-repeat="resource in ew.cooperationResources">
+                                <a style="color:black;" ng-href="/partners/{{resource._id}}" target="_blank">
+                                    <span ng-if="$first">{{resource.name}}</span>
+                                    <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
+                                </a>
+                            </h4>
+
+                        </div>
+                    </div>
+
+                    <div ng-if="!ew.contractingPartners.length && !ew.cooperationResources.length">
+                        <h4 style="font-style: italic; color:black" data-toggle="modal"
+                            data-target="#partner-selection-modal">
+                            Click to add partner for engagement...</h4>
+
+                    </div>
+
+
+                    <h5 style="margin-top:0;">
+                        <a ng-if="ew.focusEngagement.index"
+                           style="color: darkblue; display: inline; text-decoration: none; "
+                           e-style="width:75px; font-size:small"
+                           href="#"
+                           editable-text="ew.focusEngagement.index"
+                           onaftersave="ew.updateEngagement('index')"
+                        >
+                            {{ew.focusEngagement.index || "#"}} -
+                        </a>
+
+                        <a style="color: darkblue; display: inline; text-decoration: none; "
+                           e-style="width: 100%; font-size:large"
+                           href="#"
+                           editable-text="ew.focusEngagement.title"
+                           onaftersave="ew.updateEngagement('title')">
+                            {{ew.focusEngagement.title || 'Click to add project title.'}}
+                        </a>
+                    </h5>
+
+                    <!--todo: PLACEHOLDER - TO BE REMOVED-->
+                    <h5 ng-if="ew.focusEngagement.tempOrg || ew.focusEngagement.tempResrouce"
+                        style="color:darkorange; display: inline">
+                        Placeholder Partner:
+
+                        <a ng-if="ew.focusEngagement.tempOrg"
+                           style="color:darkorange;"
+                           editable-text="ew.focusEngagement.tempOrg"
+                           e-style="font-size:small">
+                            {{ew.focusEngagement.tempOrg}}
+                        </a>
+
+
+                        <a ng-if="ew.focusEngagement.tempResource"
+                           style="color:darkorange;"
+                           editable-text="ew.focusEngagement.tempResource"
+                           e-style="font-size:small"
+                           onaftersave="ew.updateEngagement('tempResource')">
+                            {{ew.focusEngagement.tempResource}}
+                        </a>
+
+
+                    </h5>
+
+
+                    <p><b>Background: </b><a style="color:black; display: inline; text-decoration: none; "
+                                             e-style="width: 300px; height:50x "
+                                             href="#"
+                                             editable-textarea="ew.focusEngagement.background"
+                                             onaftersave="ew.updateEngagement('background')">
+                        {{ew.focusEngagement.background || 'Click to add background info.'}}
+                    </a>
+                    </p>
+                    <div style="background-color: white;
+                        border-radius: 0px;
+                        border-width: 1px;
+                        border-color:black;
+
+                        border-top: thin solid;
+                        ">
+
+                        <strong>Latest:</strong><a href="#"
+                                                   editable-textarea="ew.focusEngagement.currentStatus"
+                                                   onaftersave="ew.updateEngagement('currentStatus')">
+                        {{ew.focusEngagement.currentStatus || 'Add current status...'}} </a> <br>
+
+                        <span ng-if="ew.focusEngagement.filingStatus != 'closed'">
+                    <strong>Next Step:</strong> <a href="#"
+                                                   editable-textarea="ew.focusEngagement.nextStep"
+                                                   onaftersave="ew.updateEngagement('nextStep')">
+                {{ew.focusEngagement.nextStep || 'Add next step...'}} </a> <br>
+                </span>
+
+
+                        <strong>Last Update:</strong> <span style="color: #5897cd ;"> {{ew.lastUpdateString()}}  </span>
+
+                    </div>
+
+                </div> <!--/col-->
+
+                <div class="col-xs-5">
+                    <div style="    background-color: #f5f5f5;
+                                border-radius: 10px;
+                                border-color:darkred;
+                                border: groove;
+                                padding: 5px">
+
+                        <!--*** ENGAGEMENT TYPE DISPLAY LOGIC ***-->
+
+                        <!--*** STATUS DISPLAY LOGIC ***-->
+                        <strong>Status:</strong>
+                        <span data-toggle="modal"
+                              data-target="#change-status-modal">
+
+                    <span ng-if="ew.focusEngagement.filingStatus == 'active'"
+                          style="color:green; font-weight: bold">
+                        ACTIVE
+                    </span>
+
+                    <span ng-if="ew.focusEngagement.filingStatus == 'executing'"
+                          style="color:darkblue; font-weight: bold">
+                        EXECUTING
+                    </span>
+
+                    <span ng-if="ew.focusEngagement.filingStatus == 'on hold'"
+                          style="color:darkorange; font-weight: bold">
+                        ON HOLD
+                    </span>
+
+                    <span ng-if="ew.focusEngagement.filingStatus == 'closed'"
+                          style="color:darkred; font-weight: bold">
+                        CLOSED
+                    </span>
+
+                </span>
+
+                        <br>
+
+                        <span data-toggle="modal"
+                              data-target="#change-type-modal" ng-click="ew.newType = ew.focusEngagement.type">
+                    <strong>Engagement Type:</strong> <span
+                                style="color: #5897cd ;"> {{ew.focusEngagement.type}} </span>  <br>
+                </span>
+
+
+                        <!--*** BD OWNER DISPLAY LOGIC ***-->
+                        <strong>BD Owner:</strong>
+
+                        <span ng-if="ew.focusEngagement.bdOwner.length == 0">
+                    <i style="color: red; font-weight: bold">UNASSIGNED </i>
+                   <button class="btn btn-xs btn-default" style="float:right;border-radius: 15px" data-toggle="modal"
+                           data-target="#bd-selection-modal">Delegate...</button>
+                    <button class="btn btn-xs btn-primary"
+                            style="float:right; margin:0 3px 0 0 ;border-radius: 15px"
+                            ng-click="ew.takeOwnershipOfEngagement()">
+                        Take it on!
+                    </button>
+
+
+                </span>
+
+                        <span ng-if="ew.focusEngagement.bdOwner.length != 0">
+                    <span data-toggle="modal"
+                          data-target="#bd-selection-modal"
+                          style="color: #5897cd ;">
+                          {{ew.focusEngagement.bdOwnerLabel}}
+                    </span>
+
+
+
+                </span>
+
+                        <span ng-if="ew.focusEngagement.bdRelated.length > 0" data-toggle="modal"
+                              data-target="#bd-selection-modal">
+                    <br>
+                    <strong>Involved:</strong>
+                    <span ng-repeat="label in ew.focusEngagement.bdRelatedLabel" style="color: #5897cd ;">
+                        <span ng-if="$first">{{label}}</span>
+                        <span ng-if="!$first" style="display: inline">, {{label}}</span>
+                    </span>
+                </span>
+
+                        <br>
+
+                        <strong>Project Manager:</strong>
+                        <a href="#"
+                           editable-textarea="ew.focusEngagement.projectManager"
+                           onaftersave="ew.updateEngagement('projectManager')"
+                        >
+                            {{ew.focusEngagement.projectManager || 'Add requester..'}} </a> <br>
+
+                        <strong>HQ Cooperation Manager:</strong>
+                        <a href="#"
+                           editable-textarea="ew.focusEngagement.hqCooperationManger"
+                           onaftersave="ew.updateEngagement('hqCooperationManger')"
+                        >
+                            {{ew.focusEngagement.hqCooperationManger || 'Add HQ CM..'}} </a> <br>
+
+                        <strong>Lab:</strong>
+                        <a href="#"
+                           editable-text="ew.focusEngagement.tempLab"
+                           onaftersave="ew.updateEngagement('tempLab')"
+                        >
+                            {{ew.focusEngagement.tempLab || 'Add sponsoring lab...'}} </a> <br>
+
+                        <strong>Huawei Entity:</strong>
+                        <a href="#"
+                           editable-select="ew.focusEngagement.hwEntity"
+                           onaftersave="ew.updateEngagement('hwEntity')"
+                           e-ng-options=" e for e in ew.entityOptions"
+                        >
+                            {{ew.focusEngagement.hwEntity || 'Add Requesting Entity...'}} </a> <br>
+
+                        <strong>Deal Value (USD):</strong>
+                        <a href="#"
+                           editable-number="ew.focusEngagement.dealValue"
+                           onaftersave="ew.updateEngagement('dealValue')"
+                        >
+                            {{ew.formattedDealValue || 'Add deal value in USD...'}} </a> <br>
+
+
+                    </div>
+
+                </div>
+
+            </div> <!--/row-->
+            <hr>
+            <div class="row" ng-if="ew.focusEngagementId != 'dashboard'">
+                <div class="col-xs-12">
+                    <miz-log subject-id="{{ew.focusEngagement._id}}"
+                             latest-link="ew.focusEngagement.currentStatus"
+                             update-current-status-fn="ew.updateCurrentStatusFn(status)">
+
+                    </miz-log>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<!--*** PARTNER SELECTION MODAL ***-->
+
+<div class="modal fade" id="partner-selection-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Engagement Partners</h4>
+                <small style="color: darkgrey">
+                    This is the professor, consultant, or other talent actually doing the project. <br>
+                    For companies, this may be the same as the Contracting Partner.
+                </small>
+            </div>
+
+            <div class="modal-body">
+                <!--Note: must have ng-if, otherwise modal loads before focusEngagement and breaks angular-->
+
+                <partner-select ng-if="ew.focusEngagement"
+                                reset-on-change="ew.focusEngagement"
+                                selector-label="Cooperation Resources with this Engagement"
+                                cooperation-resources-only="true"
+                                selected-partner-ids="ew.focusEngagement.cooperationResources"></partner-select>
+
+                <partner-select ng-if="ew.focusEngagement"
+                                reset-on-change="ew.focusEngagement"
+                                partner-types="ew.contractingPartnerTypes"
+                                selector-label="The party signing the contract is:"
+                                selected-partner-ids="ew.focusEngagement.contractingPartners">
+                </partner-select>
+
+            </div> <!--modal body-->
+
+            <div class="modal-footer">
+                <button type="button"
+                        ng-click="ew.updateEngagement(['contractingPartners', 'cooperationResources'])"
+                        class="btn btn-primary" data-dismiss="modal">Done
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--*** BD OWNER SELECTION MODAL ***-->
+
+<div class="modal fade" id="bd-selection-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select BizDev Manager for this Engagement</h4>
+                <small style="color: darkgrey">
+                    Each engagement is allowed only one accountable person. If additional BD people are added,
+                    this engagement will also appear in their workspace and they will have the ability to edit
+                    them.
+                </small>
+            </div>
+
+            <div class="modal-body">
+                <!--Note: must have ng-if, otherwise modal loads before focusEngagement and breaks angular-->
+                <bd-owner-select ng-if="ew.focusEngagement"
+                                 reset-on-change="ew.focusEngagement"
+                                 selected-bd-owner-ids="ew.focusEngagement.bdOwner"
+                                 selector-label="The person accountable for this engagement:">
+                </bd-owner-select>
+
+                <bd-owner-select ng-if="ew.focusEngagement"
+                                 reset-on-change="ew.focusEngagement"
+                                 selected-bd-owner-ids="ew.focusEngagement.bdRelated"
+                                 selector-label="Other BizDev managers who can view and edit this engagement:">
+                </bd-owner-select>
+
+            </div> <!--modal body-->
+
+            <div class="modal-footer">
+                <button type="button"
+                        ng-click="ew.updateEngagement(['bdOwner', 'bdRelated'])"
+                        class="btn btn-primary" data-dismiss="modal">Done
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--*** CHANGE STATUS MODAL ***-->
+
+<div class="modal modal-lg fade" id="change-status-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Change the status for this engagement...</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-8">
+                        The new status of this project is: <br>
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newFilingStatus"
+                                       value="active"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:green">Active</strong> - Currently working on this engagement
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newFilingStatus"
+                                       value="executing"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkblue">Executing</strong> - Engagement is signed, and the
+                                cooperation is currently happening.
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newFilingStatus"
+                                       value="on hold"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkorange">On Hold</strong> - Engagement is waiting for a
+                                charter
+                                or some other blocking item.
+                                Updates are flagged less frequently.
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newFilingStatus"
+                                       value="closed"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkred">Closed</strong> - Engagement is concluded (for now)
+                                and
+                                archived.
+                                Engagement will no longer appear in your main menu.
+                            </label>
+                        </div>
+                    </div> <!--col-xs-6-->
+
+                    <div class="col-xs-4">
+                        <strong>Add reason for the status change:</strong>
+                        <textarea ng-model="ew.newStatus"
+                                  style="border-radius: 6px; height:100px; width:100%; padding:10px; background-color: whitesmoke"
+                                  placeholder="e.g. Contract signed and P.O. sent."></textarea><br>
+
+                        <strong>Expected updates:</strong><br>
+                        <span ng-if="ew.newFilingStatus == 'active'">
+                            At least once per week.
+                        </span>
+                        <span ng-if="ew.newFilingStatus == 'on hold'">
+                            At least once per month.
+                        </span>
+                        <span ng-if="ew.newFilingStatus == 'executing'">
+                            At least once per three months.
+                        </span>
+                        <span ng-if="ew.newFilingStatus == 'closed'">
+                            No longer expecting updates.
+                        </span>
+
+
+                    </div>
+
+                </div>
+                <!--Note: must have ng-if, otherwise modal loads before focusEngagement and breaks angular-->
+
+
+            </div> <!--modal body-->
+
+            <div class="modal-footer">
+                <small ng-if="(ew.focusEngagement.filingStatus != ew.newFilingStatus) && (ew.newStatus == null)">
+                    Add a reason for the status change...
+                </small>
+                <button type="button"
+                        ng-disabled="(ew.focusEngagement.filingStatus != ew.newFilingStatus) && (ew.newStatus == null)"
+                        ng-click="ew.updateFilingStatus()"
+                        class="btn btn-primary" data-dismiss="modal">
+                        <span ng-if="ew.focusEngagement.filingStatus != ew.newFilingStatus"
+                              data-dismiss="modal">update</span>
+                    <span ng-if="ew.focusEngagement.filingStatus == ew.newFilingStatus"
+                          data-dismiss="modal">close</span>
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--*** CHANGE TYPE MODAL ***-->
+
+<div class="modal modal-lg fade" id="change-type-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Change the type of this engagement...</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-8">
+                        This project is now a: <br>
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newType"
+                                       value="Technical Cooperation"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:green">Technical Cooperation</strong> - Classic technical
+                                cooperation
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newType"
+                                       value="Early Innovation"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkblue">Early Innovation Project</strong> - Engagement is
+                                signed,
+                                and the
+                                cooperation is currently happening.
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newType"
+                                       value="Business Development"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkorange">Business Development</strong> - Engagement with
+                                partner
+                                that is not yet a cooperation nor early innovation project
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="optradio"
+                                       ng-model="ew.newType"
+                                       value="Internal Project"
+                                       ng-click="ew.focusEngagement.currentStatus = ''">
+                                <strong style="color:darkred">Internal Project</strong> - An internal project
+                                requiring
+                                BD resources
+                            </label>
+                        </div>
+                    </div> <!--col-xs-6-->
+
+                    <div class="col-xs-4">
+                        <strong>Add reason for the change of engagement type:</strong>
+                        <textarea ng-model="ew.newStatus"
+                                  style="border-radius: 6px; height:100px; width:100%; padding:10px; background-color: whitesmoke"
+                                  placeholder="e.g. Charter approved for cooperation"></textarea><br>
+
+
+                    </div>
+
+                </div>
+                <!--Note: must have ng-if, otherwise modal loads before focusEngagement and breaks angular-->
+
+
+            </div> <!--modal body-->
+
+            <div class="modal-footer">
+                <small ng-if="(ew.focusEngagement.type != ew.newType) && (ew.newStatus == null)">
+                    Add a reason for the change...
+                </small>
+                <button type="button"
+                        data-dismiss="modal"
+                        ng-disabled="(ew.focusEngagement.type != ew.newType) && (ew.newStatus == null)"
+                        ng-click="ew.updateType()"
+                        class="btn btn-primary"
+                >
+                    <span ng-if="ew.focusEngagement.type != ew.newType">update</span>
+                    <span ng-if="ew.focusEngagement.type == ew.newType">close</span>
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

@@ -1,0 +1,110 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+
+
+<div class="container-fluid">
+    <div class="row" style="padding-bottom: 20px">
+        <div class="col-md-2">
+            <h3 style="color: darkred">Partners</h3>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="input-group">
+                <input ng-model="partnerList.search" type="text" class="form-control" placeholder="Search for..." style="width: 442px">
+            </div>
+            <!-- /input-group -->
+
+            <!--NOTE:  Have to do this with a button group instead of radio buttons, because there is an inherit
+            conflict between bootstrap and Angular with radio buttons.-->
+
+            <span>Filter by: </span>
+
+            <div class="btn-group btn-group-xs">
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['all']"
+                        ng-click="partnerList.setPartnerFilter('all'); ">
+                    All
+                </button>
+
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['company']"
+                        ng-click="partnerList.setPartnerFilter('company'); ">
+                    Companies
+                </button>
+
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['university']"
+                        ng-click="partnerList.setPartnerFilter('university'); ">
+                    Universities
+                </button>
+
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['incubator']"
+                        ng-click="partnerList.setPartnerFilter('incubator'); ">
+                    Incubators
+                </button>
+
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['professor']"
+                        ng-click="partnerList.setPartnerFilter('professor'); ">
+                    Professors
+                </button>
+
+                <button type="button"
+                        ng-class="partnerList.partnerFilterButtonClasses['individual']"
+                        ng-click="partnerList.setPartnerFilter('individual'); ">
+                    Consultants
+                </button>
+
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <!--Col-->
+
+
+        <div class="col-md-4" style="text-align: right">
+            <a class="btn btn-primary" href="/new-partner" role="button">Create New Partner</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" style="display: table; width: 100%">
+
+            <table  class="table table-hover" style="table-layout: fixed; width: 100%">
+
+                <tr>
+                    <td width="25%"><strong>Name</strong></td>
+                    <td width="75%"><strong>Description</strong></td>
+
+                </tr>
+
+                <tr ng-repeat="partner in partnerList.partnerList"
+                    ng-click="partnerList.viewPartnerDetail(this.partner)">
+
+                    <td width="25%"><strong>{{ partner.name }}</strong></td>
+                    <td width="75%" style=" display: table-cell; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{ partner.description }}</td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+

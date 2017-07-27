@@ -1,0 +1,237 @@
+
+<!--suppress HtmlUnknownTarget -->
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/dashboard">Home</a></li>
+        <li><a href="/users">User List</a></li>
+        <li class="active">Update User: {{accountUpdate.editedUser.username}}</li>
+    </ol>
+</header>
+
+<h3> Update User Account </h3>
+<p> Editing account <strong>{{accountUpdate.originalUser.username}}:
+    {{accountUpdate.originalUser.profile.name}}</strong></p>
+<hr>
+
+
+<div ng-if="accountUpdate.updateUserFeedback != ''">
+    <hr>
+    <h4 style="color: darkred">{{accountUpdate.updateUserFeedback}}</h4>
+    <hr>
+</div>
+
+
+<form id="registration">
+    <div class="row"></div>
+    <div class="col-md-3">
+
+        <div ng-class="accountUpdate.inputStatusGroup.username.formGroup">
+            <label class="control-label" for="loginTextbox">User Login</label>
+            <input type="text" class="form-control" id="loginTextbox" placeholder="Login"
+                   ng-model="accountUpdate.editedUser.username" ng-change="accountUpdate.validateUsername()" auto-focus>
+            <span ng-class="accountUpdate.inputStatusGroup.username.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.username }}</span>
+        </div>
+
+        <div ng-class="accountUpdate.inputStatusGroup.name.formGroup">
+            <label class="control-label" for="nameTextbox">Name of User</label>
+            <input type="text" class="form-control" id="nameTextbox" placeholder="e.g. Nikola Tesla"
+                   ng-model="accountUpdate.editedUser.profile.name"
+                   ng-change="accountUpdate.validateProperty('profile.name')">
+            <span ng-class="accountUpdate.inputStatusGroup.name.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.name }}</span>
+        </div>
+
+        <div ng-class="accountUpdate.inputStatusGroup.email.formGroup">
+            <label class="control-label" for="emailTextbox">E-mail</label>
+            <input type="text" class="form-control" id="emailTextbox" placeholder="Email"
+                   ng-model="accountUpdate.editedUser.emails[0].address" ng-change="accountUpdate.validateEmail()">
+            <span ng-class="accountUpdate.inputStatusGroup.email.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.email }}</span>
+        </div>
+
+        <div ng-class="accountUpdate.inputStatusGroup.huaweiId.formGroup">
+            <label class="control-label" for="huaweiIdTextbox">Huawei ID number </label>
+            <input type="text" class="form-control" id="huaweiIdTextbox" placeholder="A00123456"
+                   ng-model="accountUpdate.editedUser.profile.huaweiId"
+                   ng-change="accountUpdate.validateProperty('huaweiId')">
+            <span ng-class="accountUpdate.inputStatusGroup.huaweiId.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.huaweiId }}</span>
+        </div>
+
+        <div ng-class="accountUpdate.inputStatusGroup.company.formGroup">
+            <label class="control-label" for="companyTextbox">Company</label>
+            <input type="text" class="form-control" id="companyTextbox" placeholder="Futurewei, HiSilicon, Huawei, etc."
+                   ng-model="accountUpdate.editedUser.profile.company"
+                   ng-change="accountUpdate.validateProperty('company')">
+            <span ng-class="accountUpdate.inputStatusGroup.company.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.company }}</span>
+        </div>
+
+        <div ng-class="accountUpdate.inputStatusGroup.group.formGroup">
+            <label class="control-label" for="groupTextbox">Lab/Group</label>
+            <input type="text" class="form-control" id="groupTextbox" placeholder="e.g. Wireless Access Lab"
+                   ng-model="accountUpdate.editedUser.profile.group"
+                   ng-change="accountUpdate.validateProperty('group')">
+            <span ng-class="accountUpdate.inputStatusGroup.group.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.group }}</span>
+        </div>
+
+        <hr>
+
+        <div ng-class="accountUpdate.inputStatusGroup.o2w_serial.formGroup">
+            <label class="control-label" for="o2wTextbox">Outlook2Web Serial Number</label>
+            <input type="text" class="form-control" id="o2wTextbox" placeholder="xxxx-xxxx-xxxx"
+                   ng-change="accountUpdate.validateProperty('o2w_serial')"
+                   ng-model="accountUpdate.editedUser.profile.o2w_serial">
+            <span ng-class="accountUpdate.inputStatusGroup.o2w_serial.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{accountUpdate.inputHelp.o2w_serial }}</span>
+        </div>
+
+
+        <!-- end column -->
+    </div>
+
+    <div class="col-md-9">
+
+
+        <h4>Select Permissions</h4>
+
+
+        <div class="checkbox">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h6>Companies</h6>
+                    <label><input type="checkbox"
+                                  ng-model="accountUpdate.permissionCheckboxes.viewCompanies"
+                                  ng-click="accountUpdate.permissionChanged()">
+                        View
+                        Companies</label>
+                    <br>
+                    <label><input type="checkbox"
+                                  ng-model="accountUpdate.permissionCheckboxes.editCompanies"
+                                  ng-click="accountUpdate.permissionChanged()">
+                        Add/Edit
+                        Companies </label><br>
+                    <label><input type="checkbox"
+                                  ng-model="accountUpdate.permissionCheckboxes.removeCompanies"
+                                  ng-click="accountUpdate.permissionChanged()">
+                        Remove
+                        Companies </label><br>
+                </div>
+                <div class="col-md-3">
+                    <h6>Engagements</h6>
+                    <label> <input type="checkbox"
+                                   ng-model="accountUpdate.permissionCheckboxes.viewEngagements"
+                                   ng-click="accountUpdate.permissionChanged()">
+                        View Engagements</label> <br>
+                    <label><input type="checkbox"
+                                  ng-model="accountUpdate.permissionCheckboxes.editEngagements"
+                                  ng-click="accountUpdate.permissionChanged()">
+                        Add/Edit/Remove Own Engagements</label> <br>
+                    <label><input type="checkbox" ng-model="accountUpdate.permissionCheckboxes.editAllEngagements"
+                                  ng-click="accountUpdate.permissionChanged()">
+                        Edit/Remove Other User's
+                        Engagements </label><br>
+                </div>
+                <div class="col-md-3">
+                    <h6>Admin</h6>
+                    <label>
+                        <input type="checkbox"
+                               ng-model="accountUpdate.permissionCheckboxes.superAdmin"
+                               ng-disabled="accountUpdate.disableAdminCheckbox"
+                               ng-click="accountUpdate.permissionChanged()">
+                        Full
+                        Admin
+                        (add users,
+                        analytics, etc.) </label><br>
+                    <div style="    background-color: lightgreen;
+                                    padding-top: 1%;
+                                    padding-left: 5%;
+                                    padding-bottom: 5%;">
+                        <h6>Enabled</h6>
+                        <label><input type="checkbox"
+                                      ng-model="accountUpdate.editedUser.profile.enabled"
+                                      ng-click="accountUpdate.permissionChanged()">
+                            User
+                            is able to log In </label><br>
+                    </div>
+
+
+                </div>
+                <span></span>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <h4> Update Information</h4>
+                Apply this updated information to the user.<br><br><br>
+                <button class="btn btn-success"
+                        ng-disabled="accountUpdate.submissionDisabled"
+                        ng-click="accountUpdate.updateUser()">
+                    Apply Changes
+                </button>
+                <button class="btn btn-default"
+                        ng-click="accountUpdate.restoreForm(); updateUserFeedback = ''; ">
+                    Reset Form
+                </button>
+
+
+            </div>
+
+            <div class="col-md-4">
+                <h4> Reset Password</h4>
+
+                <div ng-class="accountUpdate.inputStatusGroup.password.formGroup">
+                    <label class="control-label" for="passwordTextbox">Enter new password for this user:</label>
+                    <input type="password" class="form-control" id="passwordTextbox" placeholder="Password"
+                           ng-model="accountUpdate.newPassword" ng-change="accountUpdate.validatePassword()">
+                    <span ng-class="accountUpdate.inputStatusGroup.password.glyphs" aria-hidden="true"></span>
+                    <span class="help-block">{{accountUpdate.inputHelp.password }}</span>
+                </div>
+                <button class="btn btn-warning"
+                        ng-click="accountUpdate.changePassword()"
+                        ng-disabled="accountUpdate.passwordSubmitDisabled">Set Password
+                </button>
+                <br>
+                {{accountUpdate.resetPasswordFeedback}}<br>
+
+
+            </div>
+
+
+            <div class="col-md-4">
+                <h4> Delete User</h4>
+                <small><b>Note: Don't use this! Side effects are likely! Live and let live - disable user instead using
+                    Enabled checkbox above. </b></small>
+                <br>
+                <label>
+                    <input type="checkbox"
+                           ng-model="accountUpdate.enableDeleteButton"
+                           ng-change="accountUpdate.changeRole('editEngagements')">
+
+                    <strong>Are you sure?</strong> </label><br>
+
+                <button class="btn btn-danger"
+                        ng-hide="!accountUpdate.enableDeleteButton"
+                        ng-click="accountUpdate.removeUser()"
+                        ng-disabled="!accountUpdate.enableDeleteButton">Delete This User
+                </button>
+                <br>
+
+
+                {{accountUpdate.removeUserFeedback}}
+
+            </div>
+        </div> <!--/row-->
+
+
+    </div>
+</form>
+
+
+newUser:  {{accountUpdate.editedUser}}

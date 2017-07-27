@@ -1,0 +1,124 @@
+
+div.db-title {
+    position: fixed;
+    top:52px;
+    left:75px;
+    width:100%;
+
+    background-color: rgba(0, 0, 0, .8);
+    padding: 10px 10px 10px 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+}
+
+div.db-body {
+    position: fixed;
+    top: 100px;
+    left: 74px;
+
+    padding: 0 60px 0 15px;
+    width: 100%;
+
+}
+
+table.table-head {
+    font-weight: bold;
+    margin-bottom: 0;
+    width: 96%;
+}
+
+.db-team-summary-filter-title {
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.db-team-summary-filter-reset-button {
+    background-color: white;
+    color:darkred;
+}
+
+td.db-team-summary-table-body-col  {
+    column-width: 200px;
+}
+
+td.db-team-summary-table-body-col-date  {
+    column-width: 100px;
+}
+
+.db-team-summary-table-body-wrapper {
+    position: fixed;
+    font-size: small;
+    overflow: auto;
+    display: block;
+    width: 92%;
+}
+
+.db-team-summary-table-body   {
+    position: absolute;
+    display: block;
+    width: 100% !important;
+}
+
+div.db-team-summary-selector{
+    margin-top: -20px;
+}
+
+div.db-team-summary > div > h4 {
+    color: darkred;
+}
+
+
+div.dev-notes {
+    padding: 5px;
+    border: 1px;
+    border-color: darkorange;
+    border-style: solid;
+    background: lightyellow;
+
+}
+
+div.db-item-team-summary-control-panel {
+
+    background: rgb(169,3,41); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(169,3,41,1) 0%, rgba(143,2,34,1) 44%, rgba(109,0,25,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+
+
+
+}
+
+div.db-item-team-summary-control-panel > div > h5 {
+    color: white;
+}
+
+
+div.db-item-team-summary-control-panel >  form >  div > label {
+    color: white;
+}
+
+div.db-item-team-summary-control-panel > form > div > div.btn-group {
+
+
+}
+
+div.db-item-team-summary-control-panel > form > div > div.btn-group > button.active {
+
+}
+
+div.db-item-team-summary-selector {
+
+    border: 1px;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-color: black;
+    display: inline;
+}
+
+
+
+/* TABLE Definitions */

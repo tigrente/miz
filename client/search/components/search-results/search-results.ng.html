@@ -1,0 +1,282 @@
+<!--SEARCH RESULTS COMPONENT-->
+
+
+<!--IF SEARCH TERM PRESENT-->
+<div class="search-result-main-page-background">
+    <!--IF NOTHING IN SEARCH BOX-->
+    <div ng-if="!sr.searchString">
+        <div class="row">
+            <div class="col-xs-4" style="color: lightgrey; padding: 30px">
+
+                <h3 style="color: white; display: inline; vertical-align: top">Enter your search in the box above. &nbsp &nbsp;</h3>
+                <h5>Enter <span style="text-decoration: underline">3</span> or more letters to start search.</h5>
+                <h5>Search for engagements, partners, parent organizations, and more.</h5>
+            </div>
+            <div class="col-xs-4">
+                <img style="height: 200px; border-radius:20px" src="/photos/pointup.gif"/>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="sr.searchString" class="search-result-main-page-results-wrapper">
+
+
+        <div class="row">
+
+            <!--ENGAGEMENT SEARCH RESULTS-->
+            <div class="col-xs-3 search-result-column">
+                <h4 class="search-result-header">Engagements</h4>
+
+                <div ng-if="sr.engagementCollection.length == 0" style="color: grey; font-style: italic; position: absolute; ">
+                    No matching engagements.
+                </div>
+
+                <div
+                        class="search-result-engagement-column"
+                        id="search-result-engagement-column"
+                        ng-style="se.searchResultEngagementColumnHeight">
+
+                    <div infinite-scroll="sr.fetchMoreEngagements()"
+                         infinite-scroll-container='".search-result-engagement-column"'
+                         infinite-scroll-distance="1">
+
+
+                        <div ng-repeat="engagement in sr.engagementCollection">
+                            <search-engagement engagement="engagement"></search-engagement>
+                        </div>
+
+
+                    </div>
+                    <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                    <div style='clear: both;'></div>
+                </div>
+            </div>
+            <div class="col-xs-9" style="width: 70%">
+
+                <!--PARTNER SEARCH RESULTS-->
+                <div class="row">
+
+                    <!--UNIVERSITIES SEARCH RESULTS-->
+                    <div class="col-xs-4 search-result-column">
+                        <h4 class="search-result-header">Universities</h4>
+
+                        <div ng-if="sr.universityCollection.length == 0" style="color: grey; font-style: italic; position: absolute; ">
+                            No matching universities.
+                        </div>
+
+                        <div class="search-result-university-column"
+                             id="search-result-university-column">
+
+                            <div infinite-scroll="sr.fetchMoreUniversities()"
+                                 infinite-scroll-container='"#search-result-university-column"'
+                                 infinite-scroll-distance="1">
+
+
+                                <div ng-repeat="university in sr.universityCollection">
+
+                                    <search-result-element-university university="university"
+                                                                      ng-click="sr.viewPartnerDetail(university)">
+                                    </search-result-element-university>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+
+                    <!--COMPANY SEARCH RESULTS-->
+                    <div class="col-xs-4 search-result-column">
+                        <h4 class="search-result-header">Companies</h4>
+
+                        <div ng-if="sr.companyCollection.length == 0" style="color: grey; font-style: italic; position: absolute; ">
+                            No matching companies.
+                        </div>
+
+                        <div class="search-result-university-column"
+                             id="search-result-company-column">
+
+                            <div infinite-scroll="sr.fetchMoreCompanies()"
+                                 infinite-scroll-container='"#search-result-company-column"'
+                                 infinite-scroll-distance="1">
+
+
+                                <div ng-repeat="company in sr.companyCollection">
+
+                                    <search-result-element-university university="company"
+                                                                      ng-click="sr.viewPartnerDetail(company)">
+                                    </search-result-element-university>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+                    <!--RESOURCE SEARCH RESULTS-->
+                    <div class="col-xs-4 search-result-column" >
+                        <h4 class="search-result-header">Resources</h4>
+
+                        <div ng-if="sr.resourceCollection.length == 0" style="color: grey; font-style: italic; position: absolute; ">
+                            No matching resources, such as professors or independent consultants.
+                        </div>
+
+                        <div class="search-result-university-column"
+                             id="search-result-resource-column">
+
+                            <div infinite-scroll="sr.fetchMoreResources()"
+                                 infinite-scroll-container='"#search-result-resource-column"'
+                                 infinite-scroll-distance="1">
+
+                                <!--<div style="color: whitesmoke" >{{sr.resourceCollection}}</div>-->
+
+                                <div ng-repeat="resource in sr.resourceCollection">
+
+                                    <search-result-element-with-parent partner="resource"
+                                                                       ng-click="sr.viewPartnerDetail(resource)">
+                                    </search-result-element-with-parent>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+
+                </div>
+
+                <!--SPACER-->
+                <div class="row"
+                     style="height: 15px;
+                            /*border-top: thin darkred solid;*/
+
+                            ">
+                </div>
+
+                <!--SECOND ROW PARTNER SEARCH RESULTS-->
+                <div class="row" >
+
+                    <!--UNI SUB-ORG SEARCH RESULTS-->
+                    <div class="col-xs-4 search-result-column">
+                        <h4 class="search-result-header">University Sub-Organizations</h4>
+
+                        <div ng-if="sr.uniSubOrgCollection.length == 0" style="color: grey; font-style: italic; position: absolute;" >
+                            No matching university sub-organizations, such as labs, memberships, or partnership organizations.
+                        </div>
+
+                        <!--<span style="color: white">{{sr.uniSubOrgCollection}}   </span>-->
+                        <div class="search-result-university-column"
+                             id="search-result-unisuborg-column">
+
+                            <div infinite-scroll="sr.fetchMoreUniSubOrgs()"
+                                 infinite-scroll-container='"#search-result-unisuborg-column"'
+                                 infinite-scroll-distance="1">
+
+
+                                <div ng-repeat="suborg in sr.uniSubOrgCollection">
+
+                                    <search-result-element-with-parent partner="suborg"
+                                                                      ng-click="sr.viewPartnerDetail(suborg)">
+                                    </search-result-element-with-parent>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+
+                    <!--OTHER ORG SEARCH RESULTS-->
+                    <!--Includes incubators, VC's, Industry Associations, and other-->
+                    <div class="col-xs-4 search-result-column">
+                        <h4 class="search-result-header">Other Organizations</h4>
+
+                        <div ng-if="sr.otherOrgCollection.length == 0" style="color: grey; font-style: italic; position: absolute;  ">
+                            No other matching organizations, such as incubators, venture capital firms, or industry consortia.
+                        </div>
+
+                        <div class="search-result-university-column"
+                             id="search-result-otherorg-column">
+
+                            <div infinite-scroll="sr.fetchMoreOtherOrgs()"
+                                 infinite-scroll-container='"#search-result-otherorg-column"'
+                                 infinite-scroll-distance="1">
+
+
+                                <div ng-repeat="org in sr.otherOrgCollection">
+
+                                    <search-result-element-with-parent partner="org"
+                                                                       ng-click="sr.viewPartnerDetail(org)">
+                                    </search-result-element-with-parent>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+                    <!--CONTACT SEARCH RESULTS-->
+                    <div class="col-xs-4 search-result-column">
+                        <h4 class="search-result-header">Contacts (Administrative)</h4>
+
+                        <div ng-if="sr.contactCollection.length == 0" style="color: grey; font-style: italic; position: absolute; ">
+                            No matching contacts, such as school administrators or partner company personnel.
+                        </div>
+
+                        <div class="search-result-university-column"
+                             id="search-result-contact-column">
+
+                            <div infinite-scroll="sr.fetchMoreContacts()"
+                                 infinite-scroll-container='"#search-result-contact-column"'
+                                 infinite-scroll-distance="1">
+
+                                <!--<div style="color: whitesmoke" >{{sr.resourceCollection}}</div>-->
+
+                                <div ng-repeat="contact in sr.contactCollection">
+
+                                    <search-result-element-with-parent partner="contact"
+                                                                       ng-click="sr.viewPartnerDetail(contact)">
+                                    </search-result-element-with-parent>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--The following div "mellows" out the infinite scroll so that it does trigger until the bottom-->
+                        <div style='clear: both;'></div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!--
+<hr>
+<h5>Diagnostics:</h5>
+<h6>Search term: {{sr.searchString}}</h6>
+<h6>engagementCollection: {{sr.engagementCollection}}</h6>
+-->

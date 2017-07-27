@@ -1,0 +1,248 @@
+div.en-title-bar {
+    margin-bottom: 30px;
+    position: fixed;
+}
+
+div.en-title {
+
+    position: fixed;
+    top: 52px;
+    left: 0px;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 30px;
+
+    background-color: rgba(0, 0, 0, 1);
+    padding: 10px 10px 10px 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+}
+
+div.en-focus-title {
+
+    position: fixed;
+    top: 52px;
+    left: 0px;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 30px;
+
+    background-color: rgba(0, 0, 0, 1);
+    padding: 10px 10px 0px 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+}
+
+div.en-focus-partners {
+
+    position: fixed;
+    top: 52px;
+    left: 0px;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 30px;
+
+
+    padding: 22px 10px 0px 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+}
+
+div.en-focus-subtitle {
+
+    position: fixed;
+    top: 52px;
+    left: 0px;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 30px;
+
+
+    padding: 5px 10px 10px 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: lightgray;
+    text-align: left;
+    overflow: hidden;
+}
+
+div.en-focus-body {
+    position: fixed;
+    top: 107px;
+    left: 0px;
+    padding: 0 60px 0 15px;
+    width: 100%;
+
+}
+
+
+
+
+div.en-personal-dashboard-nav {
+    position: fixed;
+    top: 110px;
+    height: 100%;
+    width:100%;;
+    overflow: hidden;
+}
+
+div.en-personal-dashboard-wrapper {
+    position: fixed;
+    font-size: small;
+    overflow: auto;
+    display: block;
+    width: 98%;
+
+}
+
+div.en-personal-dashboard-body  {
+    position: absolute;
+    display: block;
+    width: 100% !important;
+}
+
+div.en-personal-dashboard-safety-button  {
+    border: solid;
+    background: yellow;
+    border-radius: 8px;
+    padding: 5px;
+    width:50%;
+    display: inline-block;
+    font-weight: bold;
+
+}
+
+
+
+div.en-team-summary-body {
+    position: fixed;
+    top: 107px;
+    left: 0px;
+    padding: 0 60px 0 15px;
+    width: 100%;
+
+}
+
+.en-team-summary-filter-title {
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+}
+
+
+.en-team-summary-filter-reset-button {
+    background-color: white;
+    color:darkred;
+}
+
+
+
+
+/*****    **********/
+
+
+
+
+
+table.table-head {
+    font-weight: bold;
+    margin-bottom: 0;
+    width: 96%;
+}
+
+
+
+
+
+td.en-team-summary-table-body-col-single {
+    width: 10%
+}
+
+td.en-team-summary-table-body-col-double  {
+    width: 20%;
+}
+
+.en-team-summary-table-body-wrapper {
+    position: fixed;
+    font-size: small;
+    overflow: auto;
+    display: block;
+    width: 100%;
+}
+
+.en-team-summary-table-body   {
+    position: absolute;
+    display: block;
+    width: 100% !important;
+}
+
+div.en-team-summary-selector{
+    margin-top: -20px;
+}
+
+div.en-team-summary > div > h4 {
+    color: darkred;
+}
+
+
+div.dev-notes {
+    padding: 5px;
+    border: 1px;
+    border-color: darkorange;
+    border-style: solid;
+    background: lightyellow;
+
+}
+
+div.en-team-summary-control-panel {
+
+    background: rgb(169,3,41); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(169,3,41,1) 0%, rgba(143,2,34,1) 44%, rgba(109,0,25,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+
+
+
+}
+
+div.en-team-summary-control-panel > div > h5 {
+    color: white;
+}
+
+
+div.en-team-summary-control-panel >  form >  div > label {
+    color: white;
+}
+
+div.en-team-summary-control-panel > form > div > div.btn-group {
+
+
+}
+
+div.en-team-summary-control-panel > form > div > div.btn-group > button.active {
+
+}
+
+div.en-team-summary-selector {
+
+    border: 1px;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-color: black;
+    display: inline;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+

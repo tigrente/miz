@@ -1,0 +1,95 @@
+/* CSS declarations go here */
+
+/* x-editable modifications for in-line editing. */
+/*body {
+    background-image: url("/photos/binding_light.png");
+
+}*/
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+a.editable-click {
+    border-bottom: none;
+}
+
+a.editable-click:hover {
+
+    border-bottom: dotted 1px lightblue;
+}
+
+
+table{}
+td {}
+
+.table-cell-truncate {
+    position: relative;
+    white-space: pre-wrap;
+}
+.table-cell-truncate:before {
+    content: attr(title);
+    position: absolute;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table-cell-truncate:after {
+    content: attr(title);
+    display: inline-block;
+    height: 0;
+    overflow: hidden;
+}
+
+
+.table-cell-truncate-uni-sub-org {
+    position: relative;
+    white-space: pre-wrap;
+}
+.table-cell-truncate-uni-sub-org:before {
+    content: attr(title);
+    position: absolute;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table-cell-truncate-uni-sub-org:after {
+    content: attr(title);
+    display: inline-block;
+    height: 0;
+    overflow: hidden;
+}
+
+
+/* Ordered and unordered lists have lost their format throughout the app.  This restores it. */
+
+ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+ul ul, ol ul {
+    list-style-type: circle;
+    list-style-position: inside;
+    margin-left: 15px;
+}
+ol ol, ul ol {
+    list-style-type: lower-latin;
+    list-style-position: inside;
+    margin-left: 15px;
+}
+
+.miz-search.active {
+    background: darkred;
+}

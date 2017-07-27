@@ -1,0 +1,667 @@
+<script type="text/javascript" src="scripts/jquery.formatCurrency.js"></script>
+
+<script type="text/javascript">
+
+
+    // Sample 2
+    $(document).ready(function () {
+        $('.currency').blur(function () {
+            $('.currency').eips.formatCurrency();
+        });
+    });
+</script>
+<h4>Payment Schedule</h4>
+
+
+<div ng-show="eips.focusEngagement"
+     style="border: thin black solid;
+            padding: 5px;">
+
+    <!--<h5>Focus Engagement</h5> {{eips.focusEngagement}}-->
+
+
+    <!--IF PAYMENT SCHEDULE DOESN'T EXIST, SHOW THIS CREATION FORM-->
+    <div class="row"
+         ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length === 0">
+        <div class="col-xs-12">
+
+            <form class="form-horizontal">
+
+
+                <!--Value of agreement-->
+                <div class="form-group form-group-sm">
+                    <label for="payment-quantity-input" class="control-label col-xs-4">Total not-to-exceed contract
+                        value:</label>
+
+                    <input style="width: 100px; text-align: left"
+                           type="number"
+                           min="0"
+                           step="0.01"
+                           class="form-control"
+                           id="payment-quantity-input"
+                           ng-model="eips.initializer.dealValue">
+
+                </div>
+
+                <!--Number of Scheduled Payments-->
+                <div class="form-group form-group-sm">
+                    <label for="deal-value-input" class="control-label col-xs-4">How many payments are
+                        scheduled?</label>
+
+                    <input style="width: 50px; text-align: left" type="number" class="form-control"
+                           id="deal-value-input" ng-model="eips.initializer.numberOfPayments">
+
+                </div>
+
+                <!--Require Additional Final Acceptance Report-->
+                <div class="form-group form-group-sm">
+                    <label for="addition-final-acceptance-checkbox" class="control-label  col-xs-4">
+                        Are any deliverables expected after the last payment? <br>
+                        <small style="color: blue">In situations where gift funding is paid up front, there must be an
+                            acceptance report collected at the end of the project.
+                        </small>
+                    </label>
+
+                    <div class="radio" style="text-align: left">
+                        <label>
+                            <input type="checkbox"
+                                   name="additional-final-acceptance"
+                                   id="addition-final-acceptance-checkbox"
+                                   ng-model="eips.initializer.additionalFinalAcceptance">
+                            <small>Require additional final acceptance</small>
+                        </label>
+                    </div>
+                </div>
+
+
+                <!--Date Calculation Type-->
+                <div class="form-group form-group-sm">
+                    <label for="date-type-input" class="control-label  col-xs-4">Payment Dates:</label>
+                    <div class="col-xs-3">
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="dateType"
+                                       value="specific"
+                                       id="date-specific-option"
+                                       ng-model="eips.initializer.dateCalculation">
+                                <small><strong>Specific</strong> <br>(e.g. July 11, 2018)</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="dateType"
+                                       id="date-relative-option"
+                                       value="relative"
+                                       ng-model="eips.initializer.dateCalculation"
+                                       checked>
+                                <small><strong>Relative</strong> <br>(e.g. T + 6 Weeks)</small>
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group form-group-sm col-xs-2">
+                        <label for="relative-date-unit-select" class="control-label">
+                            <small><strong>Offset by:</strong></small>
+                        </label>
+                        <select class="form-control input-sm"
+                                id="relative-date-unit-select"
+                                ng-model="eips.initializer.relativeDateUnit">
+                            <option>days</option>
+                            <option>weeks</option>
+                            <option>months</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!--Payment Calculation-->
+                <div class="form-group form-group-sm">
+
+                    <label class="control-label  col-xs-4">Payment Calculation:</label>
+                    <div class="col-xs-3">
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="paymentCalculation"
+                                       id="payment-percentage-option"
+                                       value="percentage"
+                                       ng-model="eips.initializer.paymentCalculation"
+                                >
+                                <small><strong>Specify Percentage</strong> <br>Calculate Payment</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div class="radio" id="date-type-input">
+                            <label>
+                                <input type="radio"
+                                       name="paymentCalculation"
+                                       id="payment-specific-option"
+                                       value="specific"
+                                       ng-model="eips.initializer.paymentCalculation" checked>
+                                <small><strong>Specify Payment</strong> <br>Percentage will be shown</small>
+                            </label>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <button type="submit" class="btn btn-primary btn-sm"
+                        ng-click="eips.initializePaymentSchedule()">Create Payment Schedule
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT SCHEDULE EDITING -->
+
+    <div ng-if="(eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length > 0) && (eips.ui.editPaymentSchedule)"
+         style="background: aliceblue">
+        <h4 style="color: darkred; text-decoration: underline">Schedule</h4>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <label class="control-label" for="actual-contract-signing-date-edit"> Actual Contract Signing
+                    Date: </label>
+                <input type="date"
+                       id="actual-contract-signing-date-edit"
+                       name="actual-contract-signing-date-edit"
+                       ng-model="eips.focusEngagement.earlyInnovationProjectData.contract.signingDate"
+                       size="8"
+                       value="<?php echo date('Y-m-d'); ?>"
+                       class="form-control"
+                       autocomplete="off"
+                       ng-change="eips.updateSigningDate()"
+                       style="  background-color: transparent;
+                                border-color: transparent;
+                                margin: 0 0 0 0;
+                                width: 200px; display: inline-block"> <br>
+
+
+                <strong>Deal Value (USD):</strong>
+                <a href="#"
+                   editable-number="eips.focusEngagement.earlyInnovationProjectData.contract.contractValue"
+                   onaftersave="eips.updateContractValue(); "
+                >
+                    {{eips.formattedDealValue() || 'Add deal value in USD...'}} </a>
+                <br>
+                <label>Require additional final acceptance
+                    <input type="checkbox"
+                           name="additional-final-acceptance"
+                           id="additional-final-acceptance-checkbox"
+                           ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance"
+                           ng-click="eips.updatePaymentOption('additionalFinalAcceptance', eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance)">
+                </label>
+            </div> <!--col-xs-6-->
+
+
+            <div class="col-xs-4">
+
+                <div ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative'"
+                     style="margin: 10px">
+                    <button class="btn btn-warning btn-xs"
+                            ng-click="eips.toggleDateCalculationOption()">
+                        Input Specific Dates
+                    </button>
+                </div>
+
+                <div ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'specific'"
+                     style="margin: 10px">
+                    <button class="btn btn-warning btn-xs"
+                            ng-click="eips.toggleDateCalculationOption()">
+                        Input Relative Time
+                    </button>
+                </div>
+
+                <div ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'specific'"
+                     style="margin: 10px">
+                    <button class="btn btn-warning btn-xs"
+                            ng-click="eips.updatePaymentOption('paymentCalculation', 'percentage')">
+                        Input Payment Percentages
+                    </button>
+                </div>
+
+                <div ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'percentage'"
+                     style="margin: 10px">
+                    <button class="btn btn-warning btn-xs"
+                            ng-click="eips.updatePaymentOption('paymentCalculation', 'specific')">
+                        Input Specific Payment Amounts
+                    </button>
+                    <br>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-xs-2">
+                <button class="btn btn-primary btn-xs" style="float: right; margin-right: 5px"
+                        ng-click="eips.updatePaymentSchedule(); eips.ui.editPaymentSchedule = false;">
+                    Done
+                </button>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Milestone Desc.</th>
+                        <th>T Time
+                            <div class="form-group form-group-sm" style="display: inline-block; margin-bottom: 0">
+                                <select class="form-control input-sm"
+                                        id="date-unit-select"
+                                        ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit"
+                                        ng-change="eips.updateRelativeDateUnit();">
+                                    <option value="days">days</option>
+                                    <option value="weeks">weeks</option>
+                                    <option value="months">months</option>
+                                </select>
+                            </div>
+                        </th>
+                        <th>Date</th>
+                        <th>Percentage</th>
+                        <th>Amount</th>
+                        <th>Del.</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="payment in eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule track by $index">
+
+                    <tr>
+                        <!--track by index because some entries are identical-->
+
+                        <!--PAYMENT INDEX-->
+                        <td>{{$index + 1}}</td>
+
+
+                        <!--MILESTONE DESCRIPTION-->
+                        <td>
+
+
+                            <input style="text-align: left"
+                                   type="text"
+                                   placeholder="e.g. Signing, MS1"
+                                   ng-model="payment.milestone"
+                                   ng-blur="eips.updatePaymentSchedule()">
+
+                        </td>
+
+                        <!--DATE CALCULATIONS-->
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation ==='specific'"
+                            ng-click="eips.toggleDateCalculationOption()">
+                            T+{{payment.relativeTime}} {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit}}
+                        </td>
+
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'specific'">
+                            <strong>
+                                <input type="date"
+                                       id="date-picker"
+                                       name="date-picker"
+                                       ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[$index].targetDate"
+                                       size="8"
+                                       value="<?php echo date('Y-m-d'); ?>"
+                                       class="form-control"
+                                       autocomplete="off"
+                                       ng-change="eips.updatePaymentTargetDate()"
+                                       style="  background-color: white;
+                                border-color: lightgrey;
+                                margin: 0 0 0 0">
+                            </strong>
+                        </td>
+
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative'">
+                            <form class="form-inline">
+                                <strong> T +
+                                    <input type="number"
+                                           style="width: 75px"
+                                           min="0"
+                                           ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[$index].relativeTime"
+                                           size="8"
+                                           class="form-control "
+                                           autocomplete="off"
+                                           ng-change="eips.updateRelativeTime()"
+                                    >
+
+                                    {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit}}
+                                </strong>
+                            </form>
+
+
+                        </td>
+
+
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative'"
+                            ng-click="eips.toggleDateCalculationOption()">
+                            {{payment.targetDate | date:'shortDate' }}
+                        </td>
+
+                        <!-- PAYMENT BY PERCENTAGE OPTION-->
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'percentage'">
+
+                            <form class="form-inline">
+                                <strong>
+                                    <input type="number"
+
+                                           style="width: 65px; text-align: right"
+                                           min="0"
+                                           max="100"
+                                           step="1"
+                                           ng-model="payment.paymentPercentage"
+                                           size="8"
+                                           class="form-control "
+                                           autocomplete="off"
+                                           ng-change="eips.calculatePaymentFromPercentage()"
+                                    >%
+                                </strong>
+                            </form>
+                        </td>
+
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'percentage'"
+                            ng-click="eips.togglePaymentCalculationOption()">
+                            {{eips.formatCurrency(payment.paymentAmount)}}
+                        </td>
+
+
+                        <!-- SPECIFIC PAYMENTS OPTION-->
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'specific'"
+                            ng-click="eips.togglePaymentCalculationOption()">
+                            {{payment.paymentPercentage}}<span ng-if="eips.isNumber(payment.paymentPercentage)">%</span>
+                        </td>
+
+
+                        <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation === 'specific'">
+                            <form class="form-inline">
+                                <strong>
+                                    $<input type="number"
+
+                                            style="width: 100px; text-align: right"
+                                            min="0"
+                                            step="1"
+                                            ng-model="payment.paymentAmount"
+                                            size="8"
+                                            class="form-control currency "
+                                            autocomplete="off"
+                                            ng-change="eips.calculatePercentageFromPayment()"
+                                >
+                                </strong>
+                            </form>
+                        </td>
+
+
+                        <td>
+                            <button class="btn btn-xs btn-danger" title="Delete this payment"
+                                    ng-click="eips.removePayment($index)">x
+                            </button>
+                    </tr>
+
+                    </tbody>
+
+                    <!--ADDITIONAL ROW FOR OPTIONAL FINAL ACCEPTANCE.-->
+                     <tbody>
+                     <tr ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance" >
+
+                         <td>F</td>
+                         <td>Post Payment <br> Final Acceptance of <br> All Deliverables</td>
+
+                         <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation ==='specific'">
+                             <span ng-if="eips.isNumber(eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime)">
+                                 T+
+                             </span>
+                             {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime}}
+
+                             <span ng-if="eips.isNumber(eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime)">
+                                {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit}}
+                             </span>
+                         </td>
+
+                         <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'specific'">
+                             <strong>
+                                 <input type="date"
+                                        id="datePicker"
+                                        name="datePicker"
+                                        ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate"
+                                        size="8"
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        class="form-control"
+                                        autocomplete="off"
+                                        ng-change="eips.updateSigningDate()"
+                                        style="  background-color: white;
+                             border-color: lightgray;
+                             margin: 0 0 0 0">
+                             </strong>
+                         </td>
+
+                         <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative'">
+                             <form class="form-inline">
+                                 <strong> T +
+                                     <input type="number"
+                                            style="width: 75px"
+                                            min="0"
+                                            ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime"
+                                            size="8"
+                                            class="form-control "
+                                            autocomplete="off"
+                                            ng-change="eips.updateRelativeTime()"
+                                     >
+
+                                     {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit}}
+                                 </strong>
+                             </form>
+
+
+                         </td>
+
+
+                         <td ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative'">
+
+                             {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate | date:'shortDate' }}
+                         </td>
+
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                     </tr>
+
+
+                     <tr>
+
+                         <td></td>
+                         <td>
+                             <button class="btn btn-primary btn-xs" ng-click="eips.addPayment()">Add Payment</button>
+                         </td>
+                         <td></td>
+                         <td style="margin-top: 3px; background: lightgray; border-radius: 10px 0 0 10px; color: darkgreen"
+                             ng-if="eips.scheduleComplete()"><strong>Complete</strong></td>
+                         <td style="margin-top: 3px; background: lightgray; border-radius: 10px 0 0 10px"
+                             ng-if="!eips.scheduleComplete()"><strong style="color:red;">Schedule Incomplete</strong>
+                         </td>
+                         <td style="background: lightgray; color: red; padding-left: 20px"
+                             ng-if="eips.unallocatedPercentage() !== 0">{{eips.unallocatedPercentage()}}%<br>unallocated
+                         </td>
+                         <td style="background: lightgray; color: darkgreen; padding-left: 20px"
+                             ng-if="eips.unallocatedPercentage() === 0"><strong>Complete</strong></td>
+                         <td style="background: lightgray; color: red; padding-left: 20px; border-radius: 0 10px 10px 0 "
+                             ng-if="eips.unallocatedAmount() !== 0">{{eips.unallocatedAmount()}} <br>unallocated
+                         </td>
+                         <td style="background: lightgray; color: darkgreen; border-radius: 0 10px 10px 0  "
+                             ng-if="eips.unallocatedAmount() === 0"><strong>Complete</strong></td>
+                         <td></td>
+                     </tr>
+
+
+                     </tbody>
+
+                </table>
+
+
+            </div>
+        </div>
+        <h4 style="color: darkred; text-decoration: underline">Acceptance Criteria</h4>
+        <div class="row">
+            <div class="col-xs-12">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Milestone Desc.</th>
+                        <th>Deliverables</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="payment in eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule track by $index">
+                        <!--track by index because some entries are identical-->
+
+                        <!--PAYMENT INDEX-->
+                        <td width="5%">{{$index + 1}}</td>
+
+
+                        <!--MILESTONE DESCRIPTION-->
+                        <td width="15%">
+
+                            <input style="text-align: left"
+                                   type="text"
+                                   placeholder="e.g. Signing, MS1"
+                                   ng-model="payment.milestone"
+                                   ng-change="eips.updatePaymentSchedule()">
+
+                        </td>
+
+                        <td width="80%">
+                            <textarea style="width: 100%"
+                                      class="froala"
+                                      froala="eips.froalaOptions"
+                                      ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[$index].deliverables"
+                                      ng-change="eips.updatePaymentSchedule()">
+                            </textarea>
+
+                        </td>
+                    </tr>
+
+                    <tr ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance">
+                        <!--PAYMENT INDEX-->
+                        <td width="5%">F</td>
+
+
+                        <!--MILESTONE DESCRIPTION-->
+                        <td width="15%">
+
+                            Post Payment Final Acceptance Report
+
+
+                        </td>
+
+                        <td width="80%">
+                                                    <textarea style="width: 100%"
+                                                              class="froala"
+                                                              froala="eips.froalaOptions"
+                                                              ng-model="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.deliverables"
+                                                              ng-change="eips.updateAdditionalFinalAcceptance('deliverables', eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.deliverables)">
+                            </textarea>
+
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-xs" style="float: right; margin-right: 5px"
+                        ng-click="eips.updatePaymentSchedule(); eips.ui.editPaymentSchedule = false;">
+                    Done
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PAYMENT SCHEDULE DISPLAY -->
+    <div ng-if="(eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length > 0) && (!eips.ui.editPaymentSchedule)"
+         class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Milestone Desc.</th>
+                    <th>Acceptance Criteria</th>
+                    <th>Target Date</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule track by $index">
+                    <td>{{$index + 1}}</td>
+                    <td>{{payment.milestone}}</td>
+                    <td width="70%"
+                        froala-view="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[$index].deliverables">
+                    <td>{{payment.targetDate | date:'shortDate'}}</td>
+                    <td> {{eips.formatCurrency(payment.paymentAmount)}}</td>
+                </tr>
+
+                <tr ng-if="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance">
+                    <td>F</td>
+                    <td>Post Payment Final Acceptance Report</td>
+                    <td froala-view="eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.deliverables">
+                    <td>
+                        {{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate|
+                        date:'shortDate'}}
+                    </td>
+                    <td></td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button class="btn btn-primary btn-xs" style="float:right; margin-right:5px;"
+                    ng-click="eips.ui.editPaymentSchedule=true;">Edit
+                Schedule
+            </button>
+        </div>
+    </div>
+
+
+    <hr>
+</div>
+
+<!--
+<div class="row">
+    <div class="col-xs-12">
+        <h5 style="color: darkred">Diagnostics</h5>
+        <p><b>ScheduleComplete: </b>{{eips.scheduleComplete}}</p>
+        <p><b>Contract: </b>{{eips.focusEngagement.earlyInnovationProjectData.contract}}</p>
+        <p><b>focusId: </b>{{eips.focusEngagementId}}</p>
+        <p><b>ps: </b>{{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule}}</p><br>
+        <p><b>options: </b>{{eips.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options}}</p><br>
+        <p><b>ui: </b>{{eips.ui}}</p><br>
+        <p><b>eipw: </b>{{eips}}</p><br>
+
+
+        &lt;!&ndash;      <p><b>initializer: </b>{{eips.initializer}}</p><br>
+
+          editPayment: {{eips.ui.editPaymentSchedule}}; <br>
+          <strong>newPaymentSchedule: </strong>{{eips.newPaymentSchedule}}&ndash;&gt;
+    </div>
+</div>
+-->
+
+

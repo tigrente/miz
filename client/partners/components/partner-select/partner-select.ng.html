@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-sm-12"> <!--Parent Partner Header row-->
+        <div class="row">
+            <!--Current Parent Partner Listing-->
+            <div class="col-md-4">
+                <label class="control-label">{{ps.selectorLabel}} </label><br>
+
+                <div ng-show="ps.noSelectedPartners()">
+                    <small>None selected...</small>
+                </div>
+
+                <div ng-hide="ps.noSelectedPartners()">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="partner in ps.selectedPartners">
+                            {{ partner.name }}
+                            <span class="glyphicon glyphicon glyphicon-remove"
+                                  aria-hidden="true"
+                                  style="padding-left: 1em;
+                                                      color: red"
+                                  ng-click="ps.removePartner(partner)">
+                         </span>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!--  Partner Search and Add -->
+            <div class="col-md-8">
+
+                <div class="input-group " style="width: 100%">
+                    <input ng-model="ps.partnerSearch" type="text" class="form-control input-sm"
+                           placeholder="Search for partners..." style="width: 100%">
+                </div>
+
+                <table class="table table-sm table-hover">
+                    <tr ng-repeat="partner in ps.partnerSearchList"
+                        ng-click="ps.addPartner(partner)"                    >
+
+                        <td>{{partner.name}}</td>
+
+                    </tr>
+                </table>
+
+                <div ng-if="ps.noSearchResult">
+                    <b style="color:darkred">{{ps.partnerSearch}}</b> wasn't found.
+                    <button class="btn btn-xs btn-primary" onclick='window.open("/new-partner")' role="button">Add new partner</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>  <!--Row Parent Partner and BD Owners-->
+
+<hr>
+

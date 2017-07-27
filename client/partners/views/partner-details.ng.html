@@ -1,0 +1,617 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+<div class="container">
+
+
+    <div class="row">
+
+        <div class="col-xs-2">
+
+
+            <br><img ng-src="{{ logo.url() }}" data-toggle="modal" data-target="#imageModal"
+                     style="height: 100px; max-width: 175px; vertical-align: top;"/>
+
+        </div>
+
+
+        <div class="col-xs-8">
+
+            <h1><a style="color: black; text-decoration: none;" href="#" editable-text="partner.name">
+                {{partner.name}} </a></h1>
+
+
+            <h4 style="display: inline;margin-bottom: 0px;line-height: 50%; color: gray"
+                ng-repeat="parent in partner.parentPartners"><a ng-href="/partners/{{ parent }}">{{
+                parentName() }}</a> &nbsp;&nbsp;
+            </h4>
+            <small class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#parentModal"></small>
+
+            <!-- Need to add ng-if for link to create affiliates if none exist. -->
+            <small data-toggle="modal" data-target="#parentModal"
+                   style="margin-top: 0px;margin-bottom: 6px;color: lightblue; font-style: italic">Change parent
+                affiliation
+            </small>
+            <br>
+
+            <a style="color: darkslategrey" href="#" editable-textarea="partner.description">
+                {{partner.description}} </a>
+
+
+        </div>
+
+
+        <div class="col-xs-2">
+            <h6 style="text-transform: uppercase;  color:lightgray;" data-toggle="modal"
+                data-target="#partnerTypeModal">{{ partner.partnerType }}&nbsp;&nbsp;</h6>
+            <h4><a ng-href="{{ partner.website }}" target="_new">Website &nbsp;&nbsp;</a>
+                <small class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#websiteModal"></small>
+            </h4>
+            <h5>Contact:</h5>
+            <h6><a editable-textarea="partner.contactInfo">{{ partner.contactInfo }}</a></h6>
+        </div>
+
+
+    </div>
+
+
+    <hr>
+
+    <!-- **** TAB IMPLEMENTATION **** -->
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                  data-toggle="tab">Members</a></li>
+        <li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
+        <li role="presentation"><a href="#manage" aria-controls="manage" role="tab" data-toggle="tab">Manage</a></li>
+        <li role="presentation"><a href="#diagnostics" aria-controls="diagnostics" role="tab"
+                                   data-toggle="tab">Manage</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="home">
+            Loaded from partner.details --> Parent Partners:
+            {{ partner.parentPartners }} <br><br>
+            Partner: {{ partner.name }}<br><br>
+
+            Partner Id passed in controller: {{ partnerId }}<br><br>
+
+            Loaded From Template: <br>
+            <test></test>
+
+
+            <!--  <div class="row">
+
+            <div class="col-xs-6">
+
+                      <h4>Cooperation Resources </h4>
+                      <table class="table table-condensed table-hover">
+                          <tr>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>E-mail</th>
+                          </tr>
+                          <tbody>
+                          <tr>
+                              <td>John Talent</td>
+                              <td>Prof. Electrical Engineering</td>
+                              <td>john@example.com</td>
+                          </tr>
+                          <tr>
+                              <td>Mary Moe</td>
+                              <td>Prof. Computer Science</td>
+                              <td>mary@example.com</td>
+                          </tr>
+                          <tr>
+                              <td>July Dooley</td>
+                              <td>Ass. Prof. VLSI Design</td>
+                              <td>july@example.com</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="col-xs-6">
+                      <h4>Contacts </h4>
+                      <table class="table table-condensed table-hover">
+                          <tr>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>E-mail</th>
+                          </tr>
+                          <tbody>
+                          <tr>
+                              <td>Joe Admin</td>
+                              <td>Contract Specialist</td>
+                              <td>john@example.com</td>
+                          </tr>
+                          <tr>
+                              <td>Mary Charger</td>
+                              <td>Head of Corporate Engagement</td>
+                              <td>mary@example.com</td>
+                          </tr>
+                          <tr>
+                              <td>July Jones</td>
+                              <td>Legal Council</td>
+                              <td>july@example.com</td>
+                          </tr>
+                          </tbody>
+                      </table>
+
+                  </div>
+
+              </div>   Row-->
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="history">
+            <div class="row">
+
+                <div class="col-xs-6">
+                    <h4>History </h4>
+                    <b style="color: red">To be added:
+                        <br>- Add Entry
+                        <br>- Sort by Engagement
+                        <br>- Scroll bars </b>
+                    <table class="table table-condensed table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Headline</th>
+                            <th>Attachments</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>Contract counter proposal</td>
+                            <td><a href="file://public/photos/logo-placeholder.jpg">CounterProposal.doc</a><br>
+                                <a href="file://public/photos/logo-placeholder.jpg">SignedNDA.pdf</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Huawei proposed contract</td>
+                            <td><a href="file://public/photos/logo-placeholder.jpg">dradtContract.docx</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Final Payment Completed</td>
+                            <td><a href="file://public/photos/logo-placeholder.jpg">Invoice.docx</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-6">
+
+                    <h4>Engagements </h4>
+                    <b style="color: red">To be added:
+                        <br>- Whole Entry method
+                        <br>- Color Coding
+                        <br>- Attachments
+                        <br>- Scrolling</b>
+                    <table class="table table-condensed table-hover">
+                        <tr>
+                            <th></th>
+                            <th>Type</th>
+                            <th>Resource</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>Cooperation</td>
+                            <td>John Talent</td>
+                            <td>Donec in congue metus</td>
+                            <td style="color: darkgreen">Active</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Cooperation</td>
+                            <td>John Q. Researcher</td>
+                            <td>Quisque quis odio laoreet</td>
+                            <td>Complete</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Cooperation</td>
+                            <td>Diane Keaton</td>
+                            <td>Aliquam a auctor purus</td>
+                            <td>Complete</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Exploration</td>
+                            <td>Danika Science</td>
+                            <td>Aenean efficitur ac ligula quis tincidunt</td>
+                            <td style="color: red">Terminated</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!--Row-->
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="manage">
+            Put additional management or minutia here...
+            <div class="row">
+                <hr>
+                <div class="col-xs-4">
+                    <h4> Delete Partner</h4>
+                    Note: Engagement data will not be destroyed, but user will be removed. Can not be undone.<br>
+                    <label>
+                        <input type="checkbox"
+                               ng-model="deleteSafetyCheckbox"
+                               checked="false"
+                               ng-change="changeRole('editEngagements')">
+
+                        <strong>Are you sure?</strong> </label><br>
+            <span ng-if="deleteSafetyCheckbox">
+
+
+
+            <button class="btn btn-danger" ng-click="removePartner()">Delete This Partner</button><br>
+
+             </span>
+                    {{removePartnerFeedback}}
+
+                </div>  <!--col-->
+            </div> <!--row-->
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="diagnostics">
+            <h5>Diagnostics</h5>
+
+            <div ng-repeat="image in addNewPartyModal.newParty.images">
+                <img ng-src="{{ image.url() }}"/><br/>
+            </div>
+            Partner.parentPartners: {{ partner.parentPartners }} <br>
+            No ParentPartners = {{ noParentPartners() }} <br>
+            <b>Partner Object:</b> {{partner}}<br><br>
+            Parent Name: {{parentName}}<br><br>
+            myLogo URL: {{logoUrl}} <br>
+            Logo Object: {{logo}}<br>
+            Name: {{partner.name}} <br>
+            Type: {{partner.partnerType}} <br>
+            Coop Resource: {{partner.cooperationResource}} <br>
+            Description: {{partner.description}} <br>
+            BD Owners: {{partner.bizDevOwners}} <br>
+            Parents: {{partner.parentPartners}} <br> <br>
+
+            Website: {{partner.website}} <br>
+            Contact Info: {{partner.contactInfo}} <br>
+            Notes: {{partner.notes}} <br>
+            CRS:{{partner.crsNumber}} <br>
+            Logo: {{partner.logo}} <br>
+
+            Created By: {{partner.createdById}} <br>
+            Created Date: {{partner.creationDate}} <br>
+            Last Edited By: {{partner.modifiedById}} <br>
+            Modified Date:{{partner.modifiedDate}} <br> <br>
+
+            Object:
+            {{partner}}
+
+        </div>
+
+
+    </div>
+
+
+    <!--CONTAINER-->
+</div>
+
+<!--  ******  MODAL WINDOWS ******* -->
+
+<!-- Parter Image Modal -->
+<div class="modal fade" id="imageModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Your Partner's Image</h4>
+                Add logos for companies and universities, images for people.<br>
+                Adding images makes your partners easier to recognize!
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-9">
+
+
+                        <drop-zone options="logoDropzoneOptions"></drop-zone>
+
+                    </div>
+                    <div class="col-md-3">
+                        <h4><a ng-href="http://www.google.com/search?q=logo {{partner.name}}&tbm=isch" target="_new">
+                            Google Image Search
+                        </a></h4>
+                        Drag the image from Google to your desktop, and then into the box.
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="float: left" type="button" ng-click="removeImage()" class="btn btn-danger"
+                        data-dismiss="modal">Restore Default Image
+                </button>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- Modal -->
+
+
+<!-- Website Modal -->
+<div class="modal fade" id="websiteModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Website</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="website" class="col-xs-2 control-label">Website</label>
+                            <div class="col-xs-10">
+                                <input type="text"
+                                       class="form-control"
+                                       id="website"
+                                       ng-model="partner.website">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- Modal -->
+
+
+<!-- Parent Modal -->
+<div class="modal fade" id="parentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Parent Affiliations</h4>
+                <small style="color: darkgrey">Add partners that this partner is a member of. For example, if this
+                    partner is a professor, add the university that she works for. Companies may also be have incubators
+                    as parents.
+                </small>
+            </div>
+
+            <div class="modal-body">
+
+                <!--Listing of parent partners-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">This partner is a member of: </label><br>
+
+                        <br>
+                        <div ng-hide="noParentPartners()">
+                            <small>No parent partners.</small>
+                        </div>
+
+                        <div ng-show="noParentPartners()">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="parent in partner.parentPartners">
+                                    {{parentName() }} &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon glyphicon-remove"
+                              aria-hidden="true"
+                              style="padding-left: 2em;
+                              color: red"
+                              ng-click="removeParentPartner()">
+                        </span>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Parent Partner Search and Add -->
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input ng-model="parentSearch" type="text" class="form-control"
+                                   placeholder="Type for partners...">
+                        </div>
+
+                        <table class="table table-hover">
+                            <tr ng-repeat="partner in parentPartnerList"
+                                ng-click="addParentPartner()">
+
+                                <td>{{partner.name}}</td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+
+                </div>  <!--Row-->
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button style="float: left" type="button" class="btn btn-success" onclick='window.open("/new-partner")'
+                        role="button">Create
+                    New Partner
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- PartnerType Modal -->
+<div class="modal fade" id="partnerTypeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Change Partner Type</h4>
+                <small style="color: darkgrey">Use caution with this - changing a partner type will affect the
+                    information presented, engagement options, and more. However, information will not be lost by
+                    changing this
+                    (I think...).
+                </small>
+            </div>
+
+            <div class="modal-body">
+
+
+                <div ng-class="inputStatusGroup.partnerType.formGroup">
+                    <label class="control-label">This is a: </label>
+
+                    <div ng-class="row">
+                        <div class="col-md-4" style="background: mintcream">
+
+                            <!--Partner Type Radio-->
+                            <h6 style="color: black; text-decoration: underline">Cooperation Resource</h6>
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="company"
+                                   value="company" ng-click="partner.cooperationResource = true"
+                            >
+                            Company
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="consultant"
+                                   value="individual" ng-click="partner.cooperationResource = true"
+                            >
+                            Individual Contractor <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="professor"
+                                   value="professor" ng-click="partner.cooperationResource = true"
+                            >
+                            Professor <br>
+
+
+                        </div><!--Column-->
+
+
+                        <div class="col-md-4">
+
+                            <h6 style="color: black; text-decoration: underline ">Other Partner</h6>
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="university"
+                                   value="university" ng-click="partner.cooperationResource = false"
+                            >
+                            University
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="uniSubOrg"
+                                   value="uniSubOrg" ng-click="partner.cooperationResource = false"
+                            >
+                            University Sub-Org<br>
+                            <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. Amp Lab, MediaX
+                            </small>
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="contact"
+                                   value="contact" ng-click="partner.cooperationResource = false"
+                            >
+                            Contact <br>
+                            <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. admin, sales,
+                                legal, etc.
+                            </small>
+
+
+                        </div><!--Column-->
+
+                        <div class="col-md-4">
+
+                            <h6 style="color: darkgrey">&nbsp;</h6>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="incubator"
+                                   value="incubator" ng-click="partner.cooperationResource = false"
+                            >
+                            Incubator
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="venture"
+                                   value="venture" ng-click="partner.cooperationResource = false"
+                            >
+                            Venture Capital Firm
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="association"
+                                   value="association" ng-click="partner.cooperationResource = false"
+                            >
+                            Industry Assc.
+                            <br>
+
+                            <input type="radio" name="partnerTypeRadio" ng-model="partner.partnerType"
+                                   id="other"
+                                   value="other" ng-click="partner.cooperationResource = false"
+                            >
+                            Other
+
+
+                        </div> <!--column-->
+                    </div> <!--Row-->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                            <div ng-class="inputStatusGroup.cooperationResource.formGroup">
+                                <label class="control-label" for="cooperationResourceCheckbox">
+                                    <input id="cooperationResourceCheckbox"
+                                           ng-model="partner.cooperationResource"
+                                           type="checkbox"
+                                           value="">
+
+
+                                    List as Cooperation Resource
+                                </label>
+
+                                <small style="color: darkgray">
+                                    <br>Cooperation resources are the people and entities that actually do the
+                                    cooperation
+                                    work.
+                                    Companies, professors and independent consultants are often resources.
+                                    Universities, administrators and incubators are usually not.
+                                </small>
+
+
+                            </div>
+                            </p>
+                        </div> <!--Column-->
+                    </div> <!--Row-->
+
+
+                </div> <!--form group-->
+            </div> <!--modal body-->
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

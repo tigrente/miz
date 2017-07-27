@@ -1,0 +1,108 @@
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+@media (max-width: 0px) {
+    .fullscreen-bg {
+        background: url('../img/videoframe.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+div.welcomeMessage {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    background:rgba(0,0,0,0.7);
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+
+div.welcomeMessage h1 {
+     font-family: "Brush Script MT";
+     font-size: 60pt;
+     color: red;
+     text-align: center;
+    margin-bottom: 0;
+    text-shadow: black 1px 1px;
+
+ }
+
+div.welcomeMessage h2 {
+    font-family: Helvetica;
+    font-size: 24pt;
+    color: ghostwhite;
+    text-align: center;
+    margin-top: 0;
+
+}
+
+div.welcomeMessage h3 {
+    font-family: Helvetica;
+    color: ghostwhite;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 0;
+
+}
+
+span.welcomeCount {
+    font-family: "Chalkboard SE";
+    text-decoration: underline;
+    color: white;
+    font-size: 20px;
+
+}
+
+form.login {
+    text-align: center;
+    font-size: 16pt;
+    width: 100%;
+
+    margin: 0;
+
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+ }
+
+div.help {
+    text-align: center;
+    color: ghostwhite;
+    background:rgba(0,0,0,0.7);
+}

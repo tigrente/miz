@@ -1,0 +1,67 @@
+<h4>Acceptance Reports</h4>
+
+<!--<h5>Focus Engagement</h5>{{eiar.focusEngagement}}
+<h5>Focus</h5> {{eiar.focusEngagementId}}-->
+<div style="border: black thin solid;">
+
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <table class="table">
+                <thead>
+                <tr style="text-align: center">
+
+                    <th>No.</th>
+                    <th>Status</th>
+                    <th>Milestone</th>
+                    <!-- <th>Acceptance Criteria</th>-->
+                    <th>Expected Date</th>
+                    <th>Actual Date</th>
+                    <th>Report Template</th>
+                    <th>Signed Report</th>
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <tr ng-repeat="payment  in eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule track by $index">
+                    <!--track by index because some entries are identical-->
+
+
+                    <td> {{$index + 1}}</td>
+
+                    <td style="color: red"><i>Status (tbd) </i></td>
+
+                    <td> {{payment.milestone}}</td>
+
+                    <td>{{payment.targetDate | date:'shortDate'}}</td>
+                    <td style="color: red">Actual report date (tbd)</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm">Generate Template</button>
+                    </td>
+                    <td>
+                        <util-file-holder
+                                file="payment.acceptanceReportFile"
+                                run-on-drop="eiar.updatePaymentSchedule()"
+                                file-description="'Acceptance Report'">
+                        </util-file-holder>
+                    </td>
+
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>  <!--col-->
+    </div><!--rows-->
+
+</div>
+
+<!--Diagnostics: <br>
+<strong>payment:</strong> {{eiar.paymentSchedule}}-->
+

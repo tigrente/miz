@@ -1,0 +1,59 @@
+
+
+<div class="row">
+    <div class="col-sm-12"> <!--Parent Partner Header row-->
+        <div class="row">
+            <!--Current Parent Partner Listing-->
+            <div class="col-md-4">
+                <label class="control-label">{{bds.selectorLabel}} </label><br>
+
+                <div ng-show="bds.noSelectedBdOwners()">
+                    <small>None selected...</small>
+                </div>
+
+                <div ng-hide="bds.noSelectedBdOwners()">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="bdOwner in bds.selectedBdOwners">
+                            {{ bdOwner.profile.name }}
+                            <span class="glyphicon glyphicon glyphicon-remove"
+                                  aria-hidden="true"
+                                  style="padding-left: 1em;
+                                                      color: red"
+                                  ng-click="bds.removeBdOwner(bdOwner)">
+                         </span>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        <!--  Partner Search and Add -->
+        <div class="col-md-8">
+
+            <div class="input-group" style="width: 100%">
+                <input ng-model="bds.bdOwnerSearch" type="text" class="form-control"
+                       placeholder="Search for BD managers..." style="width: 100%">
+            </div>
+
+            <table class="table table-sm table-hover">
+                <tr ng-repeat="bdOwner in bds.bdOwnerSearchList"
+                    ng-click="bds.addBdOwner(bdOwner)"                    >
+
+                    <td>{{bdOwner.profile.name}}</td>
+
+                </tr>
+            </table>
+
+            <div ng-if="bds.noSearchResult">
+                <b style="color:darkred">{{bds.bdOwnerSearch}}</b> wasn't found.
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+</div>  <!--Row Parent Partner and BD Owners-->
+
+<hr>
+

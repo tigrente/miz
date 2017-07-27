@@ -1,0 +1,55 @@
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/dashboard">Home</a></li>
+        <li class="active">Backup-Restore</li>
+    </ol>
+</header>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#backup-tab" aria-controls="home" role="tab"
+                                                          data-toggle="tab">Backup</a></li>
+                <li role="presentation"><a href="#restore-tab" aria-controls="profile" role="tab" data-toggle="tab">Restore</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!--*** BACKUP TAB ***-->
+                <div role="tabpanel" class="tab-pane active" id="backup-tab">
+                    <h1> Backup Databases</h1>
+
+                    // Select Databases to backup
+                    <button class="btn-danger" ng-click="bu.backup()">Backup Now</button>
+
+                    {{this.backupResult}}
+
+
+                </div>
+
+                <!--*** RESTORE TAB ***-->
+                <div role="tabpanel" class="tab-pane" id="restore-tab">
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

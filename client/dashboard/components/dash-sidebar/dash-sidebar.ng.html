@@ -1,0 +1,54 @@
+<!-- START Sidebar (left)-->
+<div class="dash-sidebar">
+    <nav class="nav">
+        <br>
+    <ul>
+        <li ng-repeat="item in dbsb.menuItems" class="dash-nav-item" ng-class="item.active" ng-click="dbsb.selectMenuItem(item)" >
+
+
+            <a ng-if="!item.heading"
+
+               href=""
+               title="{{item.text}}">
+                <!--                <div ng-if="item.alert" ng-class="item.label || 'label label-success'"
+                                     class="pull-right">{{item.alert}}</div>-->
+                <span ng-if="item.icon"  class="dash-sidebar-icon" ng-class="item.icon"></span><br>
+                <span class="dash-nav-text">
+                {{item.text}}
+                </span>
+
+            </a>
+
+
+
+        </li>
+
+    </ul>
+
+        <div style="position: absolute; bottom: 5%">
+
+        <ul class="dash-nav-menu" >
+            <li ng-repeat="item in dbsb.bottomMenuItems" class="dash-nav-item" ng-class="item.active" ng-click="dbsb.selectMenuItem(item)" >
+
+
+                <a ng-if="!item.heading"
+                   href=""
+                   title="{{item.text}}">
+                    <!--                <div ng-if="item.alert" ng-class="item.label || 'label label-success'"
+                                         class="pull-right">{{item.alert}}</div>-->
+                    <span ng-if="item.icon"  class="dash-sidebar-icon" ng-class="item.icon"></span><br>
+                    <span class="dash-nav-text">
+                {{item.text}}
+                </span>
+
+                </a>
+
+
+
+            </li>
+
+        </ul>
+</div>
+    </nav>
+
+</div>

@@ -1,0 +1,629 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+<div class="row en-title-bar" ng-show="ed.currentUser">
+    <div class="col-xs-12">
+        <div class="en-title">
+            {{ed.currentUser}}'s Engagement Summary
+
+            <button ng-click="ed.viewEngagementTeamSummary()"
+                    class="btn  btn-xs"
+                    style="float: right; margin-left: 40px; background-color: darkred; color:white;">
+                View All Engagements
+            </button>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="col-xs-12" style="overflow: hidden" ng-show="ed.currentUser">
+    <div class="row en-personal-dashboard-nav ">
+        <div ng-if="ed.showEngagementSafetyButton">
+            <div class="en-personal-dashboard-safety-button">
+                Warning: Not all engagements are shown. There are more than {{ed.engagementSafetyLimit}} engagements,
+                and  loading them all may take awhile.
+            </div>        <button class="btn btn-danger" ng-click="ed.turnOffSafety()">Show All of Your Engagements</button>
+
+        </div>
+
+
+
+
+        <!-- NAV TAB CONTROLS -->
+        <ul class="nav nav-tabs " role="tablist">
+
+            <li role="presentation" class="active">
+                <a href="#active"
+                   aria-controls="members"
+                   role="tab"
+                   ng-click="ed.engagementFilterFilingStatus = 'active'"
+                   data-toggle="tab">Active</a>
+            </li>
+
+            <li role="presentation">
+                <a href="#executing"
+                   aria-controls="engagements"
+                   role="tab"
+                   ng-click="ed.engagementFilterFilingStatus = 'executing'"
+                   data-toggle="tab">Executing</a>
+            </li>
+
+            <li role="presentation">
+                <a href="#on-hold"
+                   aria-controls="history"
+                   role="tab"
+                   ng-click="ed.engagementFilterFilingStatus = 'on hold'"
+                   data-toggle="tab">On Hold</a>
+            </li>
+
+
+            <li role="presentation">
+                <a href="#closed"
+                   aria-controls="options"
+                   role="tab"
+                   ng-click="ed.engagementFilterFilingStatus = 'all'"
+                   data-toggle="tab">Closed</a>
+            </li>
+
+        </ul>
+
+        <div class="en-personal-dashboard-wrapper" id="en-personal-dashboard-wrapper">
+
+            <div class="en-personal-dashboard-body">
+                <div class="tab-content ">
+
+
+                    <!--** TAB: ACTIVE **-->
+                    <div role="tabpanel" class="tab-pane fade in active" id="active">
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>{{ed.currentUser}}'s Active Engagements</h4>
+
+                                    <h5 style="color: darkred">Early Innovation
+                                        Projects
+                                    </h5>
+                                    <div style="border: solid; border-radius: 15px">
+
+                                        <table class="table">
+                                            <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                                <td style="border-radius: 12px 0 0 0">Organization</td>
+                                                <td>Resources</td>
+                                                <td>Subject</td>
+                                                <td>Lab</td>
+                                                <td>PM</td>
+                                                <td>Latest</td>
+                                                <td>Next Step</td>
+                                                <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                            </tr>
+                                            <tr ng-repeat="engagement in ed.engagementCollection"
+                                                ng-if="((engagement.filingStatus == 'active') && (engagement.type=='Early Innovation'))"
+                                                ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                                ng-class="ed.overdue(engagement)">
+                                                <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                                </td>
+                                                <td style="font-weight: bold">
+                                                    {{engagement.cooperationResourcesLabel[0]}}
+                                                </td>
+                                                <td>{{engagement.title}}</td>
+                                                <td>{{engagement.tempLab}}</td>
+                                                <td>{{engagement.projectManager}}</td>
+                                                <td>{{engagement.currentStatus}}</td>
+                                                <td>{{engagement.nextStep}}</td>
+                                                <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <h5 style="color: darkred">Technical Cooperations</h5>
+                                    <div style="border: solid; border-radius: 15px">
+
+                                        <table class="table">
+                                            <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                                <td style="border-radius: 12px 0 0 0">Organization</td>
+                                                <td>Resources</td>
+                                                <td>Subject</td>
+                                                <td>Lab</td>
+                                                <td>PM</td>
+                                                <td>Latest</td>
+                                                <td>Next Step</td>
+                                                <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                            </tr>
+                                            <tr ng-repeat="engagement in ed.engagementCollection"
+                                                ng-if="((engagement.filingStatus == 'active') && (engagement.type=='Technical Cooperation'))"
+                                                ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                                ng-class="ed.overdue(engagement)">
+                                                <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                                </td>
+                                                <td style="font-weight: bold">
+                                                    {{engagement.cooperationResourcesLabel[0]}}
+                                                </td>
+                                                <td>{{engagement.title}}</td>
+                                                <td>{{engagement.tempLab}}</td>
+                                                <td>{{engagement.projectManager}}</td>
+                                                <td>{{engagement.currentStatus}}</td>
+                                                <td>{{engagement.nextStep}}</td>
+                                                <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                    <h5 style="color: darkred">Business Development Engagements</h5>
+                                    <div style="border: solid; border-radius: 15px">
+
+                                        <table class="table">
+                                            <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                                <td style="border-radius: 12px 0 0 0">Organization</td>
+                                                <td>Resources</td>
+                                                <td>Subject</td>
+                                                <td>Lab</td>
+                                                <td>PM</td>
+                                                <td>Latest</td>
+                                                <td>Next Step</td>
+                                                <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                            </tr>
+                                            <tr ng-repeat="engagement in ed.engagementCollection"
+                                                ng-if="((engagement.filingStatus == 'active') && (engagement.type=='Business Development'))"
+                                                ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                                ng-class="ed.overdue(engagement)">
+                                                <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                                </td>
+                                                <td style="font-weight: bold">
+                                                    {{engagement.cooperationResourcesLabel[0]}}
+                                                </td>
+                                                <td>{{engagement.title}}</td>
+                                                <td>{{engagement.tempLab}}</td>
+                                                <td>{{engagement.projectManager}}</td>
+                                                <td>{{engagement.currentStatus}}</td>
+                                                <td>{{engagement.nextStep}}</td>
+                                                <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                    <h5 style="color: darkred">Internal Projects</h5>
+                                    <div style="border: solid; border-radius: 15px">
+
+                                        <table class="table">
+                                            <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+
+                                                <td style="border-radius: 12px 0 0 0">Subject</td>
+
+                                                <td>Latest</td>
+                                                <td>Next Step</td>
+                                                <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                            </tr>
+                                            <tr ng-repeat="engagement in ed.engagementCollection"
+                                                ng-if="((engagement.filingStatus == 'active') && (engagement.type=='Internal Project'))"
+                                                ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                                ng-class="ed.overdue(engagement)">
+                                                <td style="font-weight: bold">{{engagement.title}}</td>
+                                                <td>{{engagement.currentStatus}}</td>
+                                                <td>{{engagement.nextStep}}</td>
+                                                <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                </div> <!--column-->
+                            </div> <!--row-->
+                        </div>
+                    </div><!-- / tab panel-->
+
+                    <!--** TAB: EXECUTING **-->
+                    <div role="tabpanel" class="tab-pane fade in" id="executing">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>{{ed.currentUser}}'s Executing Engagements</h4>
+
+                                <h5 style="color: darkred">Early Innovation Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'executing') && (engagement.type=='Early Innovation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <h5 style="color: darkred">Technical Cooperations</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'executing') && (engagement.type=='Technical Cooperation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Business Development Engagements</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'executing') && (engagement.type=='Business Development'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Internal Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+
+                                            <td style="border-radius: 12px 0 0 0">Subject</td>
+
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'executing') && (engagement.type=='Internal Project'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.title}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                            </div> <!--column-->
+                        </div> <!--row-->
+                    </div><!-- / tab panel-->
+
+                    <!--** TAB: ON HOLD **-->
+                    <div role="tabpanel" class="tab-pane fade in" id="on-hold">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>{{ed.currentUser}}'s Engagements Currently On Hold</h4>
+
+                                <h5 style="color: darkred">Early Innovation Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'on hold') && (engagement.type=='Early Innovation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <h5 style="color: darkred">Technical Cooperations</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'on hold') && (engagement.type=='Technical Cooperation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Business Development Engagements</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'on hold') && (engagement.type=='Business Development'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Internal Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+
+                                            <td style="border-radius: 12px 0 0 0">Subject</td>
+
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'on hold') && (engagement.type=='Internal Project'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.title}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                            </div> <!--column-->
+                        </div> <!--row-->
+                    </div><!-- / tab panel-->
+
+                    <!--** TAB: CLOSED **-->
+                    <div role="tabpanel" class="tab-pane fade in" id="closed">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>{{ed.currentUser}}'s Closed Engagements</h4>
+
+                                <h5 style="color: darkred">Early Innovation Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'closed') && (engagement.type=='Early Innovation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <h5 style="color: darkred">Technical Cooperations</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'closed') && (engagement.type=='Technical Cooperation'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Business Development Engagements</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+                                            <td style="border-radius: 12px 0 0 0">Organization</td>
+                                            <td>Resources</td>
+                                            <td>Subject</td>
+                                            <td>Lab</td>
+                                            <td>PM</td>
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'closed') && (engagement.type=='Business Development'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.contractingPartnersLabel[0]}}
+                                            </td>
+                                            <td style="font-weight: bold">{{engagement.cooperationResourcesLabel[0]}}
+                                            </td>
+                                            <td>{{engagement.title}}</td>
+                                            <td>{{engagement.tempLab}}</td>
+                                            <td>{{engagement.projectManager}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <h5 style="color: darkred">Internal Projects</h5>
+                                <div style="border: solid; border-radius: 15px">
+
+                                    <table class="table">
+                                        <tr style="font-weight: bold; color: white; border-radius: 15px; background:darkred; border-top: hidden">
+
+                                            <td style="border-radius: 12px 0 0 0">Subject</td>
+
+                                            <td>Latest</td>
+                                            <td>Next Step</td>
+                                            <td style="border-radius: 0 12px  0 0;">Updated</td>
+                                        </tr>
+                                        <tr ng-repeat="engagement in ed.engagementCollection"
+                                            ng-if="((engagement.filingStatus == 'closed') && (engagement.type=='Internal Project'))"
+                                            ng-click="ed.viewEngagementDetail(engagement._id)" ;
+                                            ng-class="ed.overdue(engagement)">
+                                            <td style="font-weight: bold">{{engagement.title}}</td>
+                                            <td>{{engagement.currentStatus}}</td>
+                                            <td>{{engagement.nextStep}}</td>
+                                            <td>{{ed.lastUpdateString (engagement.lastUpdated)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                            </div> <!--column-->
+                        </div> <!--row-->
+                    </div><!-- / tab panel-->
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!--col-->
+</div> <!--row-->
+<!-- **** TAB IMPLEMENTATION **** -->
+

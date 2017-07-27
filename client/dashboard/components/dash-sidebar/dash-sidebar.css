@@ -1,0 +1,79 @@
+div.dash-sidebar {
+    border: 10px;
+    padding: 3px;
+    margin: -20px 0 0 -15px;
+    position: fixed;
+    height: 100%;
+    width: 75px;
+    color: white;
+    background: rgba(109, 0, 25, 1);
+    background: -moz-linear-gradient(left, rgba(109, 0, 25, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(109, 0, 25, 1)), color-stop(44%, rgba(143, 2, 34, 1)), color-stop(100%, rgba(109, 0, 25, 1)));
+    background: -webkit-linear-gradient(left, rgba(109, 0, 25, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+    background: -o-linear-gradient(left, rgba(109, 0, 25, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(109, 0, 25, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+    background: linear-gradient(to right, rgba(109, 0, 25, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6d0019', endColorstr='#6d0019', GradientType=1);
+    text-align: center;
+    font-size: small;
+    font: Arial;
+    z-index: 100;
+
+    -webkit-box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.dash-nav-item {
+    border-left: 3px solid transparent;
+    margin-left: -40px;
+    margin-bottom: 25px;
+    background: transparent;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    z-index: 100;
+    display: block;
+}
+
+.dash-nav-item > a, a:visited {
+    color: lightgrey;
+    text-decoration: none;
+}
+
+.dash-nav-text {
+    text-decoration: none;
+    outline: none;
+
+}
+
+.dash-sidebar-icon {
+    font-size: 25px;
+
+}
+
+.dash-nav-item > a:hover{
+    text-decoration: none;
+    color: white;
+
+}
+
+.dash-nav-item.active {
+    border-left: 3px solid transparent;
+    margin-left: -40px;
+    margin-bottom: 25px;
+    background: transparent;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    z-index: 100;
+    display: block;
+    border-left-color: #fff;
+    color:white;
+}
+
+.dash-nav-item.active > a {
+    text-decoration:  none;
+    color:white;
+    text-decoration: none;
+}

@@ -1,0 +1,82 @@
+DEPLOYING MIZ TO AN UBUNTU SERVER
+
+Deploying miz to a Futurewei ubuntu server comes with the significant increased challenge of making it work behind
+a very strict proxy.   Typically, we would use MUPX (MeteorUp X) to deploy the app to the server and mangage the
+environment, but this has not been possible because Meteor can not download any modules through the proxy, regardless
+of proxy settings.  (Seems to be an SSL issue, but after much troubleshooting, I have been unable to resolve this.)
+
+Instead, we manually deploy Miz to the server.
+
+UPDATING MIZ
+(1) Build a tar in the development environment.  This will build a tarball a directory above the meteor home directory
+    >>  meteor build --architecture os.linux.x86_64 ..
+
+(2) FTP is to the server, and place it in the /home/miz directory.
+
+(3) Stop the application
+    >> stop miz
+
+(3) Remove the existing build
+    >> cd /home/miz
+    >> rm -rf build
+
+(4) Untar it and create the new build directory
+    >> tar -zxvf miz.tar.gz
+
+(5) <<MAYBE>>  Fix the lock issue
+
+(6) Go to the server directory in the build
+    >> cd /home/miz/bundle/program/server
+
+(7) Build the app
+    >> npm install
+    // did it not work?  Fix your proxy settings
+        >> npm config edit
+        >> 
+proxy=http://a00754691:S00perman@proxyus3.huawei.com:8080/
+strict-ssl=false
+ (remove the proxy-https)
+
+
+ (8) To start the service, run the command
+ >> start miz
+
+ 
+
+RESTORING MIZ DATABASE
+mongorestore --db miz —-drop /home/etc/drop/meteor
+— miz is the name of the production database
+- assumes backup in /home/etc/drop/meteor
+
+
+REGARDING THE CLIENT ENVIRONMENT
+Huawei has installed a web securtiy application called WebSense, which scans every upload and significantly slows down
+Miz.  To mitgate, use Chrome in "Incognito Mode". Websense is not loaded in this mode, and uploads are fast and snappy,
+like in the test environment.
+
+ 
+LOG
+
+1/20.2016
+-- Removed SSL binding for NGINX.  Now, Miz functions without SSL protecciton, eliminating warnings.
+
+9/12/2016
+-- Updated to Ubuntu 16.04.1
+-- Upstart is replaced in upgrade, reinstalled
+-- Uploads no longer work in Chrome, but work in IE.  Seems to be blocked by websense?
+
+
+9/6/2016
+-- Error uploading to Nix - oversize.   Error "413 Request Entity Too Large"
+
+Changed server limits NGIX.
+/etc/nginx/nginx.conf
+
+Under HTML settings:
+    client_max_body_size 100M;
+
+To adjust PHP Settings
+/etc/php5/fpm/php.ini
+memory_limit = 128M
+post_max_size = 125M
+upload_max_filesize = 100M

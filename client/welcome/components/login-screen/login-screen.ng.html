@@ -1,0 +1,51 @@
+<div class="container-fluid">
+
+    <!-- BACKGROUND VIDEO IMPLEMETNATION-->
+
+    <div class="fullscreen-bg">
+        <video loop muted autoplay poster="/video/frame.jpg" class="fullscreen-bg__video">
+            <source ng-src="video/futurewei2.webm" type="video/webm">
+            <source ng-src="video/futurewei2.mp4" type="video/mp4">
+            <source ng-src="video/futurewei2.ogv" type="video/ogg">
+        </video>
+    </div>
+
+    <div class="welcomeMessage">
+<h1>Miz</h1>
+        <h2>The Futurewei Partner Platform </h2>
+
+        <h3>Your gateway to American start-ups, universities, and incubators.</h3>
+
+    </div>
+
+
+    <form class="login">
+        <div>
+            <md-icon md-svg-icon="content:ic_mail_24px"></md-icon>
+            <input type="text" ng-model="login.credentials.email"
+                   placeholder="login or e-mail" aria-label="email"/>
+        </div>
+        <div>
+            <md-icon md-svg-icon="action:ic_lock_open_24px"></md-icon>
+            <input type="password" ng-model="login.credentials.password"
+                   placeholder="password" aria-label="password"/>
+        </div>
+        <button class="btn btn-default" ng-click="login.login()"
+                aria-label="login">Sign In
+        </button>
+        <div class="help" ng-if="error">
+            <h4>{{error}}</h4>
+        </div>
+    </form>
+
+
+
+    <!--<div class="help">-->
+    <!--<a href="/resetpw">Forgot password?</a>-->
+    <!--<a href="/register">Create an account</a>-->
+    <!--</div>-->
+
+
+</div>
+
+

@@ -1,0 +1,41 @@
+<!--SEARCH RESULTS COMPONENT-->
+
+
+<!--IF NOTHING IN SEARCH BOX-->
+<div class="row search-result-box" ng-click="se.viewEngagementDetail(se.engagement._id)">
+    <div class="col-xs-2">
+        <div class="search-result-engagement-type"  >
+            <span title="{{se.engagement.type}}"> {{se.typeAbbreviation()}}</span>
+        </div>
+
+
+        <div class="search-result-engagement-status" >
+            <span ng-attr-title="Technical Cooperation" ng-class="se.statusClass()"> {{se.statusAbbreviation()}}</span>
+        </div>
+
+
+    </div>
+
+    <div class="col-xs-10">
+
+        <div class="search-result-engagement-resources">
+            {{se.cooperationResourcesString()}}
+        </div>
+
+        <div class="search-result-engagement-partners">
+            {{se.contractingPartnersString()}}
+        </div>
+
+        <div class="search-result-engagement-title">
+            {{se.engagement.title}}
+        </div>
+
+        <div class="search-result-engagement-lab">
+            {{se.engagement.tempLab}}
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,52 @@
+<!--NOTES:
+Todo: lazy loading of tabs check this out: http://blog.xebia.com/bootstraps-tabs-and-lazy-data-loading-in-angularjs/
+Todo: Modularize Tabs to Enable Lazy Loading
+-->
+
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+
+    <!--***  HEADER ***-->
+    <div class="row">
+
+        <div class="col-xs-12">
+            <h4 style="margin-bottom: 0px; color: darkred "> {{ld.lab.company || "Add company..."}} </h4>
+            <h3 style="margin-top: 0px">Lab Name: <a style="color: black"
+                   e-style="width: 100%;"
+                   href="#"
+                   editable-text="ld.lab.name">
+                {{ld.lab.name || 'Add lab name...'}} </a>
+            </h3>
+
+
+
+            <h5> Leader: {{ld.lab.leader}}
+            <a e-style="width: 100%"
+                   href="#"
+                   editable-text="ld.lab.leader">
+                {{ld.lab.leader || 'Add lab leader...'}} </a>
+            </h5>
+
+
+            <h5><strong> About this lab:</strong> <a style="color: darkslategrey"
+                   e-style="width: 100%;"
+                   href="#"
+                   editable-text="ld.lab.description">
+                {{ld.lab.description || 'Add description...'}} </a>
+            </h5>
+
+        </div>
+    </div>
+
+<hr>
+
+<!--
+<h5>Diagnostics</h5>
+
+ld.Lab: {{ld.lab}}
+-->

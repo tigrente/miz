@@ -1,0 +1,166 @@
+
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/dashboard">Home</a></li>
+        <li><a href="/users">User List</a></li>
+        <li class="active">New User</li>
+    </ol>
+</header>
+
+
+<h3> Create New User </h3>
+<p>All fields are required.</p><hr>
+
+<div ng-if="ac.createUserFeedback != ''">
+    <hr>
+    <h4 style="color: darkred">{{ac.createUserFeedback}}</h4>
+    <hr>
+</div>
+
+<form id-="registration">
+    <div class="row"></div>
+    <div class="col-md-3">
+
+        <div ng-class="ac.inputStatusGroup.username.formGroup">
+            <label class="control-label" for="loginTextbox">New User Login</label>
+            <input type="text" class="form-control" id="loginTextbox" placeholder="Login"
+                   ng-model="ac.newUser.username" ng-change="ac.validateUsername()" auto-focus>
+            <span ng-class="ac.inputStatusGroup.username.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.username }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.password.formGroup">
+            <label class="control-label" for="passwordTextbox">Password</label>
+            <input type="password" class="form-control" id="passwordTextbox" placeholder="Password"
+                   ng-model="ac.newUser.password" ng-change="ac.validatePassword()">
+            <span ng-class="ac.inputStatusGroup.password.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.password }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.name.formGroup">
+            <label class="control-label" for="nameTextbox">Name of User</label>
+            <input type="text" class="form-control" id="nameTextbox" placeholder="e.g. Nikola Tesla"
+                   ng-model="ac.newUser.name" ng-change="ac.validateProperty('name')">
+            <span ng-class="ac.inputStatusGroup.name.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.name }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.email.formGroup">
+            <label class="control-label" for="emailTextbox">E-mail</label>
+            <input type="text" class="form-control" id="emailTextbox" placeholder="Email"
+                   ng-model="ac.newUser.email" ng-change="ac.validateEmail()">
+            <span ng-class="ac.inputStatusGroup.email.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.email }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.huaweiId.formGroup">
+            <label class="control-label" for="huaweiIdTextbox">Huawei ID number </label>
+            <input type="text" class="form-control" id="huaweiIdTextbox" placeholder="A00123456"
+                   ng-model="ac.newUser.huaweiId" ng-change="ac.validateProperty('huaweiId')">
+            <span ng-class="ac.inputStatusGroup.huaweiId.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.huaweiId }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.company.formGroup">
+            <label class="control-label" for="companyTextbox">Company</label>
+            <input type="text" class="form-control" id="companyTextbox" placeholder="Futurewei, HiSilicon, Huawei, etc."
+                   ng-model="ac.newUser.company" ng-change="ac.validateProperty('company')">
+            <span ng-class="ac.inputStatusGroup.company.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.company }}</span>
+        </div>
+
+        <div ng-class="ac.inputStatusGroup.group.formGroup">
+            <label class="control-label" for="groupTextbox">Lab/Group</label>
+            <input type="text" class="form-control" id="groupTextbox" placeholder="e.g. Wireless Access Lab"
+                   ng-model="ac.newUser.group" ng-change="ac.validateProperty('group')">
+            <span ng-class="ac.inputStatusGroup.group.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.group }}</span>
+        </div>
+
+        <hr>
+
+        <div ng-class="accountUpdate.inputStatusGroup.group.formGroup">
+            <label class="control-label" for="groupTextbox">Outlook2Web Serial Number</label>
+            <input type="text" class="form-control" id="o2wTextbox" placeholder="xxxx-xxxx-xxxx"
+                   ng-model="ac.newUser.o2w_serial">
+            <span ng-class="ac.inputStatusGroup.o2w_serial.glyphs" aria-hidden="true"></span>
+            <span class="help-block">{{ac.inputHelp.o2w_serial }}</span>
+        </div>
+
+
+        <!-- end column -->
+    </div>
+    <div class="col-md-9">
+
+
+        <h5>Select Permissions</h5>
+
+
+        <div class="checkbox">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h6>Companies</h6>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.viewCompanies">
+                        View
+                        Companies</label>
+                    <br>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.editCompanies">
+                        Add/Edit
+                        Companies </label><br>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.removeCompanies">
+                        Remove
+                        Companies </label><br>
+                </div>
+                <div class="col-md-3">
+                    <h6>Engagements</h6>
+                    <label> <input type="checkbox" ng-model="ac.permissionCheckboxes.viewEngagements">
+                        View Engagements</label> <br>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.editEngagements">
+                        Add/Edit/Remove Own Engagements</label> <br>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.editAllEngagements">
+                        Edit/Remove Other User's
+                        Engagements </label><br>
+                </div>
+                <div class="col-md-3">
+                    <h6>Admin</h6>
+                    <label><input type="checkbox" ng-model="ac.permissionCheckboxes.superAdmin">
+                        Full
+                        Admin
+                        (add users,
+                        analytics, etc.) </label><br>
+
+                    <h6>Enabled</h6>
+                    <label><input type="checkbox" ng-model="ac.newUser.enabled">
+                        User
+                        is able to log In </label><br>
+
+                </div>
+                <span></span>
+            </div>
+        </div>
+        <hr>
+
+
+        <button class="btn btn-default"
+                ng-disabled="ac.submissionDisabled"
+                ng-click="ac.registerUser()">
+            Create Account
+        </button>
+        <button class="btn btn-default"
+                ng-click="ac.resetForm(); createUserFeedback = ''; ">
+            Reset Form
+        </button>
+    </div>
+</form>
+<hr>
+
+newUser:  {{ac.newUser}}
+
+

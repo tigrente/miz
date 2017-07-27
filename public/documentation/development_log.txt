@@ -1,0 +1,424 @@
+DEVELOPMENT NOTES FOR PROJECT
+
+v.71
+- Added uncompleted versions of acceptance tracking in Early Innovation Engagements
+- Updated to miz
+
+v.70
+- Fixed Engagement title updates
+- Added lazy loading to log entries - now engagement and partner logs with lots of attachments load much  faster
+- Added scrolling to engagement new entry
+
+v.69
+- Team engagement summary now opens engagements in a new tab or window
+- Search labels updated automatically on name changes
+
+
+
+v.68
+- Updated to Meteor 1.5
+accounts-base              upgraded from 1.2.17 to 1.3.0
+babel-compiler             upgraded from 6.18.2 to 6.19.1
+boilerplate-generator      upgraded from 1.0.11 to 1.1.0
+dynamic-import             added, version 0.1.0
+ecmascript                 upgraded from 0.7.3 to 0.8.0
+ecmascript-runtime         upgraded from 0.3.15 to 0.4.1
+ecmascript-runtime-client  added, version 0.4.1
+ecmascript-runtime-server  added, version 0.4.1
+localstorage               upgraded from 1.0.12 to 1.1.0
+meteor-base                upgraded from 1.0.4 to 1.1.0
+minifier-js                upgraded from 2.0.0 to 2.1.0
+minimongo                  upgraded from 1.0.23 to 1.2.0
+modules                    upgraded from 0.8.2 to 0.9.0
+modules-runtime            upgraded from 0.7.10 to 0.8.0
+mongo                      upgraded from 1.1.17 to 1.1.18
+promise                    upgraded from 0.8.8 to 0.8.9
+reactive-dict              upgraded from 1.1.8 to 1.1.9
+standard-minifier-js       upgraded from 2.0.0 to 2.1.0
+webapp                     upgraded from 1.3.15 to 1.3.16
+
+- Fixed bug on Engagement type changes
+- Added scale handles to sample data generator.
+- Limits and infinite scroll added to View All Engagements
+
+
+v.67
+- updated to Meteor 1.4.4.3.
+- froala:editor  upgraded from 2.6.0 to 2.6.1
+- Replaced engagement workspace with engagement detail template that removes engagement side menu.  Now viewing an engagement loads
+  only one engagement instead of all of them.
+- Added scroll bounding box to logs and corrected jQuery bugs
+- Format changes to engagements - added black title bar.
+- Removed temp org / temp partner fields on engagement pages
+- Removed image subscription from engagement pages. Loading is *much* faster.
+- Added loading and spinner display on engagements
+- Added 'safety' limit on User Engagement Summary - provides button to load all engagements if over 200 engagements.
+- Added jQuery to ensure Log Modals in directive always surface to the top and function properly.
+
+
+
+v.66 5/14/17
+- Added parent partner labels and update mechanics
+- Added PM Column to Engagement table
+- Added Miz Super Search - one search bar to rule them all...
+- Corrected near-catastrophic update bug on partners and engagements.  Each update is now a discrete call to the server,
+  no more autorun updates.
+- Huge performance boost on partner pages and search by tuning partner page subscriptions and updates. Miz is now
+  *much* more scalable.
+- Startup database correction routine to add parent partner labels to each partner.
+
+- Updated to Meteor 1.4.4.2
+accounts-base          upgraded from 1.2.14 to 1.2.17
+accounts-password      upgraded from 1.3.4 to 1.3.6
+accounts-ui-unstyled   upgraded from 1.2.0 to 1.2.1
+babel-compiler         upgraded from 6.14.1 to 6.18.2
+blaze                  upgraded from 2.3.0 to 2.3.2
+ddp-client             upgraded from 1.3.3 to 1.3.4
+ddp-rate-limiter       upgraded from 1.0.6 to 1.0.7
+ddp-server             upgraded from 1.3.13 to 1.3.14
+ecmascript             upgraded from 0.6.3 to 0.7.3
+email                  upgraded from 1.1.18 to 1.2.1
+http                   upgraded from 1.2.11 to 1.2.12
+minifier-js*           upgraded from 1.2.18 to 2.0.0
+minimongo              upgraded from 1.0.20 to 1.0.23
+modules                upgraded from 0.7.9 to 0.8.2
+modules-runtime        upgraded from 0.7.9 to 0.7.10
+mongo                  upgraded from 1.1.15 to 1.1.17
+npm-mongo              upgraded from 2.2.16_1 to 2.2.24
+observe-sequence       upgraded from 1.0.15 to 1.0.16
+rate-limit             upgraded from 1.0.6 to 1.0.8
+shell-server           upgraded from 0.2.2 to 0.2.3
+spacebars-compiler     upgraded from 1.1.0 to 1.1.1
+standard-minifier-js*  upgraded from 1.2.3 to 2.0.0
+templating-tools       upgraded from 1.1.0 to 1.1.1
+tracker                upgraded from 1.1.2 to 1.1.3
+webapp                 upgraded from 1.3.13 to 1.3.15
+coffeescript           upgraded from 1.11.1_4 to 1.12.3_1
+
+
+
+
+-- Updated to Meteor 1.4.3.1. Additional module updates:
+alanning:roles         upgraded from 1.2.15 to 1.2.16
+froala:editor          upgraded from 2.4.2 to 2.5.0
+minifier-js            upgraded from 1.2.17 to 1.2.18
+standard-minifier-css  upgraded from 1.3.3 to 1.3.4
+standard-minifier-js   upgraded from 1.2.2 to 1.2.3
+
+
+
+v.065 2/16/17
+-- Substantial formatting updates under the engagement tab, including addition of jQuery scripts to
+   fix height/width auto0formatting
+-- Created Futurewei engagement summary under Engagements tab - removed from main Dashboard
+-- Created ability to search for other's engagements in the sidebar with filtering from server
+   (but no record limit added.  Let's keep an eye on performance to see if we need to tune this)
+-- Enabled log headlines to be edited
+-- Added checkbox that enables parent status to be updated automatically from headline
+-- Fixed partner search filters
+-- Updated Meteor to 1.4.2.7 (The npm npm package has been downgraded from version 4.1.2 back to version 3.10.9, reverting the upgrade in Meteor 1.4.2.4._
+-- Module upgrades
+accounts-password      upgraded from 1.3.3 to 1.3.4
+babel-compiler         upgraded from 6.13.0 to 6.14.1
+check                  upgraded from 1.2.4 to 1.2.5
+ddp-client             upgraded from 1.3.2 to 1.3.3
+ddp-server             upgraded from 1.3.12 to 1.3.13
+ecmascript             upgraded from 0.6.1 to 0.6.3
+froala:editor          upgraded from 2.4.1 to 2.4.2
+launch-screen          upgraded from 1.1.0 to 1.1.1
+less                   upgraded from 2.7.8 to 2.7.9
+logging                upgraded from 1.1.16 to 1.1.17
+meteor                 upgraded from 1.6.0 to 1.6.1
+minifier-css           upgraded from 1.2.15 to 1.2.16
+minifier-js            upgraded from 1.2.15 to 1.2.17
+minimongo              upgraded from 1.0.19 to 1.0.20
+mobile-status-bar      upgraded from 1.0.13 to 1.0.14
+modules                upgraded from 0.7.7 to 0.7.9
+modules-runtime        upgraded from 0.7.8 to 0.7.9
+mongo                  upgraded from 1.1.14 to 1.1.15
+observe-sequence       upgraded from 1.0.14 to 1.0.15
+shell-server           upgraded from 0.2.1 to 0.2.2
+standard-minifier-css  upgraded from 1.3.2 to 1.3.3
+standard-minifier-js   upgraded from 1.2.1 to 1.2.2
+tracker                upgraded from 1.1.1 to 1.1.2
+webapp                 upgraded from 1.3.12 to 1.3.13
+
+
+
+
+v.064
+-- Module Upgrades
+accounts-ui-unstyled      upgraded from 1.1.12 to 1.1.13
+autoupdate                upgraded from 1.3.11 to 1.3.12
+blaze                     upgraded from 2.1.8 to 2.1.9
+blaze-html-templates      upgraded from 1.0.4 to 1.0.5
+blaze-tools               upgraded from 1.0.9 to 1.0.10
+caching-html-compiler     upgraded from 1.0.6 to 1.0.7
+coffeescript              upgraded from 1.11.1_3 to 1.11.1_4
+ddp-client                upgraded from 1.3.1 to 1.3.2
+ddp-common                upgraded from 1.2.6 to 1.2.8
+ddp-server                upgraded from 1.3.10 to 1.3.12
+fastclick                 upgraded from 1.0.12 to 1.0.13
+froala:editor             upgraded from 2.4.0 to 2.4.1
+html-tools                upgraded from 1.0.10 to 1.0.11
+htmljs                    upgraded from 1.0.10 to 1.0.11
+http                      upgraded from 1.2.9 to 1.2.10
+less                      upgraded from 2.7.5 to 2.7.8
+minifier-css              upgraded from 1.2.14_1 to 1.2.15
+minimongo                 upgraded from 1.0.18 to 1.0.19
+mobile-status-bar         upgraded from 1.0.12 to 1.0.13
+modules-runtime           upgraded from 0.7.7 to 0.7.8
+npm-mongo                 upgraded from 2.2.11_2 to 2.2.16_1
+observe-sequence          upgraded from 1.0.12 to 1.0.14
+pbastowski:angular-babel  upgraded from 1.3.6 to 1.3.7
+reactive-var              upgraded from 1.0.10 to 1.0.11
+retry                     upgraded from 1.0.8 to 1.0.9
+spacebars                 upgraded from 1.0.12 to 1.0.13
+spacebars-compiler        upgraded from 1.0.12 to 1.0.13
+templating                upgraded from 1.2.14 to 1.2.15
+templating-compiler       added, version 1.2.15
+templating-runtime        added, version 1.2.15
+templating-tools          upgraded from 1.0.4 to 1.0.5
+tmeasday:publish-counts   upgraded from 0.7.3 to 0.8.0
+ui                        upgraded from 1.0.11 to 1.0.12
+url                       upgraded from 1.0.10 to 1.0.11
+-- Manual Updates --
+fortawesome:fontawesome     upgraded from 4.5.0 to 4.7.0
+blaze                       upgraded from 2.1.9 to 2.3.0
+caching-html-compiler       upgraded from 1.0.7 to 1.1.0
+spacebars-compiler          upgraded from 1.0.13 to 1.1.0
+templating                  upgraded from 1.2.15 to 1.3.0
+templating-compiler         upgraded from 1.2.15 to 1.3.0
+templating-runtime          upgraded from 1.2.15 to 1.3.0
+templating-tools            upgraded from 1.0.5 to 1.1.0
+blaze-html-templates        upgraded from 1.0.5 to 1.1.0
+launch-screen               upgraded from 1.0.12 to 1.1.0
+
+
+v.063 - 1/27/2017
+-- Fixed auto-height adjustment for engagement side-bar and hid accordian triggers
+-- Updated Team Summary Page on Dashboard
+
+
+v.062 - 1/27/2017
+-- Updated and re-formatted New Engagement screen
+-- Updated Engagement Workspace to include deal value, Huawei Entity,and more.
+--
+
+v.061
+1/20/2017
+-- froala:editor  upgraded from 2.3.4 to 2.4.0
+-- Updated miz.css to fix formatting of ordered and unordered lists in froala and elsewhere
+-- Updated dash-sidebar.css to remove bullets from menu items w/ display: block
+-- Added headers to index to enable compatability with IE
+-- Added eJSON to enable compatability with older versions of IE
+-- Small formatting adjustements for IE
+
+v.060
+-- Added main dashboard, side menu, and welcome page
+-- Added names to personal engagements tab
+-- Added Outlook2Web Serial Tracking
+-- Updated froala key for miz.huawei.com
+
+
+v.059
+-- Updated to Meteor 1.4.2.3
+    (Largely rapid rebuild enhancements)
+    accounts-password upgraded from 1.3.2 to 1.3.3
+    babel-runtime*     upgraded from 0.1.12 to 1.0.1
+    caching-compiler   upgraded from 1.1.7 to 1.1.9
+    coffeescript       upgraded from 1.2.4_1 to 1.11.1_3
+    ecmascript         upgraded from 0.5.9 to 0.6.1
+
+-- npm install babel-runtime
+-- meteorhacks: aggregate         added, version 1.3.0
+    - added dependency meteorhacks:collection-utils  added, version 1.2.0
+    - This package enables use of MongoDB "aggregate" functions - useful for Dashboard and choosing sample data
+-- Updated server loadSampleData to provide sample engagements
+-- Resolved data loading issue on engagements, but removed folding capabilities...
+-- Modified menu CSS for new look and enabled folding
+    - Introduce sizing bug on CSS that needs to be corrected
+
+
+
+v.058
+-- updated to Meteor 1.4.1.3.
+    mongo       upgraded from 1.1.12_1 to 1.1.13
+    npm-mongo*  upgraded from 1.5.49 to 2.2.11_1
+    * These packages have been updated to new versions that are not backwards
+    compatible.
+
+ -- updated to Meteor 1.4.2.1.
+
+
+
+
+v.057
+-- Added topside add button to log (actually just moved text box down
+-- Removed upload error (server error 0 still occurs but is in the background)
+
+
+v.056
+-- Added personal dashboard in engagements
+-- Moved jQuery for engagement detail into HTML because edit icon would not show
+
+v.053
+-- Engagement Filtering
+    - added status pane to engagements
+    - status change modal
+    - bed owner change modal
+    - status and bd filtering in engagement searches
+
+v.052
+-- Denormalized partner information and added partner labels to engagements
+-- Reformatted search in engagement menu
+
+v.051
+-- Updated Meteor to Meteor 1.4.1.2
+
+v.050
+10/2/2016
+-- Added engagements tab to Partners
+
+v.049
+10/1/2016
+-- Partners and contracting orgs linked to engagements
+-- Formatting in x-Editable updated for width
+-- Edit glyphicons made to hide and appear on partners and engagements
+-- added npm packages
+    - angular-animate
+    - angular-modal-service : an angular modal generator
+
+v.048
+9/30/2016
+-- Engagement Development
+    - Added resource filtering and partner type filtering to selection component
+    - Corrected filtering bug
+
+v.047
+9/25/2016
+-- Engagement Development
+    - Created general partner selection component, added to engagements
+
+v.046
+9/23/2016
+--  Progress bars added to log file editing
+--  Added error messages
+
+v.045
+9/16/2016
+-- Progress Bar Additions to log entries
+    -Added progress bars to file uploads, for both upload and Collections ingestion
+
+-- Refined Froala buttons for smaller sizes
+
+OPEN ISSUES:
+Need to add robustness to upload cancelling and disable features to log button
+
+
+
+v.044
+-- Froala customizations
+  - Simplified toolbars, migrated to 2.0 syntax
+  - Removed several plug ins, including images and file uploading
+
+
+v.043
+9/6/2016
+-- Fixed uploading progress bars on Dropzones.  These will hopefully be customized to be more aesthetic in a future
+build.  Key thing is that, despite documentation, the accept: event in dropzone is not the best place to run the
+server code.  If this method is replaced and no done() is included, events won't fire.
+
+Open issues:
+-- Need to migrate file editing to be follow the same pattern as the main.
+
+
+v.042
+9/5/2016
+** FIRST SUCCESSFUL DEPLOYMENT!!!
+
+-- Updated sub-packages
+autoupdate                          upgraded from 1.2.11 to 1.3.11
+caching-compiler                    upgraded from 1.0.6 to 1.1.7
+coffeescript                        upgraded from 1.1.4 to 1.2.4_1
+cosmos:browserify                   upgraded from 0.8.4 to 0.10.0
+dburles:mongo-collection-instances  upgraded from 0.3.4 to 0.3.5
+ddp-client                          upgraded from 1.2.9 to 1.3.1
+ddp-server                          upgraded from 1.2.10 to 1.3.10
+fortawesome:fontawesome             upgraded from 4.4.0_1 to 4.5.0
+http                                upgraded from 1.1.8 to 1.2.9
+lai:collection-extensions           upgraded from 0.1.4 to 0.2.1_1
+less                                upgraded from 2.6.5 to 2.7.5
+templating                          upgraded from 1.1.14 to 1.2.14
+
+
+v.041
+9/5/2016
+-- Miz 0.041: updated to Meteor 1.4.1.1.
+
+Noted issues:
+    -  Seems operational.  Also - alignment now created in logs new entries.
+    -  (Fixed) Your development database is using mmapv1, the old, pre-MongoDB 3.0 database engine. You should consider upgrading to Wired Tiger, the new engine. The easiest way to do so
+       in development is to run meteor reset. If you'd like to migrate your database, please consult https://docs.mongodb.org/v3.0/release-notes/3.0-upgrade/
+        - Installed b-crypt through NPM
+
+    - Note: you are using a pure-JavaScript implementation of crypt.
+
+
+v.40
+9/5/2016
+-- Focused on Log Attachments.  Switched from using Dropzone direct calls in log to using angular <drop-zone> directive.
+-- Reduced amount of code by creating single option base for dropzones
+-- Removed dropzone alternatives and removed dropzone.js from lib
+-- Fixed formatting on New Log Entry with style calls
+-- Fixed deleting of files from log entry modal
+
+Noted issues:
+-- New Log entry is not well aligned
+-- Froala needs to be formatted
+
+v.039
+8/30/2016
+
+-- Updated to Meteor release 3.3.5.1
+
+Noted Issues:
+    - (fixed) System breaks with textAngular components present, most likely because of 'angular-sanitize'.  Displays blank
+      screen on load
+    - (fixed) Froala Text Details no longer display (notably log subentry details, which is displayed in HTML)
+        -   ng-html-bind directive has stopped working, probably due to angular-sanitize missing
+    - (open) Formatting for drop-box no longer works in log entry, but logo files now work.
+
+Focus Fixes
+    - Upgrade Froala to new version, then use Froala view for text captured by it
+    - Uninstalled eastamis:angular-froala and assorted packages
+        eastamis:angular-froala  removed from your project
+        fortawesome:fontawesome  removed from your project
+        froala:editor            removed from your project
+        urigo:angular            removed from your project
+
+    - fortawesome:fontawesome  added, version 4.4.0_1
+      froala:editor            added, version 2.3.4
+
+    - manually added angular-froala.js module
+      Froala is working well - but needs to go through migration for settings/defaults ext.
+
+
+
+v.038
+-- Everything works in this version,  but not when deployed to the server.  However, a fully upgraded version works
+   on the server, but with errors that are mirrored between development and deployment environments.  Instead of
+   troubleshooting production environment, will troubleshoot app to get it up to speed.
+
+-- cfs:gridfs  upgraded from 0.0.33 to 0.0.34
+
+   This package is from: https://github.com/badmark/Meteor-CollectionFS.
+   It fixes a dependency caused by upgrading node that would result in error messages with:
+   [Error: Cannot find module '../build/Release/bson'] code: 'MODULE_NOT_FOUND'
+   (STDERR) js-bson: Failed to load c++ bson extension, using pure JS version
+
+   This forked version has been updated to work with Meteor 1.4.
+
+   Note that CollectionFS has been deprecated and those packages (and the database!) will need to be
+   eventually migrated out.
+

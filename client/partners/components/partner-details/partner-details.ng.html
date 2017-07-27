@@ -1,0 +1,1590 @@
+<!--NOTES:
+Todo: lazy loading of tabs check this out: http://blog.xebia.com/bootstraps-tabs-and-lazy-data-loading-in-angularjs/
+Todo: Modularize Tabs to Enable Lazy Loading
+-->
+
+
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+
+<div class="container-fluid">
+
+    <!--*** PARTNER HEADER ***-->
+    <div class="row">
+
+        <div class="col-xs-2">
+
+
+            <br><img ng-src="{{ partnerDetails.logo.url() }}" data-toggle="modal" data-target="#image-modal"
+                     style="height: auto; max-width: 100%; vertical-align: top; max-height: 150px; text-align: right"/>
+
+        </div>
+
+
+        <div class="col-xs-7">
+
+            <div id="partner-name">
+                <h1><a style="color: black; display: inline; text-decoration: none;"
+                       e-style="width: 125%; font-size: x-large "
+                       href="#"
+                       editable-text="partnerDetails.partner.name"
+                       onaftersave="partnerDetails.updatePartner('name')">
+                    {{partnerDetails.partner.name || 'Click to add Partner name' }} </a></h1>
+            </div>
+
+            <div id="parent-partners">
+                <h5 style="margin-bottom: 0px; margin-top:1px; color: darkblue"
+                    ng-repeat="parent in partnerDetails.parentPartners"
+                    ng-click="partnerDetails.viewPartnerDetail(parent._id)"> {{ parent.name }}
+                </h5>
+            </div>
+
+
+            <h6><a style="color: darkslategrey"
+                   e-style="width: 180%; height: 100px"
+                   buttons="left"
+                   href="#"
+                   editable-textarea="partnerDetails.partner.description"
+                   onaftersave="partnerDetails.updatePartner('description')">
+                {{partnerDetails.partner.description || 'Add description...'}} </a>
+            </h6>
+
+
+            <div class="row partner-tag-fields" ng-if="partnerDetails.partner.cooperationResource">
+                <!--********** CREDENTIAL DEVELOPMENT HERE ************************-->
+                <!--********** CREDENTIAL DEVELOPMENT HERE ************************-->
+
+                <div class="col-xs-4">
+                    <strong style="color:darkred"> Honors: </strong>
+
+
+                    <div ng-if="partnerDetails.credentialTagEditingEnabled">
+
+                        <small style="color: darkgray">e.g. "IEEE Fellow", "ACM Fellow", "Nobel Prize", etc.</small>
+
+                        <tags-input ng-model="partnerDetails.partner.credentialTags"
+                                    on-tag-added="partnerDetails.addPartnerCredentialTags($tag)"
+                                    on-tag-removed="partnerDetails.removePartnerCredentialTags($tag)"
+                                    add-on-paste="true"
+                                    replace-spaces-with-dashes="false"
+                                    paste-split-pattern=",|\n|\f"
+                        >
+                             <auto-complete source="partnerDetails.autofillCredentialTags($query)"></auto-complete>
+                        </tags-input>
+                        <button class=" btn btn-primary btn-xs"
+                                ng-click="partnerDetails.credentialTagEditingEnabled = false"
+                        >
+                            Done
+                        </button>
+                    </div>
+
+                    <div ng-if="!partnerDetails.credentialTagEditingEnabled"
+                         ng-click="partnerDetails.credentialTagEditingEnabled = true">
+
+                        <strong ng-repeat="tag in partnerDetails.partner.credentialTags"
+                              ng-if="partnerDetails.partner.credentialTags.length">
+                            <span ng-if="!$last"> {{tag.text}}, </span>
+                            <span ng-if="$last"> {{tag.text}}</span>
+                        </strong>
+
+                        <span ng-if="!partnerDetails.partner.credentialTags.length"
+                              style="color:darkred; font-style: italic">
+
+                            Add highly notable honors <br> (e.g. "IEEE Fellow")
+
+                        </span>
+
+
+                    </div>
+                </div>
+                <!--********** CREDENTIAL DEVELOPMENT HERE ************************-->
+                <!--********** CREDENTIAL DEVELOPMENT HERE ************************-->
+
+
+                <!--********** SUBJECT DEVELOPMENT HERE ************************-->
+                <!--********** SUBJECT DEVELOPMENT HERE ************************-->
+
+                <div class="col-xs-8">
+                    <strong style="color:darkred"> Technology Subjects: </strong>
+
+
+                    <div ng-if="partnerDetails.subjectTagEditingEnabled">
+
+                        <small style="color: darkgray">e.g. "machine learning", "Latent Dirichlet allocation". <a
+                                href="https://preview.academic.microsoft.com" target="_blank" style="color: blue">
+                            Microsoft Academic </a> is a great source to find related subject areas.
+                        </small>
+
+                        <tags-input ng-model="partnerDetails.partner.subjectTags"
+                                    on-tag-added="partnerDetails.addPartnerSubjectTags($tag)"
+                                    on-tag-removed="partnerDetails.removePartnerSubjectTags($tag)"
+                                    add-on-paste="true"
+                                    replace-spaces-with-dashes="false"
+                                    paste-split-pattern=",|\n|\f">
+                           <!-- <auto-complete source="partnerDetails.referenceSubjectTags"></auto-complete>-->
+                        </tags-input>
+                        <button class=" btn btn-primary btn-xs"
+                                ng-click="partnerDetails.subjectTagEditingEnabled = false"
+                        >
+                            Done
+                        </button>
+                    </div>
+
+                    <div ng-if="!partnerDetails.subjectTagEditingEnabled"
+                         ng-click="partnerDetails.subjectTagEditingEnabled = true">
+
+                        <span ng-repeat="tag in partnerDetails.partner.subjectTags"
+                              ng-if="partnerDetails.partner.subjectTags.length">
+                            <span ng-if="!$last"> {{tag.text}}, </span>
+                            <span ng-if="$last"> {{tag.text}}</span>
+                        </span>
+
+                        <span ng-if="!partnerDetails.partner.subjectTags.length"
+                              style="color:darkred; font-style: italic">
+
+                            Add tech subjects...
+
+                        </span>
+
+
+                    </div>
+
+                    <!--********** SUBJECT DEVELOPMENT HERE ************************-->
+                    <!--********** SUBJECT DEVELOPMENT HERE ************************-->
+                </div> <!--column-->
+            </div> <!--row-->
+
+        </div>
+
+
+        <div class="col-xs-2">
+            <h6 style="text-transform: uppercase;  color:lightgray;" data-toggle="modal"
+                data-target="#partner-type-modal">{{ partnerDetails.partner.partnerType }}&nbsp;&nbsp;</h6>
+            <h4 id="website"><a style="color: blue; " ng-href="{{ partnerDetails.partner.website }}" target="_blank">Website</a>&nbsp;&nbsp;
+                <!--note: "_new" has ceased working under Chrome to open new windows-->
+
+
+            </h4>
+            <h5>Contact:</h5>
+            <h6><a editable-textarea="partnerDetails.partner.contactInfo"
+                   style="white-space: pre-wrap;"
+                   e-style="height:150px"
+                   onaftersave="partnerDetails.updatePartner('contactInfo')">{{
+                partnerDetails.partner.contactInfo || 'Add contact info...' }}</a>
+            </h6>
+        </div>
+
+
+    </div>
+
+    <hr>
+
+
+    <!-- **** TAB IMPLEMENTATION **** -->
+
+    <!-- NAV TAB CONTROLS -->
+    <ul class="nav nav-tabs" role="tablist">
+
+        <li role="presentation" class="active"><a href="#members"
+                                                  aria-controls="members"
+                                                  role="tab"
+                                                  data-toggle="tab">Members and Contacts</a>
+        </li>
+        <li role="presentation"><a href="#history"
+                                   aria-controls="history"
+                                   role="tab"
+                                   data-toggle="tab">History</a>
+        </li>
+
+        <li role="presentation"><a href="#engagements"
+                                   aria-controls="engagements"
+                                   role="tab"
+                                   data-toggle="tab">Engagements</a>
+        </li>
+
+        <li role="presentation"><a href="#options"
+                                   aria-controls="options"
+                                   role="tab"
+                                   data-toggle="tab">Options</a>
+        </li>
+
+        <li role="presentation" ng-if="partnerDetails.userIsAdmin()">
+            <a href="#manage"
+               aria-controls="manage"
+               role="tab"
+               data-toggle="tab"
+               style="color: red;">Manage</a>
+        </li>
+
+        <li role="presentation" ng-if="partnerDetails.userIsAdmin()"><a href="#diagnostics" aria-controls="diagnostics"
+                                                                        role="tab"
+                                                                        data-toggle="tab" style="color: red;">Diagnostics</a>
+        </li>
+    </ul>
+
+
+    <div class="tab-content">
+
+
+        <!--** TAB: MEMBERS AND CONTACTS **-->
+        <div role="tabpanel" class="tab-pane fade in active" id="members">
+
+            <div class="row">
+
+                <!--** COOPERATION RESOURCES LIST BOX **-->
+                <!--Shown for incubators and universities-->
+                <div class="col-xs-6"
+                     ng-hide=" (partnerDetails.partner.partnerType ==   'professor' ||
+                                   partnerDetails.partner.partnerType=='individual' ||
+                                   partnerDetails.partner.partnerType == 'contact' ||
+                                   partnerDetails.partner.partnerType == 'company' )  &&
+                                   partnerDetails.partner.forcedListBoxes.cooperationResources == false">
+
+                    <div style="    background-color: beige;
+                                       border-radius: 25px;
+                                       padding: 5px 10px 5px 12px;
+                                       margin: 10px 2px 2px 2px;">
+
+                        <h4 style="display: inline-block">Cooperation Resources</h4>
+                        <h4 ng-show="partnerDetails.partner.partnerType=='incubator' ||
+                                        partnerDetails.partner.partnerType=='venture'"
+                            style="display: inline-block">
+                            (Member Companies)</h4>
+                        <h4 ng-show="partnerDetails.partner.partnerType=='university' ||
+                                        partnerDetails.partner.partnerType=='uniSubOrg'"
+                            style="display: inline-block">
+                            (Professors)</h4>
+
+
+                        <!--If the partner is a UNIVERSITY, we will show a button that brings up the quickAddProfessorModal-->
+                        <button ng-show="   partnerDetails.partner.partnerType == 'university' ||
+                                               partnerDetails.partner.partnerType == 'uniSubOrg'"
+                                style="float: right;margin-top: 9px" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#professor-quick-add-modal">Quick Create
+                        </button>
+
+                        <!--If the partner is a INCUBATOR or VENTURE, we will show a button quickAdds companies-->
+                        <button ng-show="   partnerDetails.partner.partnerType == 'incubator'||
+                                               partnerDetails.partner.partnerType == 'venture'"
+                                style="float: right;margin-top: 9px" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#company-quick-add-modal">Quick Create
+                        </button>
+
+                        <div style="max-height: 250px; overflow:auto;">  <!--Enables Table Scrolling-->
+
+                            <div ng-show="partnerDetails.resourceList.length == 0"
+                                 style="font-style: italic;">No Resources Registered
+                            </div>
+
+
+                            <table class="table table-hover" width="100%" style="border-collapse: collapse;">
+                                <col style="width: 30%;">
+                                <!--        <tr>
+                                            <td><small><strong>Name</strong></small></td>
+                                            <td><small><strong>Description</strong></small></td>
+
+                                        </tr>-->
+
+                                <tr ng-repeat="partner in partnerDetails.resourceList"
+                                    ng-click="partnerDetails.viewPartnerDetail(this.partner._id)"
+                                    style="border-bottom: 1pt solid lightgrey;">
+
+                                    <td><strong>{{ partner.name }}</strong></td>
+                                    <td>
+                                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                                        <div class="table-cell-truncate"
+                                             ng-attr-title="{{ partner.description }}"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div><!-- scrolling div-->
+
+                    </div>
+                </div><!--end column-->
+
+
+                <!--** CONTACTS LIST BOX **-->
+                <div class="col-xs-6"
+                     ng-hide="  partnerDetails.partner.partnerType == 'professor' ||
+                                   partnerDetails.partner.partnerType == 'individual' ||
+                                   partnerDetails.partner.partnerType == 'contact'    &&
+                                   partnerDetails.partner.forcedListBoxes.contacts == false   ">
+
+                    <div style="    background-color: lightcyan;
+                                       border-radius: 25px;
+                                       padding: 5px 10px 5px 12px;
+                                       margin: 10px 2px 2px 2px;">
+
+                        <h4 style="display: inline-block">Contacts</h4>
+
+                        <button style="float: right;margin-top: 9px" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#contact-quick-add-modal">Quick Create
+                        </button>
+
+                        <div style="max-height: 250px; overflow:auto;">  <!--Enables Table Scrolling-->
+
+                            <div ng-show="partnerDetails.contactList.length == 0"
+                                 style="font-style: italic;">No Contacts Registered
+                            </div>
+
+                            <table class="table table-hover" width="100%" style="border-collapse: collapse;">
+                                <col style="width: 28%;">
+
+                                <tr ng-repeat="partner in partnerDetails.contactList"
+                                    ng-click="partnerDetails.viewPartnerDetail(this.partner._id)"
+                                    style="border-bottom: 1pt solid lightgrey;">
+
+                                    <td><strong>{{ partner.name }}</strong></td>
+                                    <td>
+                                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                                        <div class="table-cell-truncate"
+                                             ng-attr-title="{{ partner.description }}"></div>
+                                    </td>
+                                    <td>
+                                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+                                        <div class="table-cell-truncate"
+                                             ng-attr-title="{{ partner.contactInfo }}"></div>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!--end column-->
+
+            </div>
+            <div class="row">
+
+                <!--** UNISUBORG LIST BOX **-->
+                <div class="col-xs-6"
+                     ng-show="partnerDetails.partner.partnerType == 'university' ||
+                                 partnerDetails.partner.forcedListBoxes.uniSubOrgs == true ">
+
+                    <div style="       background-color:whitesmoke;
+                                          border-radius: 25px;
+                                       padding: 5px 10px 5px 12px;
+                                       margin: 10px 2px 2px 2px;">
+
+                        <h4 style="display: inline-block">University Sub-Organizations</h4>
+
+                        <button style="float: right;margin-top: 9px" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#uni-sub-org-quick-add-modal">Quick Create
+                        </button>
+
+                        <div style="max-height: 250px; overflow:auto;">  <!--Enables Table Scrolling-->
+
+                            <div ng-show="partnerDetails.uniSubOrgList.length == 0"
+                                 style="font-style: italic;">No Organizations Registered
+                            </div>
+
+                            <table class="table table-hover" width="100%" style="border-collapse: collapse;">
+                                <!--<col style="width: 30%;">-->
+                                <!--                     <tr>
+                                                         <td><small><strong>Name</strong></small></td>
+                                                         <td><small><strong>Description</strong></small></td>
+
+                                                     </tr>-->
+
+                                <tr ng-repeat="partner in partnerDetails.uniSubOrgList"
+                                    ng-click="partnerDetails.viewPartnerDetail(this.partner._id)"
+                                    style="border-bottom: 1pt solid lightgrey;">
+
+                                    <td><strong>{{ partner.name }}</strong><br>
+                                        <div class="table-cell-truncate"
+                                             ng-attr-title="{{ partner.description }}"></div>
+                                        <!--CSS magic to truncate the text, but you can pop over and read it!-->
+
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--end column-->
+
+                <!--** BIZ DEV RESOURCES LIST BOX ** -->
+                <div class="col-xs-6"
+                     ng-hide="  partnerDetails.partner.partnerType == 'contact'    &&
+                                   partnerDetails.partner.forcedListBoxes.bizDevOwners == false   ">
+
+
+                    <div style="    background-color: aliceblue;
+                                       border-radius: 25px;
+                                       padding: 5px 10px 5px 12px;
+                                       margin: 10px 2px 2px 2px;">
+
+                        <h4 style="display: inline-block">Futurewei Business Development Managers</h4>
+
+                        <button style="float: right;margin-top: 9px" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#biz-dev-owners-modal">Edit
+                        </button>
+
+                        <div style="max-height: 250px; overflow:auto;">  <!--Enables Table Scrolling-->
+
+                            <div ng-show="partnerDetails.bizDevOwners.length == 0"
+                                 style="font-style: italic;">No Business Development Manager Assigned
+                            </div>
+
+                            <table class="table table-hover" width="100%" style="border-collapse: collapse;">
+
+                                <!--                     <tr>
+                                                         <td><small><strong>Name</strong></small></td>
+                                                         <td><small><strong>Description</strong></small></td>
+
+                                                     </tr>-->
+
+                                <tr ng-repeat="bizDevOwner in partnerDetails.bizDevOwners"
+                                    style="border-bottom: 1pt solid lightgrey;">
+
+                                    <td>{{ bizDevOwner.profile.name }}</td>
+                                    <td>{{ bizDevOwner.emails[0].address }}</td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--end column-->
+            </div><!--end row-->
+
+        </div> <!--TAB panel-->
+
+        <!-- ** LOG TAB ** -->
+        <div role="tabpanel" class="tab-pane fade " id="history">
+
+            <miz-log subject-id="{{ partnerDetails.partnerId }}"></miz-log>
+        </div>
+
+
+        <!-- ** ENGAGEMENTS TAB ** -->
+        <div role="tabpanel" class="tab-pane fade " id="engagements">
+
+
+            <partner-engagements partner-id="partnerDetails.partner._id"></partner-engagements>
+
+        </div>
+
+        <!-- ** OPTIONS TAB ** -->
+        <div role="tabpanel" class="tab-pane fade" id="options">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div style="    border-radius: 25px;
+                                    border-color: grey;
+                                    border-style: solid;
+                                    padding: 5px 10px 5px 12px;
+                                    margin: 10px 2px 2px 2px;">
+
+
+                        <h4>View Options</h4>
+                        Force appearance of the following list boxes on the Members and Contacts tab:
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="partnerDetails.partner.forcedListBoxes.cooperationResources"
+                                       ng-click="partnerDetails.updateForcedListboxes()">
+                                Cooperation Resources
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="partnerDetails.partner.forcedListBoxes.contacts"
+                                       ng-click="partnerDetails.updateForcedListboxes()">
+                                Contacts
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="partnerDetails.partner.forcedListBoxes.uniSubOrgs"
+                                       ng-click="partnerDetails.updateForcedListboxes()">
+                                University Sub Organizations
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="partnerDetails.partner.forcedListBoxes.bizDevOwners"
+                                       ng-click="partnerDetails.updateForcedListboxes()">
+                                Futurewei Business Development Managers
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ** MANAGE TAB ** -->
+        <div role="tabpanel" class="tab-pane fade" id="manage" ng-if="partnerDetails.userIsAdmin()">
+            <h3 style="font-style: italic">Add partner disable, delete and potentially metrics here.</h3>
+        </div>
+
+        <!-- ** DIAGNOSTICS TAB ** -->
+        <div ng-if="partnerDetails.userIsAdmin()" role="tabpanel" class="tab-pane fade" id="diagnostics">
+
+            Partner Logo:{{ partnerDetails.partner.logo }} <br><br>
+            Partner: <br>
+            {{ partnerDetails.partner }} <br> <br>
+
+            ParentIds: <br>
+            {{ partnerDetails.partner.parentPartners }} <br> <br>
+
+
+            Parent Partners: <br>
+            {{ partnerDetails.parentPartners }}
+
+            Child Ids: <br>
+            {{ partnerDetails.partner.childrenPartners }}<br> <br>
+
+            Child Objects: <br>
+            {{ partnerDetails.contactList }} <br> <br>
+
+            BizDevOwners:
+            {{ partnerDetails.bizDevOwners }}
+
+        </div> <!--Tab Panel-->
+
+    </div><!---->
+
+
+    <!--  ******  MODAL WINDOWS ******* -->
+
+    <!-- Partner Image Modal -->
+    <div class="modal fade" id="image-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Your Partner's Image</h4>
+                    Add logos for companies and universities, images for people.<br>
+                    Adding images makes your partners easier to recognize!
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-9">
+
+
+                            <drop-zone options="partnerDetails.logoDropzoneOptions"></drop-zone>
+
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <a ng-href="http://www.google.com/search?q=logo {{partnerDetails.partner.name}}&tbm=isch"
+                                   target="_blank">
+                                    Google Image Search
+                                </a></h4>
+                            Drag the image from Google to your desktop, and then into the box.
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="float: left" type="button" ng-click="partnerDetails.removeImage()"
+                            class="btn btn-danger"
+                            data-dismiss="modal">Restore Default Image
+                    </button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- Modal -->
+
+
+    <!-- Website Modal -->
+    <div class="modal fade" id="website-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Website</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="website" class="col-xs-2 control-label">Website</label>
+                                <div class="col-xs-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="websiteInput"
+                                           ng-model="partnerDetails.partner.website"
+                                    >
+                                    <small>Note: you must include the 'http://' to the site for the link to function
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            ng-click="partnerDetails.updatePartner('website')">Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- Modal -->
+
+
+    <!-- Parent Partner Modal -->
+    <div class="modal fade" id="parent-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Update Parent Affiliations</h4>
+                    <small style="color: darkgrey">Add partners that this partner is a member of. For example, if
+                        this partner is a professor, add the university that she works for. Companies may also have
+                        incubators as parents.
+                    </small>
+                </div>
+
+                <div class="modal-body">
+
+                    <!--Listing of parent partners-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label">This partner is a member of: </label><br>
+
+                            <br>
+                            <!--  <div ng-show="partnerDetails.noParentPartners()">
+                                  <small>No parent partners.</small>
+                              </div>-->
+
+                            <!-- <div ng-hide="partnerDetails.noParentPartners()">-->
+                            <ul class="list-unstyled">
+                                <li ng-repeat="parent in partnerDetails.parentPartners">
+                                    {{parent.name}} &nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon glyphicon-remove"
+                                          aria-hidden="true"
+                                          style="padding-left: 2em;
+                                                      color: red"
+                                          ng-click="partnerDetails.removeParentPartner(parent._id)">
+                                                </span>
+
+                                </li>
+                            </ul>
+                            <!--  </div>-->
+
+                        </div>
+
+                        <!-- Parent Partner Search and Add -->
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input ng-model="partnerDetails.parentSearch" type="text" class="form-control"
+                                       placeholder="Type for partners...">
+                            </div>
+
+                            <table class="table table-hover">
+                                <tr ng-repeat="partner in partnerDetails.parentPartnerSearchList"
+                                    ng-click="partnerDetails.addParentPartner(partner._id)">
+
+                                    <td>{{partner.name}}</td>
+
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>  <!--Row-->
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button style="float: left" type="button" class="btn btn-success"
+                            onclick='window.open("/new-partner")'
+                            role="button">Create
+                        New Partner
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- PartnerType Modal -->
+    <div class="modal fade" id="partner-type-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Change Partner Type</h4>
+                    <small style="color: darkgrey">Use caution with this - changing a partner type will affect the
+                        information presented, engagement options, and more. However, information will not be lost
+                        by
+                        changing this
+                        (I think...).
+                    </small>
+                </div>
+
+                <div class="modal-body">
+
+
+                    <div ng-class="inputStatusGroup.partnerType.formGroup">
+                        <label class="control-label">This is a: </label>
+
+                        <div ng-class="row">
+                            <div class="col-md-4" style="background: mintcream">
+
+                                <!--Partner Type Radio-->
+                                <h6 style="color: black; text-decoration: underline">Cooperation Resource</h6>
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="company"
+                                       value="company"
+                                       ng-click="partnerDetails.partner.cooperationResource = true;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Company
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="individual"
+                                       value="individual"
+                                       ng-click="partnerDetails.partner.cooperationResource = true;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Individual Contractor <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="professor"
+                                       value="professor"
+                                       ng-click="partnerDetails.partner.cooperationResource = true;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Professor <br>
+
+
+                            </div><!--Column-->
+
+
+                            <div class="col-md-4">
+
+                                <h6 style="color: black; text-decoration: underline ">Other Partner</h6>
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="university"
+                                       value="university"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                University
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="uniSubOrg"
+                                       value="uniSubOrg"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                University Sub-Org<br>
+                                <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. Amp Lab, MediaX
+                                </small>
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="contact"
+                                       value="contact"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Contact <br>
+                                <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. admin, sales,
+                                    legal, etc.
+                                </small>
+
+
+                            </div><!--Column-->
+
+                            <div class="col-md-4">
+
+                                <h6 style="color: darkgrey">&nbsp;</h6>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="incubator"
+                                       value="incubator"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Incubator
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="venture"
+                                       value="venture"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Venture Capital Firm
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="association"
+                                       value="association"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Industry Assc.
+                                <br>
+
+                                <input type="radio" name="partnerTypeRadio"
+                                       ng-model="partnerDetails.partner.partnerType"
+                                       id="other"
+                                       value="other"
+                                       ng-click="partnerDetails.partner.cooperationResource = false;
+                                                 partnerDetails.updatePartner('cooperationResource');
+                                                 partnerDetails.updatePartner('partnerType')"
+                                >
+                                Other
+
+
+                            </div> <!--column-->
+                        </div> <!--Row-->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                <div ng-class="inputStatusGroup.cooperationResource.formGroup">
+                                    <label class="control-label" for="cooperationResourceCheckbox">
+                                        <input id="cooperationResourceCheckbox"
+                                               ng-model="partnerDetails.partner.cooperationResource"
+                                               type="checkbox"
+                                               value=""
+                                               ng-click="partnerDetails.updatePartner('cooperationResource')">
+
+
+                                        List as Cooperation Resource
+                                    </label>
+
+                                    <small style="color: darkgray">
+                                        <br>Cooperation resources are the people and entities that actually do the
+                                        cooperation
+                                        work.
+                                        Companies, professors and independent consultants are often resources.
+                                        Universities, administrators and incubators are usually not.
+                                    </small>
+
+
+                                </div>
+                                </p>
+                            </div> <!--Column-->
+                        </div> <!--Row-->
+
+
+                    </div> <!--form group-->
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- BizDevOwners Modal -->
+    <div class="modal fade" id="biz-dev-owners-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Futurewei Cooperation & BD Managers</h4>
+                    <small style="color: darkgrey"> Only users with system permission to edit engagements may be
+                        added as BD/Cooperation Managers.
+                    </small>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+
+                        <!--BD Owners-->
+                        <div class="col-md-12">
+                            <!--BD Owner Header-->
+                            <div class='row'>
+
+                                <!--BD Owner listing-->
+                                <div class="col-md-6">
+
+                                    <label class="control-label">The assigned business development resource
+                                        is: </label><br>
+
+                                    <br>
+                                    <div ng-show="partnerDetails.noBizDevOwners()">
+                                        <small>No BD owner assigned.</small>
+                                    </div>
+
+                                    <div ng-hide="partnerDetails.noBizDevOwners()">
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="owner in partnerDetails.bizDevOwners">
+                                                {{ owner.profile.name }}
+                                                <span class="glyphicon glyphicon glyphicon-remove"
+                                                      aria-hidden="true"
+                                                      style="padding-left: 2em; color: red"
+                                                      ng-click="partnerDetails.removeBizDevOwner(owner)">
+                        </span>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                <!-- BD manager Owner Search and Add-->
+
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input ng-model="partnerDetails.bizDevOwnerSearch" type="text"
+                                               class="form-control"
+                                               placeholder="Type for bd managers..." style="width: 100%">
+                                    </div>
+
+                                    <table class="table table-hover">
+                                        <tr ng-repeat="bizDevOwner in partnerDetails.bizDevOwnerSearchList"
+                                            ng-click="partnerDetails.addBizDevOwner(bizDevOwner)">
+
+                                            <td>{{bizDevOwner.profile.name }}</td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                            </div><!--Row - BD Owner Search-->
+                        </div> <!--BD Owner listing and Search-->
+                    </div>  <!--Row-->
+
+
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- Contact Quick Add Modal -->
+    <div class="modal fade" id="contact-quick-add-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Contact for this partner</h4>
+                    <small style="color: darkgrey"> Don't use this for cooperation resources... use the cooperation
+                        resources Quick Create.
+                    </small>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-contact-name-1"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickContacts[1].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-contact-description-1"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickContacts[1].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-contact-info-1"
+                                          placeholder="Contact Info"
+                                          ng-model="partnerDetails.quickContacts[1].contactInfo"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickContacts[1].name">
+                            <hr>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-contact-name-2"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickContacts[2].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-contact-description-2"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickContacts[2].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-contact-info-2"
+                                          placeholder="Contact Info"
+                                          ng-model="partnerDetails.quickContacts[2].contactInfo"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickContacts[2].name">
+                            <hr>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-contact-name-3"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickContacts[3].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-contact-description-3"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickContacts[3].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-contact-info-3"
+                                          placeholder="Contact Info"
+                                          ng-model="partnerDetails.quickContacts[3].contactInfo"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickContacts[3].name">
+                            <hr>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-contact-name-4"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickContacts[4].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-contact-description-4"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickContacts[4].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-contact-info-4"
+                                          placeholder="Contact Info"
+                                          ng-model="partnerDetails.quickContacts[4].contactInfo"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                    </form>
+
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+                    <button type="button"
+                            ng-disabled="!partnerDetails.quickContacts[1].name"
+                            ng-click="partnerDetails.createQuickAddContacts();"
+                            class="btn btn-success" data-dismiss="modal">Create Contacts
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- Professor Quick Add Modal -->
+    <div class="modal fade" id="professor-quick-add-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Professor to this University</h4>
+                    <small style="color: darkgrey"> Professors will be listed as cooperation resources
+                        <br>
+                        Note: This is for creating NEW professors. To add an existing professor, go to that professor's
+                        page and add this organization as a parent partner.
+                    </small>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-professor-name-1"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickProfessors[1].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-professor-description-1"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickProfessors[1].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-professor-info-1"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickProfessors[1].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickProfessors[1].name">
+
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-professor-name-2"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickProfessors[2].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-professor-description-2"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickProfessors[2].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-professor-info-2"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickProfessors[2].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickProfessors[2].name">
+
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-professor-name-3"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickProfessors[3].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-professor-description-3"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickProfessors[3].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-professor-info-3"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickProfessors[3].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickProfessors[3].name">
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-professor-name-4"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickProfessors[4].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-professor-description-4"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickProfessors[4].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-professor-info-4"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickProfessors[4].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                    </form>
+
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+                    <button type="button"
+                            ng-disabled="!partnerDetails.quickProfessors[1].name"
+                            ng-click="partnerDetails.createQuickAddProfessors();"
+                            class="btn btn-success" data-dismiss="modal">Create Professors
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Member Company Quick Add Modal -->
+    <div class="modal fade" id="company-quick-add-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Company to this Organization</h4>
+                    <small style="color: darkgrey"> Companies will be listed as cooperation resources
+                    </small>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-company-name-1"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickCompanies[1].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-company-description-1"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickCompanies[1].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-company-info-1"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickCompanies[1].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickCompanies[1].name">
+
+                            <hr>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-company-name-2"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickCompanies[2].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-company-description-2"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickCompanies[2].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-company-info-2"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickCompanies[2].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickCompanies[2].name">
+                            <hr>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-company-name-3"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickCompanies[3].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-company-description-3"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickCompanies[3].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-company-info-3"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickCompanies[3].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickCompanies[3].name">
+                            <hr>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-company-name-4"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickCompanies[4].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-company-description-4"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickCompanies[4].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-company-info-4"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickCompanies[4].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                    </form>
+
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+                    <button type="button"
+                            ng-disabled="!partnerDetails.quickCompanies[1].name"
+                            ng-click="partnerDetails.createQuickAddCompanies();"
+                            class="btn btn-success" data-dismiss="modal">Create Companies
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- UniSubOrg  Quick Add Modal -->
+    <div class="modal fade" id="uni-sub-org-quick-add-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Sub-Organization to this University</h4>
+                    <small style="color: darkgrey"> For example: affiliate programs, specialized research departments,
+                        membership organizations...
+                    </small>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-uniSubOrg-name-1"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickUniSubOrgs[1].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-uniSubOrg-description-1"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickUniSubOrgs[1].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-uniSubOrg-website-1"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickUniSubOrgs[1].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickUniSubOrgs[1].name">
+                            <hr>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-uni-sub-org-name-2"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickUniSubOrgs[2].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-uni-sub-org-description-2"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickUniSubOrgs[2].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-uni-sub-org-website-2"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickUniSubOrgs[2].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickUniSubOrgs[2].name">
+                            <hr>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-uni-sub-org-name-3"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickUniSubOrgs[3].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-uni-sub-org-description-3"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickUniSubOrgs[3].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-uni-sub-org-website-3"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickUniSubOrgs[3].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                        <div class="row" ng-show="partnerDetails.quickUniSubOrgs[3].name">
+                            <hr>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="quick-uni-sub-org-name-4"
+                                           placeholder="Name"
+                                           ng-model="partnerDetails.quickUniSubOrgs[4].name">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="quick-uni-sub-org-description-4"
+                                              placeholder="Description"
+                                              ng-model="partnerDetails.quickUniSubOrgs[4].description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                <textarea class="form-control" rows="3" id="quick-uni-sub-org-website-4"
+                                          placeholder="Website"
+                                          ng-model="partnerDetails.quickUniSubOrgs[4].website"></textarea>
+                                </div>
+                            </div>
+                        </div>  <!--Row-->
+
+
+                    </form>
+
+                </div> <!--modal body-->
+
+                <div class="modal-footer">
+                    <button type="button"
+                            ng-disabled="!partnerDetails.quickUniSubOrgs[1].name"
+                            ng-click="partnerDetails.createQuickAddUniSubOrgs();"
+                            class="btn btn-success" data-dismiss="modal">Create Organizations
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--
+<div style="width: 100%">
+    <h3> Diagnostics</h3>
+    Partner Record: {{partnerDetails.partner}} <br><br>
+
+    CredentialTags: {{partnerDetails.partner.credentialTags}} <br>
+    Reference Subject Tags: {{partnerDetails.referenceSubjectTags.tagCollection}}<br>
+    Tags: {{Tags}} <br>
+
+
+    <b>User Record:</b> {{currentUser.profile.name}} <br>
+
+    <b>All Partners: </b>
+    <div ng-repeat="partner in partnerDetails.allLoadedPartners">
+        {{partner.name}} <br>
+    </div>
+
+
+</div>
+-->

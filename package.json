@@ -1,0 +1,11 @@
+{
+  "name": "miz",
+  "version": "0.68.1",
+  "description": "Miz - the Futurewei Partnermeteo Platform",
+  "dependencies": {
+    "ng-tags-input": "^3.2.0",
+    "progress": "^2.0.0"
+  },
+  "license": "MIT",
+  "repository": "private"
+}

@@ -1,0 +1,12 @@
+.dz-upload {
+    display: block;
+    background-color: red;
+    height: 10px;
+    width: 0%;
+}
+
+#log-wrapper {
+    overflow: auto;
+    height: 500px;
+
+}

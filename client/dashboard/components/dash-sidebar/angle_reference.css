@@ -1,0 +1,229 @@
+/* ========================================================================
+   Component: sidebar.less
+ ========================================================================== */
+.sidebar {
+    height: 100%;
+    padding-bottom: 20px;
+    background-color: #fff;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.sidebar:after {
+    content: "";
+    background: rgba(0, 0, 0, 0.15);
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    -webkit-transform: translateZ(0px);
+}
+.sidebar .nav-heading {
+    padding: 12px 15px;
+    color: #919DA8;
+    font-size: 13px;
+    letter-spacing: .035em;
+    pointer-events: none;
+    cursor: default;
+}
+.sidebar > .nav {
+    position: relative;
+}
+.sidebar > .nav > .nav-heading:first-child {
+    padding-top: 20px;
+}
+.sidebar > .nav > li {
+    border-left: 20px solid transparent;
+}
+.sidebar > .nav > li > a,
+.sidebar > .nav > li > .nav-item {
+    padding: 12px 24px;
+    color: #515253;
+    letter-spacing: .025em;
+    font-weight: normal;
+    cursor: pointer;
+}
+.sidebar > .nav > li > a:focus,
+.sidebar > .nav > li > .nav-item:focus,
+.sidebar > .nav > li > a:hover,
+.sidebar > .nav > li > .nav-item:hover {
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+}
+.sidebar > .nav > li > a > em,
+.sidebar > .nav > li > .nav-item > em {
+    width: 2em;
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    /*color: inherits;*/
+}
+.sidebar > .nav > li.active,
+.sidebar > .nav > li.open,
+.sidebar > .nav > li.active > a,
+.sidebar > .nav > li.open > a,
+.sidebar > .nav > li.active > .nav-item,
+.sidebar > .nav > li.open > .nav-item,
+.sidebar > .nav > li.active .nav,
+.sidebar > .nav > li.open .nav {
+    background-color: #fcfcfc;
+    color: #fff;
+}
+.sidebar > .nav > li.active > .nav-item > em,
+.sidebar > .nav > li.open > .nav-item > em,
+.sidebar > .nav > li.active > a > em,
+.sidebar > .nav > li.open > a > em {
+    color: #fff;
+}
+.sidebar > .nav > li.active {
+    border-left-color: #fff;
+}
+.sidebar > .nav .label {
+    display: block;
+}
+@media only screen and (min-width: 1025px) {
+    .sidebar:not(.show-scrollbar) {
+        margin-right: -17px;
+        overflow-y: scroll;
+    }
+}
+.sidebar-subnav {
+    background-color: #fff;
+}
+.sidebar-subnav > .sidebar-subnav-header {
+    color: #515253;
+    display: none;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+.sidebar-subnav > li {
+    border-left: 0 !important;
+}
+.sidebar-subnav > li > a,
+.sidebar-subnav > li > .nav-item {
+    display: block;
+    position: relative;
+    padding: 10px 20px;
+    padding-left: 53px;
+    font-weight: normal;
+    background-color: transparent !important;
+    color: #515253;
+}
+.sidebar-subnav > li > a:focus,
+.sidebar-subnav > li > .nav-item:focus,
+.sidebar-subnav > li > a:hover,
+.sidebar-subnav > li > .nav-item:hover {
+    color: #fff;
+}
+.sidebar-subnav > li > a > em,
+.sidebar-subnav > li > .nav-item > em {
+    display: inline-block;
+    width: 2em;
+    margin: 0 0 0 -2em;
+}
+.sidebar-subnav > li.active > a,
+.sidebar-subnav > li.active > .nav-item {
+    color: #fff;
+}
+.sidebar-subnav > li.active > a:after,
+.sidebar-subnav > li.active > .nav-item:after {
+    border-color: #fff;
+    background-color: #fff;
+}
+.sidebar-subnav > li .nav > li {
+    padding-left: 5px;
+}
+.sidebar-subnav.nav-floating {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: -1px;
+}
+.sidebar-subnav.nav-floating,
+.sidebar-subnav.nav-floating .collapse {
+    height: auto !important;
+    display: block !important;
+    visibility: visible !important;
+}
+.sidebar-subnav.nav-floating > .sidebar-subnav-header {
+    display: block;
+}
+.sidebar-subnav.nav-floating li > a,
+.sidebar-subnav.nav-floating li > .nav-item {
+    padding-left: 20px;
+}
+.sidebar-subnav.nav-floating li > a em,
+.sidebar-subnav.nav-floating li > .nav-item em {
+    margin-left: 0;
+}
+
+
+
+.aside-collapsed .sidebar,
+.aside-collapsed-text .sidebar {
+    overflow-x: hidden;
+}
+.aside-collapsed .sidebar > .nav .nav,
+.aside-collapsed-text .sidebar > .nav .nav,
+.aside-collapsed .sidebar > .nav > .nav-heading,
+.aside-collapsed-text .sidebar > .nav > .nav-heading,
+.aside-collapsed .sidebar > .nav > li > .nav-item > span,
+.aside-collapsed-text .sidebar > .nav > li > .nav-item > span,
+.aside-collapsed .sidebar > .nav > li > a > span,
+.aside-collapsed-text .sidebar > .nav > li > a > span {
+    display: none !important;
+}
+.aside-collapsed .sidebar > .nav > li,
+.aside-collapsed-text .sidebar > .nav > li {
+    width: 68px;
+}
+.aside-collapsed .sidebar > .nav > li > a,
+.aside-collapsed-text .sidebar > .nav > li > a,
+.aside-collapsed .sidebar > .nav > li > .nav-item,
+.aside-collapsed-text .sidebar > .nav > li > .nav-item {
+    text-indent: -3px;
+    padding: 20px 0;
+    text-align: center;
+}
+.aside-collapsed .sidebar > .nav > li > a > em,
+.aside-collapsed-text .sidebar > .nav > li > a > em,
+.aside-collapsed .sidebar > .nav > li > .nav-item > em,
+.aside-collapsed-text .sidebar > .nav > li > .nav-item > em {
+    font-size: 1.6em;
+    width: auto;
+}
+.aside-collapsed .sidebar > .nav > li > a:focus,
+.aside-collapsed-text .sidebar > .nav > li > a:focus,
+.aside-collapsed .sidebar > .nav > li > .nav-item:focus,
+.aside-collapsed-text .sidebar > .nav > li > .nav-item:focus {
+    background-color: transparent;
+}
+.aside-collapsed .sidebar > .nav > li > a:focus > em,
+.aside-collapsed-text .sidebar > .nav > li > a:focus > em,
+.aside-collapsed .sidebar > .nav > li > .nav-item:focus > em,
+.aside-collapsed-text .sidebar > .nav > li > .nav-item:focus > em {
+    color: inherit;
+}
+.aside-collapsed .sidebar .nav .label,
+.aside-collapsed-text .sidebar .nav .label {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    text-indent: 0;
+}
+.aside-collapsed-text .sidebar > .nav > li > .nav-item > span,
+.aside-collapsed-text .sidebar > .nav > li > a > span {
+    display: block !important;
+    font-size: 12px;
+}
+.aside-collapsed-text .sidebar > .nav > li {
+    width: 88px;
+}
+.aside-collapsed-text .sidebar > .nav > li > a {
+    padding: 14px 0;
+}
+.aside-collapsed-text .sidebar > .nav > li > a > em {
+    font-size: 1.4em;
+}

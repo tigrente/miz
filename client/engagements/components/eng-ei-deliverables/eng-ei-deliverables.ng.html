@@ -1,0 +1,167 @@
+<h4>Deliverables</h4>
+
+<!--EDIT DELIVERABLES-->
+
+<div ng-if="(eid.paymentSchedule.length > 0) && eid.ui.editDeliverables" style="border: black thin solid;">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Milestone Desc.</th>
+                    <th>Deliverables
+                        <button class="btn btn-xs btn-primary" style="float: right" ng-click="eid.ui.editDeliverables = false">
+                        Done
+                    </button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in eid.paymentSchedule track by $index">
+                    <!--track by index because some entries are identical-->
+
+                    <!--PAYMENT INDEX-->
+                    <td width="5%">{{$index + 1}}</td>
+
+
+                    <!--MILESTONE DESCRIPTION-->
+                    <td width="15%">
+
+                        <input style="text-align: left"
+                               type="text"
+                               placeholder="e.g. Signing, MS1"
+                               ng-model="payment.milestone"
+                               ng-change="eid.updatePaymentSchedule()"
+
+                        >
+
+                    </td>
+
+                    <td width="80%">
+                        <textarea style="width: 100%"
+                                  class="froala"
+                                  froala="eid.froalaOptions"
+                                  ng-model="eid.paymentSchedule[$index].deliverables"
+                                  ng-change="eid.updatePaymentSchedule()">
+                        </textarea>
+
+                    </td>
+                </tr>
+
+                <tr ng-if="eid.options.additionalFinalAcceptance">
+                    <!--PAYMENT INDEX-->
+                    <td width="5%">F</td>
+
+
+                    <!--MILESTONE DESCRIPTION-->
+                    <td width="15%">
+
+                        Post Payment Final Acceptance Report
+
+
+                    </td>
+
+                    <td width="80%">
+                                                <textarea style="width: 100%"
+                                                          class="froala"
+                                                          froala="eid.froalaOptions"
+                                                          ng-model="eid.options.additionalFinalAcceptanceDeliverables"
+                                                          ng-change="eid.updatePaymentOption('additionalFinalAcceptanceDeliverables',eid.options.additionalFinalAcceptanceDeliverables)">
+                        </textarea>
+
+
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button class="btn btn-xs btn-primary"
+                    style="float: right; margin: -20px 10px 10px 0"
+                    ng-click="eid.ui.editDeliverables = false;" >
+                Done
+            </button>
+
+        </div>  <!--col-->
+    </div><!--rows-->
+
+</div>
+
+<!--DISPLAY DELIVERABLES-->
+
+<div ng-if="(eid.paymentSchedule.length > 0) && (!eid.ui.editDeliverables)" style="border: black thin solid;">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Milestone Desc.</th>
+                    <th>Deliverables
+                        <button class="btn btn-xs btn-primary" style="float: right" ng-click="eid.ui.editDeliverables = true">
+                            Edit
+                        </button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in eid.paymentSchedule track by $index">
+                    <!--track by index because some entries are identical-->
+
+                    <!--PAYMENT INDEX-->
+                    <td width="5%">{{$index + 1}}</td>
+
+
+                    <!--MILESTONE DESCRIPTION-->
+                    <td width="15%">
+
+                       {{payment.milestone}}
+
+
+                    </td>
+
+                    <td width="80%" froala-view="eid.paymentSchedule[$index].deliverables">
+
+
+                    </td>
+                </tr>
+
+                <tr ng-if="eid.options.additionalFinalAcceptance">
+                    <!--PAYMENT INDEX-->
+                    <td width="5%">F</td>
+
+
+                    <!--MILESTONE DESCRIPTION-->
+                    <td width="15%">
+
+                        Post Payment Final Acceptance Report
+
+
+                    </td>
+
+                    <td width="80%" froala-view="eid.options.additionalFinalAcceptanceDeliverables">
+
+
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+            <button class="btn btn-xs btn-primary"
+                    style="float: right; margin: -20px 10px 10px 0"
+                    ng-click="eid.ui.editDeliverables = true;" >
+                Edit
+            </button>
+
+        </div>  <!--col-->
+    </div><!--rows-->
+
+</div>
+

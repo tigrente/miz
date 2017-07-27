@@ -1,0 +1,684 @@
+
+
+/** FOR HEIGHT ADJUSTMENT OF MIZ MENU see JQUERY additions in engWorkspace.component.js.
+    The height is controlled pragmatically in relation to screen height, not here in CSS. **/
+
+
+
+.collapse.in {
+    max-height:80% !important;
+    height: auto !important;
+    overflow: auto;
+
+
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.cl {
+    clear: both;
+}
+
+ul.mizmenu-submenu, ol {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px;
+    list-style: none;
+
+}
+
+ul.mizmenu-submenu> li {
+    margin: 0px;
+    padding: 0px;
+}
+
+textarea {
+    min-height: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 5px 0px 5px 0px;
+}
+
+/*input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    padding: 2px 2px;
+    outline: none;
+    display: block;
+    background: #fff;
+    text-indent: 4px;
+    color: #2c2c2c;
+    border: solid 1px #b9b9b9;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}*/
+
+/*input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+}
+
+.button, input[type="submit"], input[type="reset"], input[type="button"] {
+    cursor: pointer;
+    padding: 0;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}*/
+
+/*
+img, object, embed, video {
+    border: 0 none;
+    max-width: 100%;
+}
+*/
+
+a:focus {
+    outline: none !important;
+}
+
+.mizmenu {
+    left: auto !important;
+    right: 0 !important;
+}
+
+.mizmenu-list > li:hover > a {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+    text-decoration: none;
+}
+
+.hometext {
+    display: inline-block !important;
+}
+
+.megacollink {
+    width: 96% !important;
+    margin: 0 2% !important;
+}
+
+.megacolimage {
+    width: 90% !important;
+    margin: 0 5% !important;
+}
+
+.typographylinks {
+    width: 98% !important;
+    margin: 0 1% !important;
+}
+
+.typographydiv {
+    width: 86% !important;
+    margin: 0 7% !important;
+}
+
+.mainmapdiv {
+    width: 90% !important;
+    margin: 0 5% !important;
+}
+
+.mizmenu-submenu .fa {
+    margin-right: 7px;
+}
+
+.overlapblackbg {
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.overlapblackbg.menuopen {
+    display: block;
+}
+
+.mizmenu {
+    left: auto !important;
+    right: 0 !important;
+}
+
+ /*
+ Default Theme
+ */
+
+
+
+/*.mizmenu-submenu > li:hover > a {
+    background-color: darkred;
+    color: #666666;
+}
+
+.mizmenu-submenu > li:hover > i > a {
+    background-color: darkred;
+    color: #666666;
+}*/
+
+
+.mizmenu > .mizmenu-list > li > a.active {
+    display: block;
+    color: #666666;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.mizmenu > .mizmenu-list > li > a:hover {
+    color: #666666;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.mizmenu-list li:hover .mizmenu-submenu {
+display: none;
+}
+
+.mizmenu-list li:hover .mizmenu-submenu .mizmenu-submenu-sub {
+display: none;
+}
+
+.mizmenu-list .mizmenu-submenu .mizmenu-submenu-sub li:hover .mizmenu-submenu-sub-sub {
+
+    list-style: none;
+    padding: 2px;
+    border: solid 1px #eeeeee;
+    background-color: #fff;
+}
+
+.mizmenu-list li:first-child a {
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+}
+
+.mizmenu-list li:last-child a {
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+    border-right: 0 solid;
+}
+
+/*.innerpnd {
+    padding: 0px !important;
+}
+
+.typography-text {
+    padding: 10px 0px;
+}
+
+!*Form for desktop *!
+.halfdiv {
+    width: 35%;
+    right: 0px !important;
+    left: auto;
+}
+
+.menu_form {
+    width: 100%;
+    display: block;
+}
+
+.menu_form input[type="text"] {
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #000;
+    font-size: 13px;
+    padding: 8px 5px;
+    margin-bottom: 8px;
+}
+
+.menu_form textarea {
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    color: #000;
+    font-size: 13px;
+    padding: 8px 5px;
+    margin-bottom: 8px;
+    min-height: 122px;
+}
+
+.menu_form input[type="submit"] {
+    width: 25%;
+    display: block;
+    height: 28px;
+    float: right;
+    border: solid 1px #ccc;
+    margin-right: 15px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.menu_form input[type="button"] {
+    width: 25%;
+    display: block;
+    height: 28px;
+    float: right;
+    border: solid 1px #ccc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}*/
+
+.mizmenucontainer {
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    min-height: 800px;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.mizmenuexpandermain {
+    display: block !important;
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+
+
+}
+
+/* Mobile click to drop arrow */
+.mizmenu-click {
+    height: 43px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 100%;
+}
+
+.mizmenu-click i {
+    display: block;
+    height: 23px;
+    width: 25px;
+    margin-top: 11px;
+    margin-right: 8px;
+    background-size: 25px;
+    font-size: 21px;
+    color: rgba(0, 0, 0, 0.25);
+    float: right;
+    text-align: center;
+}
+
+.mizmenu-rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/*2nd UL Style*/
+.mizmenu-submenu-sub {
+    width: 100% !important;
+    position: static !important;
+    left: 100% !important;
+    top: 0 !important;
+    /*display: none;*/
+    margin: 0 !important;
+    padding: 0 !important;
+    border: solid 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.mizmenu-submenu-sub li {
+    margin: 0 0 0 0 !important;
+    padding: 0;
+    position: relative;
+}
+
+.mizmenu-submenu-sub a {
+    display: block;
+    padding: 10px 25px 10px 25px;
+    border-bottom: solid 1px #ccc;
+    font-weight: normal;
+}
+
+.mizmenu-submenu-sub li a.active {
+    color: #000 !important;
+}
+
+.mizmenu-submenu-sub li:hover > a {
+    background-color: #333333 !important;
+    color: #fff;
+}
+
+.mizmenu-list > li > a .fa {
+    margin-right: 6px;
+}
+
+.mizmenu-submenu-sub-sub {
+    width: 100% !important;
+    position: static !important;
+    left: 100% !important;
+    top: 0 !important;
+    display: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: solid 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.mizmenu-submenu-sub-sub li {
+    margin: 0px 0px 0px 0px !important;
+}
+
+.mizmenu-submenu-sub-sub a {
+    display: block;
+    color: #000;
+    padding: 10px 25px;
+    background: #000 !important;
+    border-bottom: solid 1px #ccc;
+    font-weight: normal;
+}
+
+.mizmenu-submenu-sub-sub li a.active {
+    color: #000 !important;
+}
+
+.mizmenu-submenu-sub-sub li:hover > a {
+    background-color: #606060 !important;
+    color: #fff;
+}
+
+.mizmenu {
+    position: relative;
+}
+
+.mizmenu .mizmenu-list {
+    height: 100%;
+    display: block !important;
+}
+
+.mizmenu .mizmenu-list > li {
+    width: 400px;
+    display: block;
+    float: none;
+    border-right: none;
+    background-color: transparent;
+    position: relative;
+    white-space: inherit;
+}
+
+.mizmenu > .mizmenu-list > li > a {
+    padding: 9px 32px 9px 17px;
+    font-size: 14px;
+    text-align: left;
+    border-right: solid 0px;
+    background-color: transparent;
+    color: #666666;
+    line-height: 25px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(0, 0, 0, 0.13);
+    position: static;
+    display: block;
+}
+
+.mizmenu .mizmenu-list li a .arrow:after {
+    display: none !important;
+}
+
+.mizmenu .mizmenu-list li ul li a .fa.fa-caret-right {
+    font-size: 12px !important;
+    color: #8E8E8E;
+}
+
+.mobile-sub .mizmenu-submenu {
+    transform: none !important;
+    opacity: 1 !important;
+    display: none;
+    position: relative !important;
+    top: 0;
+    background-color: rgba(150,0,0,0.3);
+    border: solid 1px #ccc;
+    padding: 0;
+    visibility: visible !important;
+
+}
+
+.mobile-sub .mizmenu-submenu li {
+    position: relative;
+    display: block;
+}
+
+.mobile-sub .mizmenu-submenu li a {
+    line-height: 20px;
+    height: 36px;
+    background:transparent !important;
+    font-size: 13px !important;
+    padding: 8px 0 8px 18px;
+    color: whitesmoke;
+    display: block;
+}
+
+.mobile-sub .mizmenu-submenu li a:hover {
+    background-color: #e7e7e7 !important;
+    color: #666666;
+    text-decoration: underline;
+}
+
+.mobile-sub .mizmenu-submenu li:hover > a {
+    background-color: darkred !important;
+    color: white;
+}
+
+.mobile-sub .mizmenu-submenu li .mizmenu-submenu-sub li a {
+    line-height: 20px;
+    height: 36px;
+    background-color: #e7e7e7 !important;
+    border-bottom: none;
+    padding-left: 28px;
+}
+
+.mobile-sub .mizmenu-submenu li .mizmenu-submenu-sub li .mizmenu-submenu-sub-sub li a {
+    line-height: 20px;
+    height: 36px;
+    background-color: #e7e7e7 !important;
+    border-bottom: none !important;
+    padding-left: 38px;
+    color: #8e8e8e;
+}
+
+/*.mrginleft {
+    margin-left: 400px;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}*/
+
+.mizmenu-list .megamenu {
+    background-color: #e7e7e7;
+    color: #666666;
+    display: none;
+    position: relative !important;
+    top: 0;
+    padding: 0;
+    border: solid 0;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.mizmenu-list li:hover .megamenu {
+      display: none;
+      position: relative !important;
+      top: 0;
+  }
+
+/*
+.halfdiv .title {
+    padding-left: 15px;
+}
+
+.halfdiv {
+    width: 100%;
+    display: block;
+}
+
+.menu_form {
+    padding: 10px 10px 63px 10px;
+    background-color: #e7e7e7;
+}
+
+.menu_form input[type="button"] {
+    width: 46%;
+}
+
+.menu_form input[type="submit"] {
+    width: 46%;
+}
+
+.menu_form textarea {
+    min-height: 100px;
+}
+*/
+
+.mizmenu {
+    width: 0;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    margin: 0;
+    border-radius: 0;
+    z-index: 100;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    border: none !important;
+    background-color: #fff !important;
+}
+
+.mizmenu > ul {
+    margin-top: 0 ;
+    margin-right: 0 ;
+    margin-left: 0 ;
+    margin-bottom: 0 ;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 ;
+    list-style: none;
+}
+
+/*Nav Expanding Open Effect*/
+.mizmenu.menuopen {
+    overflow-y: auto;
+    width: 400px;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.mizmenu.menuclose {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.mizmenucontent {
+    z-index: 1;
+}
+
+.mizmenuexpandermain .menuopen {
+    left: auto !important;
+    right: 400px !important;
+    margin-top: 0px !important;
+}
+
+.engagement-pulltab {
+    position: fixed;
+    text-align: left;
+    display: block;
+    font-size: small;
+    font-weight: bold;
+    background-color: darkred;
+    color: white;
+    left: auto !important;
+    right: 0  !important;
+    margin-top: -15px !important;
+    padding: 14px 5px 12px 10px;
+    vertical-align: middle;
+    border-radius: 30px 0 0 30px;
+    transition: all 400ms ease-in-out;
+    z-index: 500;
+}
+
+.engagement-pulltab:hover {
+    color: white !important;
+
+}
+
+/*Being a little too clever...:-)*/
+/*Adjusts the height of the pull tab when open*/
+.engagement-pulltab.menuopen {
+    margin-top: -42px !important;
+    z-index: 500;
+}
+
+.engagement-listing {
+    display:block;
+    line-height: 20px;
+    height: 36px;
+    background-color: white !important;
+    border-bottom: solid;
+    border-bottom-color: lightgray;
+    padding: 3px 0 3px 38px;
+    color: black;
+    cursor: default;
+
+}
+
+.engagement-listing > li:hover {
+    display: block;
+    background-color: lightpink !important;
+
+}
+
+
+

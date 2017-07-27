@@ -1,0 +1,244 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<!--THIS DISABLES THE ENTER KEY FOR THIS FORM-->
+<script type="text/javascript">
+
+    function stopRKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            return false;
+        }
+    }
+
+    document.onkeypress = stopRKey;
+
+</script>
+
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/labs">Labs</a></li>
+        <li class="active">New Lab</li>
+    </ol>
+</header>
+
+<span>
+    <h3> New Lab </h3>
+
+
+<button class="btn btn-success"
+        ng-disabled="ln.submissionDisabled"
+        ng-click="ln.createLab('registerAndOpen')">    <!--open and go to lab-->
+    Add and Open
+</button>
+
+<button class="btn btn-success"
+        ng-disabled="ln.submissionDisabled"
+        ng-click="ln.createLab('registerAndCreateAnother')">  <!--register and reset the form-->
+    Add and Create Another
+</button>
+
+<button class="btn btn-default"
+        ng-click="ln.resetForm(); ln.updateUserFeedback = ''; ">
+    Reset Form
+</button>
+</span>
+<hr>
+<h4> Required Fields</h4>
+<div ng-if="ln.createLabFeedback != '' ">
+    <hr>
+    <h4 style="color: darkred">{{ln.createlabFeedback}}</h4>
+    <hr>
+</div>
+
+
+<form id="newLab">
+
+    <!-- Name -->
+    <div class="row">
+        <div class="col-md-4">
+            <!--Lab Name-->
+            <div ng-class="ln.inputStatusGroup.name.formGroup">
+                <label class="control-label" for="nameTextbox">Lab Name (required)
+                    <!--<small style="color: darkgray">Enter an official name, such as that found in the W3 directory.</small>-->
+                </label>
+                <input type="text" class="form-control"
+                       id="nameTextbox"
+                       placeholder="Ex: America Software Lab"
+                       ng-model="ln.newLab.name"
+                       ng-change="ln.validateLabName()" auto-focus>
+                <span ng-class="ln.inputStatusGroup.name.glyphs" aria-hidden="true"></span>
+
+                <!-- Show link to existing name if partner already exists -->
+                <span ng-show="!ln.showDuplicateNameLink" class="help-block">
+                        {{ ln.inputHelp.name }}
+                    </span>
+                <span ng-show="ln.showDuplicateNameLink" class="help-block">
+                       {{ ln.inputHelp.name }} <a ng-href="/labs/{{ ln.dataResult }}">Go to existing partner</a>
+                    </span>
+
+            </div>
+
+
+            <!--Partner Description-->
+            <div ng-class="ln.inputStatusGroup.description.formGroup">
+                <label class="control-label" for="desciptionTextbox">Description </label>
+                <textarea type="textarea" rows="3" class="form-control" id="desciptionTextbox"
+                          placeholder="Ex: Focused on machine learning."
+                          ng-model="ln.newLab.description"
+                          > </textarea>
+                <span ng-class="ln.inputStatusGroup.description.glyphs" aria-hidden="true"></span>
+                <span class="help-block" ng-bind-html="ln.inputHelp.description"></span>
+            </div>
+
+            <!--Lab Leader-->
+            <div class="form-group">
+                <label for="leader" >Lab Leader</label>
+
+                <input type="text"
+                       class="form-control"
+                       id="leader"
+                       ng-model="ln.newLab.leader">
+            </div>
+
+
+
+        </div> <!-- Column -->
+
+
+        <!-- Lab Classification -->
+
+        <div class="col-md-6">
+            <div ng-class="ln.inputStatusGroup.company.formGroup">
+                <label class="control-label">This lab belongs to: (required)</label>
+
+                <div ng-class="row">
+                    <div class="col-md-6" style="background: lightsteelblue">
+
+                        <!--Partner Type Radio-->
+                        <h6 style="color: black; text-decoration: underline">Company</h6>
+
+                        <input type="radio"
+                               name="Futurewei"
+                               ng-model="ln.newLab.company"
+                               id="futurewei"
+                               value="Futurewei"
+                               ng-change="ln.validationGroup.company = true">
+                        <label for="futurewei"> Futurewei </label>
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio"
+                               ng-model="ln.newLab.company"
+                               id="huawei"
+                               value="Huawei Tech.(HQ)"
+                               ng-change="ln.validationGroup.company = true">
+                        <label for="huawei">Huawei (HQ)</label>
+
+                        <br>
+
+                        <input type="radio"
+                               name="partnerTypeRadio"
+                               ng-model="ln.newLab.company"
+                               id="device-usa"
+                               value="Huawei Device USA"
+                               ng-change="ln.validationGroup.company = true">
+                        <label for="device-usa"> Device USA </label>
+                        <br>
+
+                        <input type="radio"
+                               name="partnerTypeRadio"
+                               ng-model="ln.newLab.company"
+                               id="other-company"
+                               value="other"
+                               ng-change="ln.validationGroup.company = false">
+                        <label for="other-company"> Other </label>
+
+
+                        <input type="text"
+                               ng-if="ln.newLab.company=='other'"
+                               ng-model="ln.otherCompanyName"
+                               ng-change="ln.validateOther()">
+
+
+
+
+                    </div><!--Column-->
+
+
+                </div> <!--Row-->
+
+
+            </div>
+        </div>
+    </div><!--row-->
+
+
+    <hr>
+
+
+
+
+    <!--Add Lab Buttons-->
+    <div class="row">
+        <div class="col-md-12">
+
+            <button class="btn btn-success"
+                    ng-disabled="ln.submissionDisabled"
+                    ng-click="ln.createLab('registerAndOpen')">    <!--open and go to partner-->
+                Add and Open
+            </button>
+            <button class="btn btn-success"
+                    ng-disabled="ln.submissionDisabled"
+                    ng-click="ln.createLab('registerAndCreateAnother')">  <!--register and reset the form-->
+                Add and Create Another
+            </button>
+
+            <button class="btn btn-default"
+                    ng-click="ln.resetForm(); updateUserFeedback = ''; ">
+                Reset Form
+            </button>
+
+        </div> <!--Column-->
+
+    </div><!--Row-->
+    <hr>
+
+</form>
+<!--<hr style="color: red">
+<h4>Diagnostics</h4>
+<h5> New Partner Object (not yet incorporated into DB)</h5>
+Name: {{ newPartner.name }} <br>
+Description: {{ newPartner.description }} <br>
+Parents: {{ newPartner.parentPartners }} <br>
+Type: {{ newPartner.partnerType }} <br>
+Resource?: {{ newPartner.cooperationResource }} <br>
+BD Owner: {{ newPartner.bizDevOwners}} <br>
+Logo: {{ newPartner.logo}} <br>
+
+Image DB: <br>
+<div ng-repeat="image in images">
+    <img ng-src="{{ image.url() }}" height="100px"/>{{image._id}}<br/>
+</div>
+
+
+<h6>Other Variables</h6>
+bizDevOwners: {{bizDevOwners}}-->
+<!--
+Newlab:
+{{ln.newLab}}
+
+<br>
+
+ValidationGroup:
+{{ln.validationGroup}}
+-->
+
+
+
+
+

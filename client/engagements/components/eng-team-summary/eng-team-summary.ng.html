@@ -1,0 +1,164 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="en-title">
+            Futurewei Engagement Summary
+
+        <button class="btn  btn-xs"
+                ng-click="en_ts.viewEngagementUserSummary()"
+                style="float: right;margin-left: 40px; background-color: darkred; color:white;">
+            View Your Engagements
+        </button>
+
+    </div>
+    </div>
+</div>
+
+<div class="en-team-summary-body" id="en-team-summary-body">
+
+    <div class="row en-team-summary-control-panel" id="en-team-summary-control-panel" >
+
+
+
+        <!--<div class="en-team-summary-selector">-->
+
+        <div class="col-xs-1 en-team-summary-filter-title">
+            Filters
+            <button class="btn btn-xs en-team-summary-filter-reset-button"
+                    ng-click="en_ts.resetFilters()">Reset
+            </button>
+        </div>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-type" class="control-label">Type:</label><br>
+                <select id="filter-type" ng-model="en_ts.filter_type">
+                    <option>All</option>
+                    <option>Early Innovation</option>
+                    <option>Technical Cooperation</option>
+                    <option>Business Development</option>
+                    <option>Internal Project</option>
+                </select>
+            </div>
+        </form>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-cm" class="control-label">Bizdev Owner:</label><br>
+                <select class="" id="filter-cm" ng-model="en_ts.filter_bdOwner">
+
+                    <option>All</option>
+                    <option ng-repeat="bdOwner in en_ts.bizDevOwnerSearchList">{{bdOwner.profile.name}}</option>
+                </select>
+            </div>
+        </form>
+
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-2">
+                <label for="filter-status" class="control-label">Status:</label><br>
+                <select id="filter-status" ng-model="en_ts.filter_status" style="height: auto;
+    max-height: 180px;
+    overflow-y: scroll;">
+                    <option>Active</option>
+                    <option>Executing</option>
+                    <option>On Hold</option>
+                    <option>Closed</option>
+                    <option>All</option>
+                </select>
+            </div>
+        </form>
+
+        <form class="form-horizontal ">
+            <div class="form-group form-group-sm col-xs-3">
+                <label for="filter-search" class="control-label">Search:</label><br>
+                <input  id="filter-search" class="form-control input-sm" ng-model="en_ts.filter_search" placeholder="Filter by keyword...">
+
+                </input>
+            </div>
+        </form>
+
+
+    </div>
+
+
+    <div class=" row en-team-summary ">
+        <div class="col-xs-12 ">
+
+
+            <table class="table table-condensed table-head" id="en-team-summary-table-header">
+                <tr>
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click = "en_ts.setSortOptions('organization')"
+                        style="color:darkred;"
+                        title="Click to sort">Organization</td>
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click = "en_ts.setSortOptions('resource')"
+                        style="color:darkred;"
+                        title="Click to sort">Resource</td>
+                    <td class="en-team-summary-table-body-col-double">Subject</td>
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click = "en_ts.setSortOptions('lab')"
+                        style="color:darkred;"
+                        title="Click to sort">Lab</td>
+                    <td class="en-team-summary-table-body-col-single">PM</td>
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click = "en_ts.setSortOptions('bdOwner')"
+                        style="color:darkred;"
+                        title="Click to sort">BD Owner</td>
+                    <td class="en-team-summary-table-body-col-single">Latest</td>
+                    <td class="en-team-summary-table-body-col-single">Next Step</td>
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click = "en_ts.setSortOptions('updated')"
+                        style="color:darkred;"
+                        title="Click to sort">Updated</td>
+
+                </tr>
+            </table>
+
+            <div class="en-team-summary-table-body-wrapper"
+                 id="en-team-summary-table-body-wrapper">
+
+                <table class="table table-condensed table-body"
+                       infinite-scroll="en_ts.increaseEngagementLimit()"
+                        infinite-scroll-parent>
+                    <tr ng-repeat="engagement in en_ts.engagementCollection"
+                        ng-click="en_ts.viewEngagementDetail(engagement._id)"
+                        ng-class="en_ts.overdue(engagement)"
+                        >
+
+                        <td class="en-team-summary-table-body-col-single">{{engagement.contractingPartnersLabel[0]}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.cooperationResourcesLabel[0]}}</td>
+                        <td class="en-team-summary-table-body-col-double">{{engagement.title}}</td>
+                        <td class="en-team-summary-table-body-col-single"> {{engagement.tempLab}}</td>
+                        <td class="en-team-summary-table-body-col-single"> {{engagement.projectManager}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.bdOwnerLabel}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.currentStatus}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.nextStep}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{en_ts.formatDate(engagement.lastUpdated)}}
+                        </td>
+
+                    </tr>
+
+                </table>
+
+                <!--                <div class="en-team-summary-footer">
+                                    <h2> FOOTER</h2>
+
+
+                                </div>-->
+            </div>
+
+
+        </div> <!--column-->
+    </div> <!--row-->
+</div><!-- / tab panel-->
+
+
+<!--
+<div style="position: fixed; bottom:0">
+    <h5 >Diagnostics:</h5>
+    <strong>BD Owner:</strong> {{en_ts.engagementCollection}}
+</div>
+-->

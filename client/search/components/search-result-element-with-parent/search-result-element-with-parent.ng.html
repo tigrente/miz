@@ -1,0 +1,30 @@
+<!--SEARCH RESULTS COMPONENT-->
+
+
+<!--IF NOTHING IN SEARCH BOX-->
+<div class="row search-result-element-university-container">
+    <div class="col-xs-5 search-result-element-university-logo-column">
+
+
+        <div class="frame">
+            <span class="helper"><img class="search-result-element-university-logo"
+                                      ng-src="{{ sp.logo.url() }}"
+            /></span>
+        </div>
+
+    </div>
+
+    <div class="col-xs-7 search-result-element-university-name-column">
+        <div class="search-result-element-university-name">
+            {{sp.partner.name}}
+        </div>
+
+
+
+        <small style="color: lightgrey; padding: 0; margin: 0 0 3px 0; display: block;" ng-repeat="parent in sp.partner.parentPartnerLabel">{{parent}}<br></small>
+
+    </div>
+</div>
+
+
+

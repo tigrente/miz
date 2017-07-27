@@ -1,0 +1,148 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<div class="partner-summary-background">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="partner-summary-title">
+                Partner Summary
+            </div>
+
+            <div class="partner-summary-search-hint">
+                Search for partners here! <i class="fa fa-hand-o-up" aria-hidden="true"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row partner-summary-body">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-4  partner-summary-statistics-frame">
+
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><h4 style="color: darkred">Total Partners</h4></td>
+                            <td><h4 style="color:darkred">{{partnerSummary.partnerStats.partnerCount}}</h4></td>
+                        </tr>
+
+                        <tr>
+                            <td>Universities<br>
+                                <small style="font-style: italic">University Labs & Memberships</small>
+                            </td>
+                            <td>{{partnerSummary.partnerStats.universityCount}} <br>
+                                <small style="font-style: italic">{{partnerSummary.partnerStats.uniSubOrgCount}}</small>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Incubators <br> Venture Captial Firms</td>
+                            <td> {{partnerSummary.partnerStats.incubatorCount}} <br>
+                                {{partnerSummary.partnerStats.ventureCount}}
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Industry Associations</td>
+                            <td> {{partnerSummary.partnerStats.associationCount}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h4>Cooperation Resources</h4>
+                                Companies<br>
+                                Professors<br>
+                                Individual Contractors<br>
+                            </td>
+                            <td>
+                                <h4>{{partnerSummary.partnerStats.resourceCount}}</h4>
+                                {{partnerSummary.partnerStats.companyCount}} <br>
+                                {{partnerSummary.partnerStats.professorCount}} <br>
+                                {{partnerSummary.partnerStats.individualCount}}
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+    <!--        <div class="col-xs-6 partner-summary-graph">
+                <nvd3 options="partnerSummary.burstOptions"  data="partnerSummary.burstData"></nvd3>
+            </div>-->
+        </div>
+
+            <div class="row partner-summary-recent-additions">
+                <div class="col-xs-3 partner-summary-statistics-frame">
+
+                    <h4>Recently Added Universities: </h4>
+                    <div ng-repeat="uni in partnerSummary.partnerStats.newestUniversities"
+                         ng-click="partnerSummary.viewPartnerDetail(uni);"
+                         style="border-bottom: solid thin lightgrey">
+                        {{uni.name}}
+                    </div>
+
+                </div>
+
+                <div class="col-xs-3 partner-summary-statistics-frame">
+
+                    <h4>Recently Added Uni Labs: </h4>
+                    <div ng-repeat="suborg in partnerSummary.partnerStats.newestUniSubOrgs"
+                         ng-click="partnerSummary.viewPartnerDetail(suborg);"
+                         style="border-bottom: solid thin lightgrey">
+                        {{suborg.name}}
+                    </div>
+
+                </div>
+
+                <div class="col-xs-3 partner-summary-statistics-frame">
+
+                    <h4>Recently Added Companies: </h4>
+                    <div ng-repeat="company in partnerSummary.partnerStats.newestCompanies"
+                         ng-click="partnerSummary.viewPartnerDetail(company);"
+                         style="border-bottom: solid thin lightgrey">
+                        {{company.name}}
+                    </div>
+
+                </div>
+
+                <div class="col-xs-3 partner-summary-statistics-frame">
+
+                    <h4>Recently Added Professors: </h4>
+                    <div ng-repeat="prof in partnerSummary.partnerStats.newestProfessors"
+                         ng-click="partnerSummary.viewPartnerDetail(prof);"
+                         style="border-bottom: solid thin lightgrey;">
+                        {{prof.name}}
+                    </div>
+
+                </div>
+
+                <div class="col-xs-3 partner-summary-statistics-frame">
+
+                    <h4>Recently Added Ind. Contractors: </h4>
+                    <div ng-repeat="individual in partnerSummary.partnerStats.newestIndividuals"
+                         ng-click="partnerSummary.viewPartnerDetail(individual);"
+                         style="border-bottom: solid thin lightgrey;">
+                        {{individual.name}}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- **** TAB IMPLEMENTATION **** -->
+

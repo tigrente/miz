@@ -1,0 +1,101 @@
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/dashboard">Home</a></li>
+        <li class="active">User List</li>
+    </ol>
+</header>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Registered Users</h3>
+
+            <p>Select user to edit information or permissions.</p><br>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-group">
+                <input style="width: 225px" ng-model="accountList.search" type="text" class="form-control" placeholder="Search for...">
+            </div>
+            <!--/input-group-->
+
+            <!-- NOTE:  Have to do this with a button group instead of radio buttons, because there is an inherit
+             conflict between bootstrap and Angular with radio buttons.-->
+
+            <span>Sort by permissions: </span>
+
+            <div class="btn-group btn-group-xs">
+                <button type="button"
+                        ng-class="accountList.roleFilterButtonClasses['all']"
+                        ng-click="accountList.setRoleFilter('all'); ">
+                    All Users
+                </button>
+
+                <button type="button"
+                        ng-class="accountList.roleFilterButtonClasses['editEngagements']"
+                        ng-click="accountList.setRoleFilter('editEngagements'); ">
+                    Edit Engagements
+                </button>
+
+                <button type="button"
+                        ng-class="accountList.roleFilterButtonClasses['superAdmin']"
+                        ng-click="accountList.setRoleFilter('superAdmin'); ">
+                    Admins
+                </button>
+
+            </div>
+
+        </div>
+        <!-- /.col-md-4 -->
+        <!--Col-->
+
+
+        <div class="col-md-4" style="text-align: right">
+            <a class="btn btn-success" href="/registerUser" role="button">Create New User</a>
+        </div>
+    </div>
+
+
+    <table class="table table-hover">
+        <tr>
+            <td><strong>Username</strong></td>
+            <td><strong>Name</strong></td>
+            <!--<td><strong>DB_ID</strong></td>-->
+            <td><strong>E-mail</strong></td>
+            <td><strong>Company</strong></td>
+            <td><strong>HuaweiID</strong></td>
+            <td><strong>Group</strong></td>
+            <td><strong>Enabled</strong></td>
+
+
+        </tr>
+
+        <tr ng-repeat="user in accountList.userList"
+            ng-click="accountList.viewUserDetail(user._id)"
+            ng-show="!$first"
+        >
+            <td>{{user.username}}</td>
+            <td>{{ user.profile.name }}</td>
+            <!--<td>{{user._id}}</td>-->
+            <td>{{ user.emails[0].address}}</td>
+            <td>{{ user.profile.company}}</td>
+            <td>{{ user.profile.huaweiId }}</td>
+            <td>{{ user.profile.group }}</td>
+            <td>{{ user.profile.enabled }}</td>
+
+
+        </tr>
+
+    </table>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,511 @@
+<script>
+    //Refresh top level menu (need to find a way to make this a global function that works...)
+    $('nav a').parents('li,ul').removeClass('active');
+    $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+</script>
+
+<!--THIS DISABLES THE ENTER KEY FOR THIS FORM-->
+<script type="text/javascript">
+
+    function stopRKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            return false;
+        }
+    }
+
+    document.onkeypress = stopRKey;
+
+</script>
+
+<header>
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/partners">Partners</a></li>
+        <li class="active">New Partner</li>
+    </ol>
+</header>
+
+<span>
+    <h3> New Partner </h3>
+
+
+<button class="btn btn-success"
+        ng-disabled="submissionDisabled"
+        ng-click="registerPartner('registerAndOpen')">    <!--open and go to partner-->
+    Add and Open
+</button>
+<button class="btn btn-success"
+        ng-disabled="submissionDisabled"
+        ng-click="registerPartner('registerAndCreateAnother')">  <!--register and reset the form-->
+    Add and Create Another
+</button>
+
+<button class="btn btn-default"
+        ng-click="resetForm(); updateUserFeedback = ''; ">
+    Reset Form
+</button>
+</span>
+<hr>
+<h4> Required Fields</h4>
+<div ng-if="createPartnerFeedback != '' ">
+    <hr>
+    <h4 style="color: darkred">{{createPartnerFeedback}}</h4>
+    <hr>
+</div>
+
+
+<form id-="newpartner">
+
+    <!-- Name -->
+    <div class="row">
+        <div class="col-md-4">
+            <!--Partner Name-->
+            <div ng-class="inputStatusGroup.name.formGroup">
+                <label class="control-label" for="nameTextbox">Partner Name (required) </label>
+                <input type="text" class="form-control" id="nameTextbox" placeholder="Ex: Stanford University"
+                       ng-model="newPartner.name" ng-change="validatePartnerName()" auto-focus>
+                <span ng-class="inputStatusGroup.name.glyphs" aria-hidden="true"></span>
+
+                <!-- Show link to existing name if partner already exists -->
+                    <span ng-show="!showDuplicateNameLink" class="help-block">
+                        {{ inputHelp.name }}
+                    </span>
+                    <span ng-show="showDuplicateNameLink" class="help-block">
+                       {{ inputHelp.name }} <a ng-href="/partners/{{ dataResult }}">Go to existing partner</a>
+                    </span>
+
+            </div>
+
+
+            <!--Partner Description-->
+            <div ng-class="inputStatusGroup.description.formGroup">
+                <label class="control-label" for="desciptionTextbox">Description (required) </label>
+                <textarea type="textarea" rows="3" class="form-control" id="desciptionTextbox"
+                          placeholder="Ex: Startup focused on machine learning."
+                          ng-model="newPartner.description" ng-change="validateProperty('description')"> </textarea>
+                <span ng-class="inputStatusGroup.description.glyphs" aria-hidden="true"></span>
+                <span class="help-block" ng-bind-html="inputHelp.description"></span>
+            </div>
+
+        </div> <!-- Column -->
+
+
+        <!-- Cooperation Resource -->
+
+
+        <div class="col-md-6">
+            <div ng-class="inputStatusGroup.partnerType.formGroup">
+                <label class="control-label">This is a new: (required)</label>
+
+                <div ng-class="row">
+                    <div class="col-md-4" style="background: mintcream">
+
+                        <!--Partner Type Radio-->
+                        <h6 style="color: black; text-decoration: underline">Cooperation Resource</h6>
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="company"
+                               value="company" ng-click="newPartner.cooperationResource = true"
+                               ng-change="validationGroup.partnerType = true">
+                        Company
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="consultant"
+                               value="individual" ng-click="newPartner.cooperationResource = true"
+                               ng-change="validationGroup.partnerType = true">
+                        Individual Contractor <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="professor"
+                               value="professor" ng-click="newPartner.cooperationResource = true"
+                               ng-change="validationGroup.partnerType = true">
+                        Professor <br>
+
+
+                    </div><!--Column-->
+
+
+                    <div class="col-md-4">
+
+                        <h6 style="color: black; text-decoration: underline ">Other Partner</h6>
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="university"
+                               value="university" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        University
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="uniSubOrg"
+                               value="uniSubOrg" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        University Sub-Org<br>
+                        <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. Amp Lab, MediaX</small>
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="contact"
+                               value="contact" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        Contact <br>
+                        <small style="color: darkgrey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. admin, sales, legal</small>
+
+
+                    </div><!--Column-->
+
+                    <div class="col-md-4">
+
+                        <h6 style="color: darkgrey">&nbsp;</h6>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="incubator"
+                               value="incubator" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        Incubator
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="venture"
+                               value="venture" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        Venture Capital Firm
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="association"
+                               value="association" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        Industry Assc.
+                        <br>
+
+                        <input type="radio" name="partnerTypeRadio" ng-model="newPartner.partnerType" id="other"
+                               value="other" ng-click="newPartner.cooperationResource = false"
+                               ng-change="validationGroup.partnerType = true">
+                        Other
+
+
+                    </div>
+                </div> <!--Row-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                        <div ng-class="inputStatusGroup.cooperationResource.formGroup">
+                            <label class="control-label" for="cooperationResourceCheckbox">
+                                <input id="cooperationResourceCheckbox"
+                                       ng-model="newPartner.cooperationResource"
+                                       type="checkbox"
+                                       value="">
+
+
+                                List as Cooperation Resource
+                            </label>
+
+                            <small style="color: darkgray">
+                                <br>Cooperation resources are the people and entities that actually do the cooperation
+                                work.
+                                Companies, professors and independent consultants are often resources.
+                                Universities, administrators and incubators are usually not.
+                            </small>
+
+
+                        </div>
+                        </p>
+                    </div> <!--Column-->
+                </div> <!--Row-->
+            </div>
+        </div>
+    </div><!--row-->
+
+
+    <hr>
+
+    <!--Listing of parent partners-->
+    <div class="row">
+        <div class="col-md-3">
+            <!--       <b> newPartner.parentPartners</b><br>
+                   {{newPartner.parentPartners}}<br>
+                   <b> partentPartners</b><br>
+                   {{ parentPartners }}<br>-->
+
+            <label class="control-label">This partner is a member of: </label><br>
+
+            <br>
+            <div ng-show="noParentPartners()">
+                <small>No parent partners.</small>
+            </div>
+
+            <div ng-hide="noParentPartners()">
+                <ul class="list-unstyled">
+                    <li ng-repeat="parentPartner in parentPartners">
+                        {{ parentPartner.name }}
+                        <span class="glyphicon glyphicon glyphicon-remove"
+                              aria-hidden="true"
+                              style="padding-left: 2em;
+                              color: red"
+                              ng-click="removeParentPartner()">
+                        </span>
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Parent Partner Search and Add -->
+        <div class="col-md-3">
+            <div class="input-group">
+                <input ng-model="parentSearch" type="text" class="form-control"
+                       placeholder="Type for partners...">
+            </div>
+
+            <table class="table table-hover">
+                <tr ng-repeat="partner in parentPartnerList"
+                    ng-click="addParentPartner()">
+
+                    <td>{{partner.name}}</td>
+
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <small style="color: darkgrey">Attach university for professors and parent companies to consultants.<br>
+                Companies may also be members of incubators.
+            </small>
+            <br>
+
+            <!--Create a new parent partner-->
+
+            <a class="btn btn-default" onclick='window.open("/new-partner")' role="button">Create New Parent Partner</a>
+
+
+        </div><!--Column-->
+
+    </div>  <!--Row-->
+
+    <hr>
+
+    <!--Assign to BD Manager-->
+    <div class="row">
+        <div class="col-md-3">
+
+            <label class="control-label">The assigned business development resource is: </label><br>
+
+            <br>
+            <div ng-show="noBizDevOwners()">
+                <small>No BD owner assigned.</small>
+            </div>
+
+            <div ng-hide="noBizDevOwners()">
+                <ul class="list-unstyled">
+                    <li ng-repeat="bizDevOwner in bizDevOwners">
+                        {{ bizDevOwner.profile.name }}
+                        <span class="glyphicon glyphicon glyphicon-remove"
+                              aria-hidden="true"
+                              style="padding-left: 2em; color: red"
+                              ng-click="removeBizDevOwner()">
+                        </span>
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- BD manager Owner Search and Add-->
+        <div class="col-md-3">
+            <div class="input-group">
+                <input ng-model="bizDevOwnerSearch" type="text" class="form-control"
+                       placeholder="Type for bd managers...">
+            </div>
+
+            <table class="table table-hover">
+                <tr ng-repeat="bizDevOwner in bizDevOwnerList"
+                    ng-click="addBizDevOwner()">
+
+                    <td>{{bizDevOwner.profile.name }}</td>
+
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <small style="color: darkgrey">Must be a registered user of this system with the permission to edit
+                engagements.
+            </small>
+            <br>
+
+
+        </div><!--Column-->
+
+    </div><!--Row-->
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+
+
+            <h4>Additional Info</h4>
+            <!--Website-->
+            <div class="form-group">
+                <label for="website" class="col-xs-2 control-label">Website</label>
+                <div class="col-xs-10">
+                    <input type="text"
+                           class="form-control"
+                           id="website"
+                           ng-model="newPartner.website">
+                </div>
+            </div>
+            <br> <br>
+
+            <!--Contact-->
+            <div class="form-group">
+                <label for="contactInfo" class="col-xs-2 control-label">Contact Info</label>
+                <div class="col-xs-10">
+                            <textarea rows="3" class="form-control"
+                                      id="contactInfo"
+                                      placeholder="e-mail, phone numbers, etc."
+                                      ng-model="newPartner.contactInfo"> </textarea>
+                </div>
+            </div>
+            <br>
+
+            <!-- Notes -->
+            <div class="form-group">
+                <label for="notes" class="col-xs-2 control-label">Notes</label>
+                <div class="col-xs-10">
+                            <textarea rows="3" class="form-control"
+                                      id="notes" placeholder=""
+                                      ng-model="newPartner.notes"> </textarea>
+                </div>
+            </div>
+
+
+        </div> <!--column-->
+
+
+        <div class="col-md-3">
+
+
+            <h4> &nbsp;</h4>
+            <!--crsNumber-->
+            <div class="form-group">
+                <label for="crsNumber" class="col-xs-2 control-label">CRS #</label>
+                <div class="col-xs-10">
+                    <input type="text"
+                           class="form-control"
+                           id="crsNumber"
+                           ng-model="newPartner.crsNumber">
+                </div>
+            </div>
+
+
+            <br> <br>
+
+            <!--Logo / Image-->
+            <div class="form-group">
+                <label class="col-xs-2 control-label">Logo/Image</label>
+                <drop-zone class="col-xs-10" options="logoDropzoneOptions"></drop-zone>
+            </div>
+
+            <!--
+                        &lt;!&ndash;Preview template for logo Drop zone - shown in context of drop zone" &ndash;&gt;
+                        <div id="logo- preview-template" style="display: none;">
+
+                        </div>
+            -->
+
+
+        </div> <!--column-->
+
+        <div class="col-md-3">
+            <h4> &nbsp;</h4>
+            <a href="" target="_blank">CRS Database</a> <br><br><br>
+        </div>
+        <div class="col-md-3">
+            <a ng-href="http://www.google.com/search?q=logo {{newPartner.name}}&tbm=isch" target="_new">Google Image
+                Search</a>
+        </div>
+
+
+    </div> <!--row-->
+
+    <hr>
+
+
+    <!-- <div ng-class="inputStatusGroup.email.formGroup">
+         <label class="control-label" for="emailTextbox">E-mail</label>
+         <input type="text" class="form-control" id="emailTextbox" placeholder="Email"
+                ng-model="editedUser.email" ng-change="validateEmail()">
+         <span ng-class="inputStatusGroup.email.glyphs" aria-hidden="true"></span>
+         <span class="help-block">{{inputHelp.email }}</span>
+     </div>
+
+
+
+     <div ng-class="inputStatusGroup.company.formGroup">
+         <label class="control-label" for="companyTextbox">Company</label>
+         <input type="text" class="form-control" id="companyTextbox"
+                placeholder="Futurewei, HiSilicon, Huawei, etc."
+                ng-model="editedUser.company" ng-change="validateProperty('company')">
+         <span ng-class="inputStatusGroup.company.glyphs" aria-hidden="true"></span>
+         <span class="help-block">{{inputHelp.company }}</span>
+     </div>
+
+     <div ng-class="inputStatusGroup.group.formGroup">
+         <label class="control-label" for="groupTextbox">Lab/Group</label>
+         <input type="text" class="form-control" id="groupTextbox" placeholder="e.g. Wireless Access Lab"
+                ng-model="editedUser.group" ng-change="validateProperty('group')">
+         <span ng-class="inputStatusGroup.group.glyphs" aria-hidden="true"></span>
+         <span class="help-block">{{inputHelp.group }}</span>
+     </div>-->
+
+
+    <!-- end column -->
+
+
+    <!--Add Partner Buttons-->
+    <div class="row">
+        <div class="col-md-12">
+
+            <button class="btn btn-success"
+                    ng-disabled="submissionDisabled"
+                    ng-click="registerPartner('registerAndOpen')">    <!--open and go to partner-->
+                Add and Open
+            </button>
+            <button class="btn btn-success"
+                    ng-disabled="submissionDisabled"
+                    ng-click="registerPartner('registerAndCreateAnother')">  <!--register and reset the form-->
+                Add and Create Another
+            </button>
+
+            <button class="btn btn-default"
+                    ng-click="resetForm(); updateUserFeedback = ''; ">
+                Reset Form
+            </button>
+
+        </div> <!--Column-->
+
+    </div><!--Row-->
+    <hr>
+
+</form>
+<!--<hr style="color: red">
+<h4>Diagnostics</h4>
+<h5> New Partner Object (not yet incorporated into DB)</h5>
+Name: {{ newPartner.name }} <br>
+Description: {{ newPartner.description }} <br>
+Parents: {{ newPartner.parentPartners }} <br>
+Type: {{ newPartner.partnerType }} <br>
+Resource?: {{ newPartner.cooperationResource }} <br>
+BD Owner: {{ newPartner.bizDevOwners}} <br>
+Logo: {{ newPartner.logo}} <br>
+
+Image DB: <br>
+<div ng-repeat="image in images">
+    <img ng-src="{{ image.url() }}" height="100px"/>{{image._id}}<br/>
+</div>
+
+
+<h6>Other Variables</h6>
+bizDevOwners: {{bizDevOwners}}-->
+
+
+
+
+
+
+
