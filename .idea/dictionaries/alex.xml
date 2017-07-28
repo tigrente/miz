@@ -1,66 +1,15 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="alex">
+  <dictionary name="Alex">
     <words>
-      <w>alanning</w>
-      <w>angularui</w>
-      <w>anuglar</w>
-      <w>autoupdate</w>
-      <w>bcrypt</w>
-      <w>benjamine</w>
-      <w>browserify</w>
-      <w>coffeescript</w>
-      <w>cordova</w>
-      <w>dburles</w>
-      <w>deanius</w>
-      <w>deps</w>
-      <w>dimsum</w>
-      <w>dotansimha</w>
-      <w>dropzone</w>
-      <w>ecmascript</w>
-      <w>ejson</w>
-      <w>eventemitter</w>
-      <w>fastclick</w>
-      <w>fontawesome</w>
-      <w>fortawesome</w>
-      <w>geojson</w>
-      <w>gridfs</w>
-      <w>htmljs</w>
-      <w>izzilab</w>
-      <w>jasny</w>
-      <w>jasonaibrahim</w>
-      <w>jsondiffpatch</w>
-      <w>livedata</w>
-      <w>localstorage</w>
-      <w>meteorhacks</w>
-      <w>meteortoys</w>
-      <w>minifier</w>
-      <w>minifiers</w>
-      <w>minimongo</w>
-      <w>momentjs</w>
-      <w>mongo</w>
-      <w>msavin</w>
-      <w>nahue</w>
-      <w>netanelgilad</w>
-      <w>noninfringement</w>
-      <w>pavlovich</w>
-      <w>pbastowski</w>
-      <w>peerlibrary</w>
-      <w>raix</w>
-      <w>reywood</w>
-      <w>routepolicy</w>
-      <w>shelljs</w>
-      <w>spacebars</w>
-      <w>templating</w>
-      <w>tempstore</w>
-      <w>tgienger</w>
-      <w>tmeasday</w>
-      <w>toykit</w>
-      <w>twbs</w>
-      <w>unstyled</w>
-      <w>urigo</w>
-      <w>vitalets</w>
-      <w>webapp</w>
-      <w>xeditable</w>
+      <w>darkblue</w>
+      <w>darkgrey</w>
+      <w>darkorange</w>
+      <w>darkred</w>
+      <w>deeppink</w>
+      <w>deepskyblue</w>
+      <w>tablist</w>
+      <w>tabpanel</w>
+      <w>whitesmoke</w>
     </words>
   </dictionary>
 </component>

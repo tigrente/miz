@@ -1,23 +1,22 @@
 <script type="text/javascript" src="scripts/jquery.formatCurrency.js"></script>
 
 <script type="text/javascript">
-
-
-    // Sample 2
+    // Format currency
     $(document).ready(function () {
         $('.currency').blur(function () {
             $('.currency').eips.formatCurrency();
         });
     });
 </script>
+
+
+
 <h4>Payment Schedule</h4>
 
 
 <div ng-show="eips.focusEngagement"
      style="border: thin black solid;
             padding: 5px;">
-
-    <!--<h5>Focus Engagement</h5> {{eips.focusEngagement}}-->
 
 
     <!--IF PAYMENT SCHEDULE DOESN'T EXIST, SHOW THIS CREATION FORM-->

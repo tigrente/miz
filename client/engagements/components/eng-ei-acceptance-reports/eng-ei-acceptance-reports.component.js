@@ -13,7 +13,7 @@ miz.directive("engEiAcceptanceReports", function () {
         controllerAs: 'eiar',
         scope: false, // create seperate copy of scope
         bindToController: {
-            focusEngagementId: "@"
+            focusEngagement: "="
         },
 
         controller: function ($scope, $reactive) {
@@ -22,19 +22,6 @@ miz.directive("engEiAcceptanceReports", function () {
             $reactive(this).attach($scope);
 
             /** Initialize **/
-
-            const ONE_DAY = 1000 * 60 * 60 * 24;    //Get 1 day in milliseconds
-            const ONE_WEEK = ONE_DAY * 7;           //Get 1 week in milliseconds
-            const ONE_MONTH = ONE_DAY * 30.42;      //Get about 1 month in milliseconds
-
-
-            //template for all new payment entries
-            let acceptorTemplate = {
-                name: "",
-                idNumber: "",
-                lab: '',
-                independent: false
-            };
 
 
             //ui helpers
@@ -49,7 +36,7 @@ miz.directive("engEiAcceptanceReports", function () {
 
 
                     // get current engagement
-                    focusEngagement: () => {
+/*                    focusEngagement: () => {
                         this.getReactively('focusEngagementId');
 
                         //alert(this.focusEngagementId);
@@ -64,7 +51,7 @@ miz.directive("engEiAcceptanceReports", function () {
 
                         } //if
 
-                    },
+                    },*/
 
                    /* //direct pointer to early innovation data property
                     //also initializes data if its not there
@@ -131,7 +118,7 @@ miz.directive("engEiAcceptanceReports", function () {
 
             this.updatePaymentSchedule = function () {
 //alert("updatePaymentRun");
-                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagementId, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
+                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
 
             };
 

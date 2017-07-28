@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="reviewer in eiat.acceptanceTeam track by $index" style="text-align: center">
+                <tr ng-repeat="reviewer in eiat.focusEngagement.earlyInnovationProjectData.acceptanceTeam track by $index" style="text-align: center">
                     <!--track by index because some entries are identical-->
 
 
@@ -101,7 +101,7 @@
 
 <!--DISPLAY ACCEPTANCE TEAM-->
 
-<div ng-if="(eiat.acceptanceTeam.length > 0) && (!eiat.ui.editAcceptanceTeam)" style="border: black thin solid;">
+<div ng-if="(eiat.focusEngagement.earlyInnovationProjectData.acceptanceTeam.length > 0) && (!eiat.ui.editAcceptanceTeam)" style="border: black thin solid;">
 
 
     <div class="row">
@@ -118,7 +118,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="reviewer in eiat.acceptanceTeam track by $index">
+                <tr ng-repeat="reviewer in eiat.focusEngagement.earlyInnovationProjectData.acceptanceTeam track by $index">
                     <!--track by index because some entries are identical-->
 
                     <!--PAYMENT INDEX-->

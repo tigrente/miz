@@ -11,9 +11,9 @@ miz.directive("engEiAcceptanceTeam", function () {
         restrict: 'E',
         templateUrl: 'client/engagements/components/eng-ei-acceptance-team/eng-ei-acceptance-team.ng.html',
         controllerAs: 'eiat',
-        scope: false, // create seperate copy of scope
+        scope: true, // create seperate copy of scope
         bindToController: {
-            focusEngagementId: "@"
+            focusEngagement: "="
         },
 
         controller: function ($scope, $reactive) {
@@ -22,10 +22,6 @@ miz.directive("engEiAcceptanceTeam", function () {
             $reactive(this).attach($scope);
 
             /** Initialize **/
-
-            const ONE_DAY = 1000 * 60 * 60 * 24;    //Get 1 day in milliseconds
-            const ONE_WEEK = ONE_DAY * 7;           //Get 1 week in milliseconds
-            const ONE_MONTH = ONE_DAY * 30.42;      //Get about 1 month in milliseconds
 
 
             //template for all new payment entries
@@ -42,15 +38,33 @@ miz.directive("engEiAcceptanceTeam", function () {
                 editAcceptanceTeam: false  //true for development, otherwise should be false
             };
 
-            this.newPaymentSchedule = 'initializing';
+
+            // check to see if EI data present.  If not, let parent handle it and just ignore.
+            if (!this.focusEngagement.hasOwnProperty('earlyInnovationProjectData')) {
+                this.call("engagementInitializeEarlyInnovationProjectData", this.focusEngagement._id, (err, result) => {
+                    if (err)
+                        alert("Issue initializing Early Innovation Project data in engagement.");
+                });
+            }
+
+            // check if A&P data is present.  If not, call server to create template and update.
+            else if (!this.focusEngagement.earlyInnovationProjectData.hasOwnProperty('acceptanceTeam')) {
+                this.call("engagementResetEIAcceptanceTeam", this.focusEngagement._id, (err, result) => {
+                    if (err)
+                        alert("Error instantiating payment data.");
+                    else {
+                        this.ui.editAcceptanceTeam = true;
+                    }
+                });
+            }
 
 
-            this.paymentSchedule = [];
 
             /** HELPERS **/
             this.helpers({
 
 
+/*
                     // get current engagement
                     focusEngagement: () => {
                         this.getReactively('focusEngagementId');
@@ -59,10 +73,11 @@ miz.directive("engEiAcceptanceTeam", function () {
                         if (this.focusEngagementId)
                             return   Engagements.findOne(this.focusEngagementId);
                     },
+*/
 
                     //direct pointer to early innovation data property
                     //also initializes data if its not there
-                    acceptanceTeam: () => {
+/*                    acceptanceTeam: () => {
 
                         this.getReactively('focusEngagement.earlyInnovationProjectData', true);
 
@@ -95,8 +110,8 @@ miz.directive("engEiAcceptanceTeam", function () {
                         } // if (focusEngagement)
 
 
-                    }, //paymentSchedule
-
+                    }, //aceptanceTeam
+            */
                 }
             );
 
@@ -129,7 +144,7 @@ miz.directive("engEiAcceptanceTeam", function () {
             this.addAcceptor = function () {
 
 
-                this.acceptanceTeam.push(acceptorTemplate);
+                this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.push(acceptorTemplate);
                 this.updateAcceptanceTeam();
 
             };
@@ -143,7 +158,7 @@ miz.directive("engEiAcceptanceTeam", function () {
 
                 // Ensure that acceptors less than three can not be removed.
                 if (index > 2) {
-                    this.acceptanceTeam.splice(index, 1);
+                    this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.splice(index, 1);
                     this.updateAcceptanceTeam();
                 }
 
@@ -157,7 +172,7 @@ miz.directive("engEiAcceptanceTeam", function () {
 
             this.updateAcceptanceTeam = function () {
 
-                this.call("engagementUpdateEIAcceptanceTeam", this.focusEngagementId, angular.copy(this.acceptanceTeam));
+                this.call("engagementUpdateEIAcceptanceTeam", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceTeam));
 
             };
 

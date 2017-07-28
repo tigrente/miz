@@ -11,9 +11,9 @@ miz.directive("engEiPaymentSchedule", function () {
         restrict: 'E',
         templateUrl: 'client/engagements/components/eng-ei-payment-schedule/eng-ei-payment-schedule.ng.html',
         controllerAs: 'eips',
-        scope: false, // create seperate copy of scope
+        scope: true,
         bindToController: {
-            focusEngagementId: "@"
+            focusEngagement: "="
         },
 
         controller: function ($scope, $reactive, $state) {
@@ -157,12 +157,35 @@ miz.directive("engEiPaymentSchedule", function () {
             this.newPaymentSchedule = 'initializing';
 
 
+/*            if (this.focusEngagement) {
+
+                //Check for earlyInnovationData - initialize if nothing there
+                if (!this.focusEngagement.hasOwnProperty('earlyInnovationProjectData')) {
+                    this.call("engagementInitializeEarlyInnovationProjectData", this.focusEngagement._id, (err, result) => {
+                        if (err)
+                            alert("Something went wrong: " + err);
+                        else
+                            $route.reload(); //reload the controller after the change
+                    });
+                } else {
+
+
+                    this.initializer.dealValue = this.focusEngagement.dealValue;
+
+                    // if no payment schedule, enable the editing window
+                    if (thia.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length === 0)
+                        this.ui.editPaymentSchedule = true;
+
+                }
+            }*/
+
+
             /** HELPERS **/
             this.helpers({
 
 
                 // get current engagement
-                focusEngagement: () => {
+              /*  focusEngagement: () => {
                     this.getReactively('focusEngagementId');
 
                     //alert(this.focusEngagementId);
@@ -193,7 +216,7 @@ miz.directive("engEiPaymentSchedule", function () {
 
                     } //if
 
-                },
+                },*/
 
 
             });
@@ -227,7 +250,7 @@ miz.directive("engEiPaymentSchedule", function () {
                     let fdl = this.focusEngagement.earlyInnovationProjectData.contract.contractValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     return "$" + fdl;
 
-                } else return "value undefineds";
+                } else return "Click to enter value...";
             }; //formattedDealValue
 
             /***************************************************************************************************
@@ -398,7 +421,7 @@ miz.directive("engEiPaymentSchedule", function () {
                 this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.push(paymentTemplate);
                 this.updatePaymentSchedule();
 
-                /*this.call("engagementUpdateEIPaymentSchedule", this.focusEngagementId, angular.copy(newPaymentSchedule));*/
+                /*this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(newPaymentSchedule));*/
 
 
             };
@@ -414,7 +437,7 @@ miz.directive("engEiPaymentSchedule", function () {
 
                 this.updatePaymentSchedule();
 
-                /* this.call("engagementUpdateEIPaymentSchedule", this.focusEngagementId, angular.copy(newPaymentSchedule));*/
+                /* this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(newPaymentSchedule));*/
 
 
             };
@@ -697,7 +720,7 @@ miz.directive("engEiPaymentSchedule", function () {
                                 relativeTimeValid = true;
                             else {
                                 relativeTimeValid = false;
-                                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate = "? (No contract signing date)";
+                                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate = "?";
                             }
 
 
@@ -817,22 +840,22 @@ miz.directive("engEiPaymentSchedule", function () {
 
             this.updatePaymentSchedule = function () {
 
-                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagementId, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
+                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
 
             };
 
 
             this.updatePaymentScheduleElement = function (index, field, value) {
-                this.call("engagementUpdateEIPaymentOption", this.focusEngagementId, field, value);
+                this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, field, value);
             };
 
-                 /***************************************************************************************************
+            /***************************************************************************************************
              * updatePaymentOptions
              * Commits updated client payment options to server
              ****************************************************************************************************/
 
             this.updatePaymentOption = function (field, value) {
-                this.call("engagementUpdateEIPaymentOption", this.focusEngagementId, field, value);
+                this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, field, value);
             };
 
             /***************************************************************************************************
@@ -841,7 +864,7 @@ miz.directive("engEiPaymentSchedule", function () {
              ****************************************************************************************************/
 
             this.updateAdditionalFinalAcceptance = function (field, value) {
-                this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagementId, field, value);
+                this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagement._id, field, value);
             };
 
 
@@ -851,7 +874,7 @@ miz.directive("engEiPaymentSchedule", function () {
              ****************************************************************************************************/
 
             this.updateRelativeDateUnit = function () {
-                this.call("engagementUpdateEIPaymentOption", this.focusEngagementId, 'relativeDateUnit', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit);
+                this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, 'relativeDateUnit', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit);
 
                 let method = this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit;
 
@@ -869,7 +892,7 @@ miz.directive("engEiPaymentSchedule", function () {
             this.updateContractData = function () {
 
                 /* alert("update contract data - client");*/
-                this.call("engagementUpdateEIContractData", this.focusEngagementId, angular.copy(this.focusEngagement.earlyInnovationProjectData.contract));
+                this.call("engagementUpdateEIContractData", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.contract));
 
             };
 
@@ -881,7 +904,7 @@ miz.directive("engEiPaymentSchedule", function () {
             this.cancelPaymentScheduleChanges = function () {
 
                 this.ui.editPaymentSchedule = false; // turn off the editing UI
-                this.focusEngagement = Engagements.findOne(this.focusEngagementId);  // trigger helper watch to update from server
+                this.focusEngagement = Engagements.findOne(this.focusEngagement._id);  // trigger helper watch to update from server
 
             };
 
@@ -962,7 +985,7 @@ miz.directive("engEiPaymentSchedule", function () {
                 else
                     this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation = 'specific';
 
-                this.call('engagementUpdateEIPaymentOption', this.focusEngagementId, 'dateCalculation', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation);
+                this.call('engagementUpdateEIPaymentOption', this.focusEngagement._id, 'dateCalculation', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation);
 
             };
 
@@ -976,7 +999,7 @@ miz.directive("engEiPaymentSchedule", function () {
                 else
                     this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation = 'specific';
 
-                this.call('engagementUpdateEIPaymentOption', this.focusEngagementId, 'paymentCalculation', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation);
+                this.call('engagementUpdateEIPaymentOption', this.focusEngagement._id, 'paymentCalculation', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation);
 
             };
 

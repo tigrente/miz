@@ -1,3 +1,4 @@
+<!--suppress Annotator, SpellCheckingInspection -->
 <script>
     //Refresh top level menu (need to find a way to make this a global function that works...)
     $('nav a').parents('li,ul').removeClass('active');
@@ -6,6 +7,7 @@
 
 
 <div ng-if="!ed.focusEngagement">
+    <!--suppress HtmlUnknownTarget -->
     <img src="photos/spinner.gif" height="25px" width="25px">
     <h4 style="color:darkred; display: inline-block">Loading...</h4>
 </div>
@@ -126,10 +128,8 @@
                 </a>
                 </p>
                 <div style="background-color: white;
-                        border-radius: 0px;
-                        border-width: 1px;
-                        border-color:black;
-
+                        border-radius: 0;
+                        border: 1px black;
                         border-top: thin solid;
                         ">
 
@@ -155,7 +155,6 @@
             <div class="col-xs-7" style="    margin-top: 10px;
                                 background-color: #f5f5f5;
                                 border-radius: 10px;
-                                border-color:darkred;
                                 border: groove;
                                 padding: 5px;
                                 font-size: small">
@@ -308,6 +307,7 @@
                         href="#acceptance-report-panel" aria-controls="acceptance-report-panel" role="tab"
                         data-toggle="tab">Acceptance Report</a></li>
 
+
             </ul>
         </div>
 
@@ -348,14 +348,14 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <eng-ei-payment-schedule
-                                focus-engagement-id="{{ed.focusEngagement._id}}"></eng-ei-payment-schedule>
+                                focus-engagement="ed.focusEngagement"></eng-ei-payment-schedule>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12">
                         <eng-ei-acceptance-team
-                                focus-engagement-id="{{ed.focusEngagement._id}}"></eng-ei-acceptance-team>
+                                focus-engagement="ed.focusEngagement"></eng-ei-acceptance-team>
                     </div>
                 </div>
             </div>
@@ -366,7 +366,7 @@
                 >
                 <div class="row">
                     <div class="col-xs-12">
-                       <eng-ei-acceptance-reports focus-engagement-id="{{ed.focusEngagement._id}}"></eng-ei-acceptance-reports>
+                       <eng-ei-acceptance-reports focus-engagement="ed.focusEngagement"></eng-ei-acceptance-reports>
                     </div>
                 </div>
             </div>
@@ -403,7 +403,7 @@
 
                 <partner-select ng-if="ed.focusEngagement"
                                 reset-on-change="ed.focusEngagement"
-                                partner-types="edcontractingPartnerTypes"
+                                partner-types="ed.contractingPartnerTypes"
                                 selector-label="The party signing the contract is:"
                                 selected-partner-ids="ed.focusEngagement.contractingPartners">
                 </partner-select>
