@@ -513,6 +513,19 @@ Meteor.methods({
 
     },
 
+    engagementUpdateEIAcceptanceAndPayments: function (engagementId, apObject) {
+
+        /*paymentScheduleArrayconsole.log("EI Payment Update run");*/
+
+        let set = {
+            "earlyInnovationProjectData.acceptanceAndPayments": apObject
+        };
+
+        Engagements.update(engagementId, {$set: set});
+
+    },
+
+
     /*** START HERE ***/
     engagementUpdateEIPaymentScheduleElement: function (engagementId, index, field, value) {
 
@@ -587,11 +600,11 @@ Meteor.methods({
 
     engagementUpdateEIContractData: function (engagementId, contractData) {
 
-        console.log("EI Payment contract data Update run");
+        //console.log("EI Payment contract data Update run");
 
         let key = "earlyInnovationProjectData.contract";
 
-        console.log(key);
+        //console.log(key);
 
         let set = {};
 

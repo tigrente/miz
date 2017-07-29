@@ -397,12 +397,15 @@ miz.directive("engEiPaymentSchedule", function () {
                 this.focusEngagement.dealValue = this.initializer.dealValue;
                 this.updateContractData();
 
-                this.updatePaymentOption('dateCalculation', this.initializer.dateCalculation);
-                this.updatePaymentOption('paymentCalculation', this.initializer.paymentCalculation);
-                this.updatePaymentOption('relativeDateUnit', this.initializer.relativeDateUnit);
+
+                //set options
+                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation = this.initializer.dateCalculation;
+                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance = this.initializer.additionalFinalAcceptance;
+                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit = this.initializer.relativeDateUnit;
+                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.paymentCalculation = this.initializer.paymentCalculation;
 
 
-                this.updatePaymentSchedule();
+                this.updateAcceptanceAndPayments();
                 this.ui.editPaymentSchedule = true;
                 // / This is wacky - you must update on the server, or else you get
                 // weird ng-repeat issues.
@@ -419,7 +422,7 @@ miz.directive("engEiPaymentSchedule", function () {
 
 
                 this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.push(paymentTemplate);
-                this.updatePaymentSchedule();
+                this.updateAcceptanceAndPayments();
 
                 /*this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(newPaymentSchedule));*/
 
@@ -435,7 +438,7 @@ miz.directive("engEiPaymentSchedule", function () {
 
                 this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.splice(index, 1);
 
-                this.updatePaymentSchedule();
+                this.updateAcceptanceAndPayments();
 
                 /* this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(newPaymentSchedule));*/
 
@@ -613,7 +616,7 @@ miz.directive("engEiPaymentSchedule", function () {
                             }
                         } //for
                     }// if paymentSchedule
-                    this.updatePaymentSchedule();
+                    this.updateAcceptanceAndPayments();
                     this.updateAdditionalFinalAcceptance('relativeTime', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime);
                     this.updateAdditionalFinalAcceptance('targetDate', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate);
 
@@ -754,7 +757,7 @@ miz.directive("engEiPaymentSchedule", function () {
 
                     }// if paymentSchedule
 
-                    this.updatePaymentSchedule();
+                    this.updateAcceptanceAndPayments();
                     this.updateAdditionalFinalAcceptance('targetDate', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate);
                     this.updateAdditionalFinalAcceptance('relativeTime', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.relativeTime);
                 } // if dateCalculation = relative
@@ -793,7 +796,7 @@ miz.directive("engEiPaymentSchedule", function () {
                     }
                 }// if paymentSchedule
 
-                this.updatePaymentSchedule();
+                this.updateAcceptanceAndPayments();
 
             };
 
@@ -828,7 +831,7 @@ miz.directive("engEiPaymentSchedule", function () {
                     }
                 }
 
-                this.updatePaymentSchedule();
+                this.updateAcceptanceAndPayments();
 
             };
 
@@ -844,10 +847,20 @@ miz.directive("engEiPaymentSchedule", function () {
 
             };
 
+            /***************************************************************************************************
+             * updateAcceptanceAndPayments
+             * Updates entire acceptanceAndPayments object.  This is here because sometimes options need to be
+             * updated simultaneously with the payment schedule, for example when changing the dateUnit option,
+             * the schedule will be recalculated.  Doing this piecewise causes thrash between client and server
+             * with unsynchronized updates.
+             ****************************************************************************************************/
 
-            this.updatePaymentScheduleElement = function (index, field, value) {
-                this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, field, value);
+            this.updateAcceptanceAndPayments = function () {
+
+                this.call("engagementUpdateEIAcceptanceAndPayments", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments));
+
             };
+
 
             /***************************************************************************************************
              * updatePaymentOptions
@@ -874,9 +887,10 @@ miz.directive("engEiPaymentSchedule", function () {
              ****************************************************************************************************/
 
             this.updateRelativeDateUnit = function () {
-                this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, 'relativeDateUnit', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit);
+               // this.call("engagementUpdateEIPaymentOption", this.focusEngagement._id, 'relativeDateUnit', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit);
 
-                let method = this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.relativeDateUnit;
+                let method = this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation;
+
 
                 if (method === 'relative')
                     this.calculateTargetDates();
@@ -915,13 +929,13 @@ miz.directive("engEiPaymentSchedule", function () {
             /*todo: complete this*/
             this.updateSigningDate = function () {
 
-                this.updateContractData();
-
                 // if specific dates determined, calculate the relative dates.
                 if (this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'specific')
                     this.calculateRelativeTimes();
                 else if (this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.dateCalculation === 'relative')
                     this.calculateTargetDates();
+
+                this.updateContractData();
             };
 
 
