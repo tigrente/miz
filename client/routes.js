@@ -375,6 +375,13 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                     }
                 }
             }
+        })
+        
+        /* ARTICLE TOOLS */
+
+        .state('articles', {
+            url: '/articles',
+            template: '<articles-list></articles-list>'
         });
 
 
