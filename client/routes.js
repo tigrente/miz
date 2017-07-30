@@ -382,6 +382,11 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         .state('articles', {
             url: '/articles',
             template: '<articles-list></articles-list>'
+        })
+
+        .state('articleDetail', {
+            url: '/article/:articleId',
+            template: '<article-detail></article-detail>'
         });
 
 
