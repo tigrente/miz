@@ -16,9 +16,12 @@ Meteor.methods({
 
         return Files.update(selector, modifier);
 
+    },
 
+    filesDeleteFile: function(fileId) {
+
+        Files.remove({_id: fileId});
     }
-
 
 
 

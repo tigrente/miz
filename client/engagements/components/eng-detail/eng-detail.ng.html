@@ -299,11 +299,11 @@
                         href="#checklist-panel" aria-controls="checklist-panel" role="tab"
                         data-toggle="tab">EI Project</a></li>-->
 
-                <li class="active" role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
+                <li  role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
                         href="#payment-panel" aria-controls="payment-panel" role="tab"
                         data-toggle="tab">Acceptance & Payment</a></li>
 
-                <li  role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
+                <li  class="active" role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
                         href="#acceptance-report-panel" aria-controls="acceptance-report-panel" role="tab"
                         data-toggle="tab">Acceptance Report</a></li>
 
@@ -340,7 +340,7 @@
             </div>-->
 
             <!-- *** ACCEPTANCE AND PAYMENT SCHEDULE PANEL *** -->
-            <div role="tabpanel" class="tab-pane fade in active "
+            <div role="tabpanel" class="tab-pane fade  "
                  id="payment-panel"
                  ng-if="(ed.focusEngagement.type === 'Early Innovation' )"
                  style="  overflow-x: hidden; overflow-y: auto; padding: 20px">

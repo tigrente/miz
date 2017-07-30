@@ -1,12 +1,11 @@
-<div class="fileHolder" ng-if="ufh.file === null ">
+<div class="fileHolder" ng-if="(!ufh.file)">
     <drop-zone options="ufh.fileHolderDropzoneOptions" name="dzfileEdit"></drop-zone>
 </div>
 
 <div class="row"
-     ng-if="(ufh.file !== null) || ('undefined' === typeof ufh.file)">
+     ng-if="(!ufh.file ) || ('undefined' === typeof ufh.file)">
 
-    <div class="col-xs-2">
-
+    <div class="col-xs-12">
 
         <a ng-href="{{ ufh.fileUrl(ufh.file) }}"
            target="_self"
@@ -19,34 +18,84 @@
                  data-downloadurl="{{ ufh.fileUrl(ufh.file) }}">
             </div>
         </a>
+        &nbsp;
+        <i style="color: darkred; cursor: pointer" ng-click="ufh.deleteCheck">x</i>
+    </div>
+</div>
+
+
+<div class="row" ng-if="(ufh.file) && (!ufh.deleteCheck)">
+
+    <div class="col-xs-6" style="text-align: center">
+
+
+        <a ng-href="{{ ufh.fileUrl(ufh.file) }}"
+           target="_self"
+           download="{{ufh.file.fileName}}"
+           style="color:darkred;">
+
+            <div class="file-icon file-icon-md"
+                 data-type="{{ ufh.fileDataType(ufh.file) }}"
+                 draggable="true"
+                 data-downloadurl="{{ ufh.fileUrl(ufh.file) }}">
+            </div>
+        </a>
 
     </div>
+    <!--    <div class="col-xs-2">
+            <i style="color: darkred; cursor: pointer " data-toggle="modal" data-target="#deleteFileModal" ng-click="ufh.deleteTargetId = ufh.file._id">x</i>
+        </div>-->
+
     <div class="col-xs-2">
-        <i style="color: darkred; cursor: pointer " data-toggle="modal" data-target="#deleteFileModal" >x</i>
+        <i style="color: darkred; cursor: pointer " ng-click="ufh.deleteCheck = ! ufh.deleteCheck">x</i>
     </div>
+</div>
 
+
+<!--DELETE FILE CHECK-->
+<div class="row" ng-if="ufh.deleteCheck">
+
+    <div class="col-xs-12">
+        <div>
+            Are you sure you want<br>
+            to delete this file?
+
+        </div>
+        <div>
+            <button type="button" class="btn btn-default" ng-click="ufh.deleteCheck = false">Cancel</button>
+            <button ng-click="ufh.deleteFile(ufh.file.fileId)" type="button" class="btn btn-danger"
+                    data-dismiss="modal">Delete
+                File
+            </button>
+        </div>
+
+
+    </div>
 
 </div>
 
 
-
-
 <!--DELETE FILE MODAL-->
 
-<div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel" data-backdrop="false">
+<div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel"
+     data-backdrop="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Warning! About to delete file!</h4>
             </div>
             <div class="modal-body">
-               Are you sure you want to delete this file?
+                Are you sure you want to delete this file?
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button ng-click="ufh.deleteFile()" type="button" class="btn btn-danger"  data-dismiss="modal"  >Delete File</button>
+                <button ng-click="ufh.deleteFile(ufh.file.fileId)" type="button" class="btn btn-danger"
+                        data-dismiss="modal">Delete
+                    File
+                </button>
             </div>
         </div>
     </div>

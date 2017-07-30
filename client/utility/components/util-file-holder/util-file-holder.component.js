@@ -14,24 +14,24 @@ miz.directive("utilFileHolder", function () {
         scope: true, // create separate copy of scope
         bindToController: {
             file: "=",
-            runOnDrop: "=",
+            runOnDrop: "&",
+            runOnDelete: "&",
             fileDescription: "@"
         },
 
         controller: function ($scope, $reactive) {
 
-
             $reactive(this).attach($scope);
 
             /** Initialize **/
+
+            this.deleteCheck = false;   // a flag to show and hide verification buttons for file deletion
+
 
             /***************************************************************************************************
              * logoDropzoneOptions
              * Options for the logo/photo insertion drop zone
              ****************************************************************************************************/
-
-
-
 
             let thisFile = this; //placeholder for scope in use of methods below
 
@@ -40,8 +40,7 @@ miz.directive("utilFileHolder", function () {
                 uploadMultiple: false,
                 addRemoveLinks: true,
                 maxFiles: 1,
-                dictDefaultMessage: 'Drop your file here, or click to choose a file',
-
+                dictDefaultMessage: 'Drop your file here, or click to choose',
 
                 accept: (file, done) => {
 
@@ -67,14 +66,19 @@ miz.directive("utilFileHolder", function () {
                                     // this gives us back the link, even though the file may not be fully uploaded
                                     fileUrl: fileObj.url({brokenIsFine: true})
                                 };
-
                             $scope.$apply();
+
+                            thisFile.runOnDrop();
 
                         } //accept
                     });
                     done();
-                    thisFile.runOnDrop();
-                }
+
+                },// accept
+
+
+
+
             };
 
             /** HELPERS **/
@@ -97,17 +101,7 @@ miz.directive("utilFileHolder", function () {
 
 
             /** FUNCTIONS **/
-            /***************************************************************************************************
-             * updatePaymentSchedule
-             * Commits updated client payment schedule to server and turns of editing window
-             ****************************************************************************************************/
 
-            this.updatePaymentSchedule = function () {
-
-                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagementId, angular.copy(this.paymentSchedule));
-                $scope.$apply();
-
-            };
 
             /***************************************************************************************************
              * fileUrl
@@ -119,16 +113,19 @@ miz.directive("utilFileHolder", function () {
             };
 
             /***************************************************************************************************
-             *
+             * deleteFile
+             * Deletes file
              ****************************************************************************************************/
-            this.deleteFile = function ( ) {
-                //Files.remove(this.file._id);
-                this.file = null;
-                this.runOnDrop(); //use external function to update result
-                $scope.$apply();
+            this.deleteFile = function () {
+                this.deleteCheck = false;  // make verification buttons disappear.
+                this.call('filesDeleteFile', this.file.fileId, (err, result)=>{
+                    this.file = null;
+                    $scope.$apply();
+                    this.runOnDelete(); //use external function to update result
+                });
+
+
             };
-
-
 
 
             /***************************************************************************************************
@@ -146,7 +143,7 @@ miz.directive("utilFileHolder", function () {
                  */
 
                 if (file.fileName) {
-                    return extension = file.fileName.split('.').pop();
+                    return file.fileName.split('.').pop();
 
                 } // else
 
@@ -157,7 +154,7 @@ miz.directive("utilFileHolder", function () {
             /***************************************************************************************************
              * jQuery
              ****************************************************************************************************/
-           // this ensures the modal is on top
+            // this ensures the modal is on top
             //$('#deleteFileModal').appendTo("body")
 
 

@@ -1,7 +1,7 @@
 <h4>Acceptance Reports</h4>
 
-<!--<h5>Focus Engagement</h5>{{eiar.focusEngagement}}
-<h5>Focus</h5> {{eiar.focusEngagementId}}-->
+<h5>Focus Engagement</h5>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule}}
+<h5>Focus</h5> {{eiar.focusEngagementId}}
 <div style="border: black thin solid;">
 
     <div class="row">
@@ -36,14 +36,15 @@
                     <td> {{payment.milestone}}</td>
 
                     <td>{{payment.targetDate | date:'shortDate'}}</td>
-                    <td style="color: red">Actual report date (tbd)</td>
+                    <td style="color: red">{{payment.actualDate | date:'shortDate'}}</td>
                     <td>
                         <button class="btn btn-warning btn-sm">Generate Template</button>
                     </td>
                     <td>
                         <util-file-holder
                                 file="payment.acceptanceReportFile"
-                                run-on-drop="eiar.updatePaymentSchedule()"
+                                run-on-drop="eiar.acceptanceReportAdded($index)"
+                                run-on-delete="eiar.acceptanceReportDeleted($index)"
                                 file-description="'Acceptance Report'">
                         </util-file-holder>
                     </td>
