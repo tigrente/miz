@@ -1,8 +1,8 @@
-guideRooms = new Mongo.Collection("guide_rooms");
+cms = new Mongo.Collection("cms");
 
 
 //for now - just being logged in should be good enough
-guideRooms.allow({
+cms.allow({
     insert: function(userId) {
         return userId;
     },
