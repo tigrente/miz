@@ -367,6 +367,12 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 }
             }
         }
+    })
+    
+    
+    .state('guideRoom', {
+        url: '/room/:roomId',
+        template: '<guide-room></guide-room>'
     });
 
 
