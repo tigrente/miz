@@ -3,18 +3,15 @@ miz.directive("guideRoom", function () {
       restrict: 'E',
       templateUrl: 'client/guides/components/room/room.ng.html',
       controllerAs: 'roomCtrl',
-      controller: function ($scope, $reactive, $stateParams) {
+      controller: function ($scope, $reactive) {
 
           $reactive(this).attach($scope);
 
-          roomId = $stateParams.roomId;
         
           /* HELPERS */
           this.helpers({
             room: () => {
-                return cms.findOne({
-                    _id: roomId
-                });
+                return cms.findOne(); // for now just get the first entry
             }
           });
 
