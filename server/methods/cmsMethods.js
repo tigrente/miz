@@ -1,17 +1,5 @@
-Meteor.publish('guideRooms', function() {
+Meteor.publish('cms', function() {
   return cms.find({
-    cmsType: 'rooms'
-  });
-});
-
-Meteor.publish('guides', function() {
-  return cms.find({
-    cmsType: 'guides'
-  });
-});
-
-Meteor.publish('articles', function() {
-  return cms.find({
-    cmsType: 'articles'
+    cmsType: 'room'
   });
 });
