@@ -25,8 +25,12 @@ miz.directive("guideRoom", function () {
           }); //autorun
 
           /* FUNCTIONS */
+          this.setGuideFocus = function(index) {
+            this.guideIndex = index; 
+          };
 
           /* INITIALIZE */
+          this.guideIndex = 0;
 
       } // controller
   };  //return
