@@ -1,8 +1,39 @@
-{{ guideCtrl.guide.title }}
-<br/>
-<ul>
-  Articles:
-  <li ng-repeat="article in guideCtrl.guide.articles">
-    <article article="article"></article>
-  </li>
-</ul>
+<div role="tabpanel" class="tab-pane fade in active" id="active">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Articles</h4>
+
+            <div class="panel-group" id="accordion" role="tablist"
+            aria-multiselectable="true" ng-repeat="article in gd.guide.articles">
+
+                <table class="table" ng-click="gd.panelOpen = !gd.panelOpen">
+                    <tr>
+                        <td style="font-weight: bold">{{article.title}}
+                        </td>
+                        <td style="font-weight: bold">
+                            {{article.author }}
+                        </td>
+                        <td>{{ article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
+                    </tr>
+                </table>
+
+                <div class="panel-body" id="panel-body" ng-show="gd.panelOpen">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <h5 style="display: inline;
+                                            color:darkred;
+                                            text-decoration: none">
+                                            {{ article.title }}
+                                    </h5>
+                                </div>                    
+                                {{ article.body }}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

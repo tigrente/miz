@@ -2,7 +2,7 @@ miz.directive("guide", function () {
   return {
       restrict: 'E',
       templateUrl: 'client/guides/components/guide/guide.ng.html',
-      controllerAs: 'guideCtrl',
+      controllerAs: 'gd',
       bindToController: {
         guide: '<'
       },
@@ -27,6 +27,7 @@ miz.directive("guide", function () {
           /* FUNCTIONS */
 
           /* INITIALIZE */
+          this.panelOpen = false;
 
       } // controller
   };  //return
