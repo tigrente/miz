@@ -1,0 +1,12 @@
+<h3>
+  {{ roomCtrl.room.name }}
+</h3>
+
+<h4>
+  Guides:
+</h4>
+<ul>
+  <li ng-repeat="guide in roomCtrl.room.guides">
+    <guide guide="guide"></guide>
+  </li>
+</ul>
