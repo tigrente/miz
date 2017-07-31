@@ -5,14 +5,14 @@
 
 
 <div>
-    <ul class="nav nav-tabs" role="tablist" id="tab-list" ng-repeat="guide in roomCtrl.room.guides">
-        <li role="presentation" ng-class="{active : $index === 0 }">
-          <a role="tab" aria-controls="log" data-toggle="tab" ng-click="roomCtrl.setGuideFocus($index)">{{ guide.title }}</a>
+    <ul class="nav nav-tabs" role="tablist" >
+        <li role="presentation" ng-repeat="guide in roomCtrl.room.guides" ng-class="{active : $index === 0 }">
+          <a role="tab" tab-index="$index" data-toggle="tab" ng-click="roomCtrl.guideIndex = $index">{{ guide.title }}</a>
         </li>
     </ul>
 </div>
 
-<div ng-if="roomCtrl.room.guides.count() !== 0">
+<div id="" ng-if="roomCtrl.room.guides.count() !== 0">
   <guide guide="roomCtrl.room.guides[roomCtrl.guideIndex]"></guide>
 </div>
 <div class="alert alert-success" role="alert" ng-if="roomCtrl.room.count() === 0" style="margin-top:10px">
