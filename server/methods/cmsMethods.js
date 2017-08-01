@@ -1,5 +1,5 @@
 Meteor.publish('cms', function() {
-  return cms.find({
+  return Cms.find({
     cmsType: 'room'
   });
 });
@@ -53,7 +53,7 @@ Meteor.methods({
         });
       });
 
-      return cms.insert(newRoom, (err, data) => {
+      return Cms.insert(newRoom, (err, data) => {
           if (err)
               console.log('Error adding new guide room to db: ' + err);
           else {

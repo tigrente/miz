@@ -1,8 +1,8 @@
-cms = new Mongo.Collection("cms");
+Cms = new Mongo.Collection("cms");
 
 
 //for now - just being logged in should be good enough
-cms.allow({
+Cms.allow({
     insert: function(userId) {
         return userId;
     },
