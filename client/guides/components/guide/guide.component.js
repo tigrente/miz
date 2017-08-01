@@ -17,7 +17,7 @@ miz.directive("guide", function () {
 
 
           /* SUBSCRIPTIONS */
-          // this.subscribe('cms');
+
 
           /* AUTORUN*/
           this.autorun(() => {
@@ -25,6 +25,11 @@ miz.directive("guide", function () {
           }); //autorun
 
           /* FUNCTIONS */
+          this.getUser = function (userId) {
+            return Meteor.users.findOne({
+              _id: userId
+            });
+          }
 
           /* INITIALIZE */
           this.panelOpen = false;
