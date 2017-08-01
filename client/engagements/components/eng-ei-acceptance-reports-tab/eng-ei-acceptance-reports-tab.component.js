@@ -1,15 +1,15 @@
 /*********************************************************************************************************
- * <eng-ei-acceptance-reports>
- *     directive for capturing Acceptance reports
+ * <eng-ei-acceptance-reports-tab>
+ *     directive for capturing Acceptance reports for a project
  *********************************************************************************************************/
 
 
-miz.directive("engEiAcceptanceReports", function () {
+miz.directive("engEiAcceptanceReportsTab", function () {
 
 
     return {
         restrict: 'E',
-        templateUrl: 'client/engagements/components/eng-ei-acceptance-reports/eng-ei-acceptance-reports.ng.html',
+        templateUrl: 'client/engagements/components/eng-ei-acceptance-reports-tab/eng-ei-acceptance-reports-tab.ng.html',
         controllerAs: 'eiar',
         scope: true, // create seperate copy of scope
         bindToController: {
