@@ -384,9 +384,24 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         }
     })
     
-    .state('guideRoomDetails', {
+    .state('guideRoomDetail', {
         url: '/room/:roomId',
         template: '<guide-room></guide-room>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
+    })
+    
+    .state('guideRoomList', {
+        url: '/rooms/',
+        template: '<guide-room-list></guide-room-list>',
         resolve: {
             currentUser: ($q) => {
                 if (Meteor.userId() == null) {
