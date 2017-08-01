@@ -15,6 +15,6 @@
 <div id="" ng-if="roomCtrl.room.guides.count() !== 0">
   <guide guide="roomCtrl.room.guides[roomCtrl.guideIndex]"></guide>
 </div>
-<div class="alert alert-success" role="alert" ng-if="roomCtrl.room.count() === 0" style="margin-top:10px">
+<div class="alert alert-success" role="alert" ng-if="roomCtrl.room.guides.count() === 0" style="margin-top:10px">
     There are no guides yet...
 </div>
