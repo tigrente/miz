@@ -383,6 +383,21 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 }
             }
         }
+    })
+    
+    .state('guideRoomCreate', {
+        url: '/room/create',
+        template: '<guide-room-create></guide-room-create>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
     });
 
 
