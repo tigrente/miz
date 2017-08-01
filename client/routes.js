@@ -369,22 +369,6 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         }
     })
     
-    
-    .state('guideRoom', {
-        url: '/room/coop-mnger',
-        template: '<guide-room></guide-room>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
-            }
-        }
-    })
-    
     .state('guideRoomCreate', {
         url: '/room/create',
         template: '<guide-room-create></guide-room-create>',
@@ -398,7 +382,24 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 }
             }
         }
+    })
+    
+    .state('guideRoomDetails', {
+        url: '/room/:roomId',
+        template: '<guide-room></guide-room>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
     });
+
+
 
 
 
