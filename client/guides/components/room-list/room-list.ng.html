@@ -1,0 +1,6 @@
+<ul ng-repeat="room in rl.rooms">
+  <li>
+    <a ui-sref="guideRoomDetail({ roomId: room._id })">{{ room.name }}</a>
+    <pre ng-show="room.adminDesc">{{ room.adminDesc }}</pre>
+  </li>
+</ul>
