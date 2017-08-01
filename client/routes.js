@@ -370,8 +370,38 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
     })
     
     .state('guideRoomCreate', {
-        url: '/room/create',
+        url: '/create/room',
         template: '<guide-room-create></guide-room-create>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
+    })
+
+    .state('guideCreate', {
+        url: '/create/guide',
+        template: '<guide-create></guide-create>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
+    })
+
+    .state('articleCreate', {
+        url: '/create/article',
+        template: '<article-create></article-create>',
         resolve: {
             currentUser: ($q) => {
                 if (Meteor.userId() == null) {
@@ -399,6 +429,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         }
     })
     
+    
     .state('guideRoomList', {
         url: '/rooms/',
         template: '<guide-room-list></guide-room-list>',
@@ -413,10 +444,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         }
     });
-
-
-
-
+    
 
     $urlRouterProvider.otherwise("/");
 });
