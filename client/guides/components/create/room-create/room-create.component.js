@@ -61,6 +61,15 @@ miz.directive("guideRoomCreate", function () {
           };
 
 
+          this.canSubmitCallback = function(canSubmit) {
+            this.canSubmit = canSubmit;
+            console.log('Got response from guide:', canSubmit);
+          };
+
+          this.submittable = function() {
+            return this.room.name && this.canSubmit;
+          };
+
           /* INITIALIZE */
           this.room = {
             'cmsType': 'room',
@@ -71,8 +80,7 @@ miz.directive("guideRoomCreate", function () {
 
           this.guides = [];
 
-          this.submissionDisabled = false; // TODO fix this
-
+          this.canSubmit = false;
       } // controller
   };  //return
 });

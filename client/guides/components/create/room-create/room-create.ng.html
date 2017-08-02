@@ -4,7 +4,6 @@ Guide Room Name:<span style="color:red;"> *</span>
 Guide Room Admin Description:
 <input type="text" ng-model="rc.room.adminDesc"/>
 <br/><br/>
-<ul><guide-create guides="rc.guides"></guide-create></ul>
+<ul><guide-create guides="rc.guides" can-submit-fn="rc.canSubmitCallback(canSubmit)"></guide-create></ul>
 
-<button ng-click="rc.createRoom()" ng-disabled="rc.submissionDisabled">Submit</button>
-<!-- TODO fix submission disabling -->
+<button ng-click="rc.createRoom()" ng-disabled="!rc.submittable()">Submit</button>

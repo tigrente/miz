@@ -4,7 +4,8 @@ miz.directive("articleCreate", function () {
       templateUrl: 'client/guides/components/create/article-create/article-create.ng.html',
       controllerAs: 'ac',
       bindToController: {
-        articles: '='
+        articles: '=',
+        canSubmitFn: '&'
       },
       controller: function ($scope, $reactive) {
 
@@ -38,6 +39,12 @@ miz.directive("articleCreate", function () {
               // Other data added when inserting into DB
             };
           }
+
+          this.submittable = function() {
+            c = (this.article.title !== '' && this.article.body !== '' );
+            console.log('Article can submit:', c);
+            this.canSubmitFn({ canSubmit : c}); //really weird..why does this work ?? would expect it to be !== ...
+          };
           
           /* INITIALIZE */
           this.article = {};

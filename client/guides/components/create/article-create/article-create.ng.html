@@ -3,12 +3,12 @@ Add Articles:
 <ul ng-repeat="article in ac.articles">
   <li>
     Title:<span style="color:red;"> *</span>
-    <input type="text" ng-model="article.title"/>
+    <input type="text" ng-model="article.title"  ng-change="ac.submittable()"/>
   </li>
   <li>
     Body:<span style="color:red;"> *</span>
     <textarea froala="ac.froalaOptions"
-    ng-model="article.body"></textarea>
+    ng-model="article.body" ng-change="ac.submittable()"></textarea>
   <br/><br/>
   </li>
 </ul>

@@ -4,7 +4,8 @@ miz.directive("guideCreate", function () {
       templateUrl: 'client/guides/components/create/guide-create/guide-create.ng.html',
       controllerAs: 'gc',
       bindToController: {
-        guides: '='
+        guides: '=',
+        canSubmitFn: '&'
       },
       controller: function ($scope, $reactive) {
 
@@ -37,10 +38,21 @@ miz.directive("guideCreate", function () {
               // Other data added when inserting into DB
             };
           }
+          
+          this.canSubmitCallback = function(canSubmit) {
+            this.canSubmits = canSubmit;
+            console.log('Got respose from article:', canSubmit);
+          };
+          
+          this.submittable = function() {
+            this.canSubmitFn(this.guide.title); //really weird..why does this work ?? would expect it to be !== ...
+          }
 
           /* INITIALIZE */
           this.guide = {};
           this.reset();
+
+          this.canSubmits = false;
           
           /* AUTORUN*/
           this.autorun(() => {
