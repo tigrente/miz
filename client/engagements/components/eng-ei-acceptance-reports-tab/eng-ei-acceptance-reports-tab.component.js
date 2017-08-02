@@ -16,7 +16,7 @@ miz.directive("engEiAcceptanceReportsTab", function () {
             focusEngagement: "="
         },
 
-        controller: function ($scope, $reactive) {
+        controller: function ($scope, $reactive, $state) {
 
 
             $reactive(this).attach($scope);
@@ -46,6 +46,20 @@ miz.directive("engEiAcceptanceReportsTab", function () {
 
 
             /** FUNCTIONS */
+
+            /***************************************************************************************************
+             * generateAcceptanceReportTemplate(paymentIndex)
+             * Launches another tab/window with the engagmentId and paymentIndex to generate acceptance report.
+             ****************************************************************************************************/
+            this.generateAcceptanceReportTemplate = function (paymentIndex) {
+               //$state.go('acceptanceReport', {engagementId: this.focusEngagement._id, milestoneIndex:paymentIndex});
+
+                let url = $state.href('acceptanceReport', {engagementId: this.focusEngagement._id, milestoneIndex:paymentIndex});
+
+                window.open(url, '_blank');
+
+
+            };
 
 
             /***************************************************************************************************

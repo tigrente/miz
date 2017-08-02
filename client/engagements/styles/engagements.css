@@ -144,6 +144,14 @@ div.en-team-summary-body {
     color:darkred;
 }
 
+.partner-edit{
+      display:none;
+  }
+
+#partner-label:hover .partner-edit{
+    display: inline-block
+}
+
 
 
 

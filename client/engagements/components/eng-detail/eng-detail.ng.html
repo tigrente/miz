@@ -6,6 +6,8 @@
 </script>
 
 
+
+
 <div ng-if="!ed.focusEngagement">
     <!--suppress HtmlUnknownTarget -->
     <img src="photos/spinner.gif" height="25px" width="25px">
@@ -25,43 +27,47 @@
                         <div class="en-focus-subtitle">Engagement:</div>
 
                         <div class="en-focus-partners" id="partner-label">
-                    <span ng-if="ed.focusEngagement.contractingPartners[0] != ed.focusEngagement.cooperationResources[0]">
-                        <span ng-if="ed.contractingPartners.length"
-                              style="display: inline" class="partner-label"
-                              ng-repeat="partner in ed.contractingPartners">
-                            <a style="color:deeppink;" ng-href="/partners/{{partner._id}}" target="_blank">
-                                {{partner.name}}:
-                            </a>
 
-                        </span>
-                        <span style="display: inline" ng-if="ed.cooperationResources.length"
-                              ng-repeat="resource in ed.cooperationResources">
-                            <a style="color:deepskyblue;" ng-href="/partners/{{resource._id}}" target="_blank">
-                                <span ng-if="$first">{{resource.name}}</span>
-                                <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
-                            </a>
-                        </span>
-                    </span>
+                                <span  ng-if="ed.focusEngagement.contractingPartners[0] != ed.focusEngagement.cooperationResources[0]">
+                                    <span ng-if="ed.contractingPartners.length"
+                                      style="display: inline" class="partner-label"
+                                      ng-repeat="partner in ed.contractingPartners">
+                                        <a style="color:deeppink;" ng-href="/partners/{{partner._id}}" target="_blank">
+                                        {{partner.name}}:
+                                        </a>
+
+                                    </span>
+
+                                <span style="display: inline" ng-if="ed.cooperationResources.length"
+                                      ng-repeat="resource in ed.cooperationResources">
+                                    <a style="color:deepskyblue;" ng-href="/partners/{{resource._id}}" target="_blank">
+                                        <span ng-if="$first">{{resource.name}}</span>
+                                        <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
+                                    </a>
+                                </span>
+                            </span>
+
+                                <span ng-if="ed.focusEngagement.contractingPartners[0] == ed.focusEngagement.cooperationResources[0]">
+                                    <span style="display: inline" ng-if="ed.cooperationResources.length"
+                                      ng-repeat="resource in ed.cooperationResources">
+                                    <a style="color:deeppink;" ng-href="/partners/{{resource._id}}" target="_blank">
+                                        <span ng-if="$first">{{resource.name}}</span>
+                                        <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
+                                    </a>
+                                    </span>
+
+                                </span>
 
 
-                            <span ng-if="ed.focusEngagement.contractingPartners[0] == ed.focusEngagement.cooperationResources[0]">
-                        <span style="display: inline" ng-if="ed.cooperationResources.length"
-                              ng-repeat="resource in ed.cooperationResources">
-                            <a style="color:deeppink;" ng-href="/partners/{{resource._id}}" target="_blank">
-                                <span ng-if="$first">{{resource.name}}</span>
-                                <span ng-if="!$first" style="display: inline">- {{resource.name}}</span>
-                            </a>
-                        </span>
+                                <div ng-if="!ed.contractingPartners.length && !ed.cooperationResources.length">
+                                    <h4 style="font-style: italic; color:red" data-toggle="modal"
+                                        data-target="#partner-selection-modal">
+                                        Click to add partner for engagement...</h4>
 
-                    </span>
+                                </div>
 
-
-                            <div ng-if="!ed.contractingPartners.length && !ed.cooperationResources.length">
-                                <h4 style="font-style: italic; color:red" data-toggle="modal"
-                                    data-target="#partner-selection-modal">
-                                    Click to add partner for engagement...</h4>
-
-                            </div>
+                            <small style="color:lightgrey; margin: 0 0 0 10px" class="partner-edit glyphicon glyphicon-pencil" data-toggle="modal"
+                                       data-target="#partner-selection-modal"></small>
 
 
                         </div>
@@ -293,17 +299,17 @@
         <div>
             <ul class="nav nav-tabs" role="tablist" id="tab-list">
                 <li role="presentation"><a href="#log-panel" aria-controls="log-panel" role="tab"
-                                                          data-toggle="tab">Log</a></li>
+                                           data-toggle="tab">Log</a></li>
 
-<!--                <li role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
-                        href="#checklist-panel" aria-controls="checklist-panel" role="tab"
-                        data-toggle="tab">EI Project</a></li>-->
+                <!--                <li role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
+                                        href="#checklist-panel" aria-controls="checklist-panel" role="tab"
+                                        data-toggle="tab">EI Project</a></li>-->
 
-                <li  role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
+                <li role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
                         href="#payment-panel" aria-controls="payment-panel" role="tab"
                         data-toggle="tab">Acceptance & Payment</a></li>
 
-                <li  class="active" role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
+                <li class="active" role="presentation" ng-if="(ed.focusEngagement.type === 'Early Innovation' )"><a
                         href="#acceptance-report-panel" aria-controls="acceptance-report-panel" role="tab"
                         data-toggle="tab">Acceptance Report</a></li>
 
@@ -328,16 +334,16 @@
             </div>
 
             <!-- *** CHECKLIST PANEL *** -->
-<!--            <div role="tabpanel" class="tab-pane fade" id="checklist-panel"
+            <!--            <div role="tabpanel" class="tab-pane fade" id="checklist-panel"
 
-                 ng-if="(ed.focusEngagement.type === 'Early Innovation' )">
-                <div class="row">
-                    <div class="col-xs-12" style="display: block;  overflow-x: hidden; overflow-y: auto; "
-                         id="checklist-panel-wrapper">
-                        <eng-ei-project-tab focus-engagement-id="{{ed.focusEngagement._id}}"></eng-ei-project-tab>
-                    </div>
-                </div>
-            </div>-->
+                             ng-if="(ed.focusEngagement.type === 'Early Innovation' )">
+                            <div class="row">
+                                <div class="col-xs-12" style="display: block;  overflow-x: hidden; overflow-y: auto; "
+                                     id="checklist-panel-wrapper">
+                                    <eng-ei-project-tab focus-engagement-id="{{ed.focusEngagement._id}}"></eng-ei-project-tab>
+                                </div>
+                            </div>
+                        </div>-->
 
             <!-- *** ACCEPTANCE AND PAYMENT SCHEDULE PANEL *** -->
             <div role="tabpanel" class="tab-pane fade  "
@@ -358,18 +364,22 @@
                                 focus-engagement="ed.focusEngagement"></eng-ei-acceptance-team>
                     </div>
                 </div>
+
             </div>
 
 
             <!-- *** ACCEPTANCE REPORT PANEL *** -->
-            <div role="tabpanel" class="tab-pane fade in active " id="acceptance-report-panel"  ng-if="(ed.focusEngagement.type === 'Early Innovation' )"
-                >
+            <div role="tabpanel" class="tab-pane fade in active " id="acceptance-report-panel"
+                 ng-if="(ed.focusEngagement.type === 'Early Innovation' )"
+            >
                 <div class="row">
                     <div class="col-xs-12">
-                       <eng-ei-acceptance-reports-tab focus-engagement="ed.focusEngagement"></eng-ei-acceptance-reports-tab>
+                        <eng-ei-acceptance-reports-tab
+                                focus-engagement="ed.focusEngagement"></eng-ei-acceptance-reports-tab>
                     </div>
                 </div>
             </div>
+
 
         </div> <!--TAB CONTENT-->
     </div>

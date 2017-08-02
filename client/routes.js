@@ -353,7 +353,38 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
-    .state('searchResults', {
+        .state('acceptance', {
+            url: '/acceptance',
+            template: '<eng-ei-create-acceptance-report></eng-ei-create-acceptance-report>',
+            resolve: {
+                currentUser: ($q) => {
+                    if (Meteor.userId() == null) {
+                        return $q.reject('AUTH_REQUIRED');
+                    }
+                    else {
+                        return $q.resolve();
+                    }
+                }
+            }
+        })
+
+        .state('acceptanceReport', {
+            url: '/acceptance/:engagementId/:milestoneIndex',
+            template: '<eng-ei-create-acceptance-report></eng-ei-create-acceptance-report>',
+            resolve: {
+                currentUser: ($q) => {
+                    if (Meteor.userId() == null) {
+                        return $q.reject('AUTH_REQUIRED');
+                    }
+                    else {
+                        return $q.resolve();
+                    }
+                }
+            }
+        })
+
+
+        .state('searchResults', {
         url: '/search-results',
         template: '<search-results></search-results>',
         resolve: {

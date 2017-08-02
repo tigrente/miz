@@ -38,7 +38,7 @@
                     <td>{{payment.targetDate | date:'shortDate'}}</td>
                     <td style="color: red">{{payment.actualDate | date:'shortDate'}}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm">Generate Template</button>
+                        <button class="btn btn-warning btn-sm" ng-click="eiar.generateAcceptanceReportTemplate($index)">Generate Template</button>
                     </td>
                     <td>
                         <util-file-holder

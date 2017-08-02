@@ -557,19 +557,19 @@ miz.directive("engDetail", function () {
                 };
 
 
-                /***************************************************************************************************
-                 * jquert - Partner Connections Edit Button
+       /*         /!***************************************************************************************************
+                 * jquery - Partner Connections Edit Button
                  * Makes the edit button appear or disappear
-                 ****************************************************************************************************/
+                 ****************************************************************************************************!/
 
                 $('#partner-label').hover(function () {
 
-                    $(this).append('<small class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#partner-selection-modal"></small>')
+                    $(this).append('<small style="color:white" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#partner-selection-modal"></small>')
                 }, function () {
 
                     $(this).children("small").remove();
                 });
-
+*/
 
                 /***************************************************************************************************
                  * jquery - The below jquery adjusts the height of each tab

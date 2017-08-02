@@ -1,0 +1,2218 @@
+<style>
+
+    /* Font Definitions */
+    @font-face {
+        font-family: Arial;
+        panose-1: 2 11 6 4 2 2 2 2 2 4;
+    }
+
+    @font-face {
+        font-family: "Times New Roman", Times, serif;
+        panose-1: 2 7 3 9 2 2 5 2 4 4;
+    }
+
+    @font-face {
+        font-family: Wingdings;
+        panose-1: 5 0 0 0 0 0 0 0 0 0;
+    }
+
+    @font-face {
+        font-family: "Cambria Math";
+        panose-1: 2 4 5 3 5 4 6 3 2 4;
+    }
+
+    @font-face {
+        font-family: Calibri;
+        panose-1: 2 15 5 2 2 2 4 3 2 4;
+    }
+
+    @font-face {
+        font-family: "Book Antiqua";
+        panose-1: 2 4 6 2 5 3 5 3 3 4;
+    }
+
+    @font-face {
+        font-family: SimHei;
+        panose-1: 2 1 6 9 6 1 1 1 1 1;
+    }
+
+    @font-face {
+        font-family: SimSun;
+        panose-1: 2 1 6 0 3 1 1 1 1 1;
+    }
+
+    @font-face {
+        font-family: KaiTi_GB2312;
+        panose-1: 0 0 0 0 0 0 0 0 0 0;
+    }
+
+    @font-face {
+        font-family: Tahoma;
+        panose-1: 2 11 6 4 3 5 4 4 2 4;
+    }
+
+    @font-face {
+        font-family: STXihei;
+        panose-1: 0 0 0 0 0 0 0 0 0 0;
+    }
+
+    /* Style Definitions */
+    h1 {
+        margin: 6.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    h2 {
+        margin: 6.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    h3 {
+        margin: 10.0pt 0 8.0pt 1.0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 16.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 8.0pt 0 8.0pt 1.5in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    h5 {
+        margin: 14.0pt 0 14.5pt 2.0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 18.8pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 14.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    h6 {
+        margin: 12.0pt 0 3.2pt 2.5in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 16.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.MsoIndex5, li.MsoIndex5, div.MsoIndex5 {
+        margin: 8.0pt 0in 8.0pt 52.5pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.5pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoIndex6, li.MsoIndex6, div.MsoIndex6 {
+        margin: 8.0pt 0in 8.0pt 63.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.5pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoIndex7, li.MsoIndex7, div.MsoIndex7 {
+        margin: 8.0pt 0in 8.0pt 73.5pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.5pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoIndex8, li.MsoIndex8, div.MsoIndex8 {
+        margin: 8.0pt 0in 8.0pt 84.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.5pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc2, li.MsoToc2, div.MsoToc2 {
+        margin: 4.0pt 0in 4.0pt 15.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc3, li.MsoToc3, div.MsoToc3 {
+        margin: 4.0pt 0in 4.0pt 22.5pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc4, li.MsoToc4, div.MsoToc4 {
+        margin-top: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-left: 127.0pt;
+        margin-bottom: .0001pt;
+        text-align: right;
+        line-height: normal;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        punctuation-wrap: simple;
+        text-autospace: none;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc5, li.MsoToc5, div.MsoToc5 {
+        margin: 8.0pt 0in 8.0pt 84.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc6, li.MsoToc6, div.MsoToc6 {
+        margin: 8.0pt 0in 8.0pt 105.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc7, li.MsoToc7, div.MsoToc7 {
+        margin: 8.0pt 0in 8.0pt 1.75in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc8, li.MsoToc8, div.MsoToc8 {
+        margin: 8.0pt 0in 8.0pt 147.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoToc9, li.MsoToc9, div.MsoToc9 {
+        margin: 8.0pt 0in 8.0pt 168.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoNormalIndent, li.MsoNormalIndent, div.MsoNormalIndent {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 21.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoCommentText, li.MsoCommentText, div.MsoCommentText {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoFooter, li.MsoFooter, div.MsoFooter {
+        margin: 0in 0in .0001pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: normal;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    span.MsoFootnoteReference {
+        vertical-align: super;
+    }
+
+    /*noinspection ALL*/
+    p.MsoEndnoteText, li.MsoEndnoteText, div.MsoEndnoteText {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoMacroText, li.MsoMacroText, div.MsoMacroText {
+        margin: 8.0pt 0in 8.0pt 85.05pt;
+        text-align: left;
+        line-height: normal;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        punctuation-wrap: simple;
+        text-autospace: none;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoList, li.MsoList, div.MsoList {
+        margin: 8.0pt 0in 8.0pt 10.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListBullet, li.MsoListBullet, div.MsoListBullet {
+        margin: 8.0pt 0in 8.0pt .25in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListNumber, li.MsoListNumber, div.MsoListNumber {
+        margin: 8.0pt 0in 8.0pt .25in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoList2, li.MsoList2, div.MsoList2 {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoList3, li.MsoList3, div.MsoList3 {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoList4, li.MsoList4, div.MsoList4 {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoList5, li.MsoList5, div.MsoList5 {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -10.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListBullet2, li.MsoListBullet2, div.MsoListBullet2 {
+        margin: 8.0pt 0in 8.0pt 39.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListBullet4, li.MsoListBullet4, div.MsoListBullet4 {
+        margin: 8.0pt 0in 8.0pt 81.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListBullet5, li.MsoListBullet5, div.MsoListBullet5 {
+        margin: 8.0pt 0in 8.0pt 102.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListNumber3, li.MsoListNumber3, div.MsoListNumber3 {
+        margin: 8.0pt 0in 8.0pt 60.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListNumber4, li.MsoListNumber4, div.MsoListNumber4 {
+        margin: 8.0pt 0in 8.0pt 81.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListNumber5, li.MsoListNumber5, div.MsoListNumber5 {
+        margin: 8.0pt 0in 8.0pt 102.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.25in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoTitle, li.MsoTitle, div.MsoTitle {
+        margin: 12.0pt 0in 3.0pt;
+        text-align: center;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 16.0pt;
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.MsoClosing, li.MsoClosing, div.MsoClosing {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoSignature, li.MsoSignature, div.MsoSignature {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyText, li.MsoBodyText, div.MsoBodyText {
+        margin: 8.0pt 0in 6.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent {
+        margin: 8.0pt 0in 6.0pt 21.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListContinue, li.MsoListContinue, div.MsoListContinue {
+        margin: 8.0pt 0in 6.0pt 21.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListContinue2, li.MsoListContinue2, div.MsoListContinue2 {
+        margin: 8.0pt 0in 6.0pt 42.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListContinue3, li.MsoListContinue3, div.MsoListContinue3 {
+        margin: 8.0pt 0in 6.0pt 63.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListContinue4, li.MsoListContinue4, div.MsoListContinue4 {
+        margin: 8.0pt 0in 6.0pt 84.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoMessageHeader, li.MsoMessageHeader, div.MsoMessageHeader {
+        margin: 8.0pt 0in 8.0pt .75in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -.75in;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        background: #CCCCCC;
+        punctuation-trim: leading;
+        border: none;
+        padding: 0;
+        font-size: 11.0pt;
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.MsoSalutation, li.MsoSalutation, div.MsoSalutation {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoDate, li.MsoDate, div.MsoDate {
+        margin: 8.0pt 0in 8.0pt 5.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyTextFirstIndent, li.MsoBodyTextFirstIndent, div.MsoBodyTextFirstIndent {
+        margin: 8.0pt 0in 6.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 21.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyTextFirstIndent2, li.MsoBodyTextFirstIndent2, div.MsoBodyTextFirstIndent2 {
+        margin: 8.0pt 0in 6.0pt 21.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 21.0pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoNoteHeading, li.MsoNoteHeading, div.MsoNoteHeading {
+        margin: 8.0pt 0in;
+        text-align: center;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyText2, li.MsoBodyText2, div.MsoBodyText2 {
+        margin: 8.0pt 0in 6.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 200%;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyText3, li.MsoBodyText3, div.MsoBodyText3 {
+        margin: 8.0pt 0in 6.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 8.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2 {
+        margin: 8.0pt 0in 6.0pt 21.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 200%;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3 {
+        margin: 8.0pt 0in 6.0pt 21.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 8.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    a:link, span.MsoHyperlink {
+        color: blue;
+        font-style: italic;
+        text-decoration: none none;
+    }
+
+    /*noinspection ALL*/
+    p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        background: navy;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoPlainText, li.MsoPlainText, div.MsoPlainText {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: SimSun;
+    }
+
+    /*noinspection ALL*/
+    p.MsoAutoSig, li.MsoAutoSig, div.MsoAutoSig {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    p {
+        margin: 8.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    address {
+        margin: 8.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+    }
+
+    code {
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    kbd {
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    pre {
+        margin: 8.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    samp {
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    tt {
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph {
+        margin: 0in 0in 8.0pt .5in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 106%;
+        layout-grid-mode: both;
+        punctuation-trim: none;
+        font-size: 11.0pt;
+        font-family: Calibri;
+    }
+
+    /*noinspection ALL*/
+    span.HTMLAddressChar {
+        font-family: Arial;
+        font-style: italic;
+    }
+
+    /*noinspection ALL*/
+    span.Heading2Char {
+        font-family: SimHei;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.Heading1Char {
+        font-family: SimHei;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.Heading4Char {
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.Heading5Char {
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.Heading6Char {
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.Heading8Char {
+        font-family: SimHei;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    span.TitleChar {
+        font-family: "Calibri Light";
+        letter-spacing: -.5pt;
+    }
+
+    /*noinspection ALL*/
+    span.BodyTextChar {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyTextIndentChar {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.MessageHeaderChar {
+        font-family: "Calibri Light";
+        background: #CCCCCC;
+    }
+
+    /*noinspection ALL*/
+    span.SalutationChar {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyTextFirstIndentChar {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyTextFirstIndent2Char {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyText2Char {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyText3Char {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.BodyTextIndent3Char {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.E-mailSignatureChar {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    span.CommentSubjectChar {
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    p.a, li.a, div.a {
+        margin: 8.0pt 0;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: normal;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.a0, li.a0, div.a0 {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        border: none;
+        padding: 0;
+        font-size: 9.0pt;
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.a1, li.a1, div.a1 {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.CharChar, li.CharChar, div.CharChar {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: normal;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: Tahoma;
+    }
+
+    /*noinspection ALL*/
+    p.Normal1, li.Normal1, div.Normal1 {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        punctuation-wrap: simple;
+        font-size: 12.0pt;
+        font-family: SimSun;
+    }
+
+    /*noinspection ALL*/
+    span.Char {
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.BlockLabel, li.BlockLabel, div.BlockLabel {
+        margin: 15.0pt 0in 4.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 13.0pt;
+        font-family: "Book Antiqua";
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Cover1, li.Cover1, div.Cover1 {
+        margin: 4.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 20.0pt;
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Cover3, li.Cover3, div.Cover3 {
+        margin: 4.0pt 0in;
+        text-align: left;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 16.0pt;
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.Cover4, li.Cover4, div.Cover4 {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Figure, li.Figure, div.Figure {
+        margin: 8.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.FigureDescription, li.FigureDescription, div.FigureDescription {
+        margin: 16.0pt 0in 4.0pt 85.05pt;
+        text-align: left;
+        text-indent: 0;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: -.2pt;
+    }
+
+    /*noinspection ALL*/
+    p.HeadingLeft, li.HeadingLeft, div.HeadingLeft {
+        margin: 0in 0in .0001pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.HeadingRight, li.HeadingRight, div.HeadingRight {
+        margin: 0in 0in .0001pt;
+        text-align: right;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.Heading1NoNumber, li.Heading1NoNumber, div.Heading1NoNumber {
+        margin: 6.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        page-break-before: always;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Heading2NoNumber, li.Heading2NoNumber, div.Heading2NoNumber {
+        margin: 6.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Heading3NoNumber, li.Heading3NoNumber, div.Heading3NoNumber {
+        margin: 10.0pt 0in 8.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 16.0pt;
+        font-family: "Book Antiqua";
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.Heading4NoNumber, li.Heading4NoNumber, div.Heading4NoNumber {
+        margin: 10.0pt 0in 8.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: -.2pt;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.AboutThisChapter, li.AboutThisChapter, div.AboutThisChapter {
+        margin: 6.0pt 0in 28.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.ItemList, li.ItemList, div.ItemList {
+        margin: 4.0pt 0in 4.0pt 106.3pt;
+        text-align: left;
+        text-indent: -21.25pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.ItemListinTable, li.ItemListinTable, div.ItemListinTable {
+        margin: 4.0pt 0in 4.0pt 8.5pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -8.5pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.ItemListText, li.ItemListText, div.ItemListText {
+        margin: 4.0pt 0in 4.0pt 106.3pt;
+        text-align: left;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.ItemStep, li.ItemStep, div.ItemStep {
+        margin: 4.0pt 0in 4.0pt 106.3pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -21.25pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.ManualTitle1, li.ManualTitle1, div.ManualTitle1 {
+        margin: 0in 0in .0001pt;
+        text-align: left;
+        line-height: normal;
+        layout-grid-mode: both;
+        punctuation-trim: none;
+        font-size: 15.0pt;
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.CAUTIONHeading, li.CAUTIONHeading, div.CAUTIONHeading {
+        margin: 4.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        border: none;
+        padding: 0;
+        font-size: 11.0pt;
+        font-family: "Book Antiqua";
+        vertical-align: sub;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.NotesTextinTable, li.NotesTextinTable, div.NotesTextinTable {
+        margin: 2.0pt 0in 4.0pt 8.5pt;
+        text-align: left;
+        line-height: 10.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.NotesHeadinginTable, li.NotesHeadinginTable, div.NotesHeadinginTable {
+        margin: 4.0pt 0in 2.0pt;
+        text-align: left;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.CAUTIONText, li.CAUTIONText, div.CAUTIONText {
+        margin: 4.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        border: none;
+        padding: 0;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.Step, li.Step, div.Step {
+        margin: 8.0pt 0in 8.0pt 85.05pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -7.95pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.SubItemList, li.SubItemList, div.SubItemList {
+        margin: 4.0pt 0in 4.0pt 120.5pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -14.2pt;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.SubItemListText, li.SubItemListText, div.SubItemListText {
+        margin: 4.0pt 0in 4.0pt 120.5pt;
+        text-align: left;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.TableDescription, li.TableDescription, div.TableDescription {
+        margin: 16.0pt 0in 4.0pt 85.05pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: 0;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: -.2pt;
+    }
+
+    /*noinspection ALL*/
+    p.TableNote, li.TableNote, div.TableNote {
+        margin: 4.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+        color: black;
+    }
+
+    /*noinspection ALL*/
+    p.TerminalDisplay, li.TerminalDisplay, div.TerminalDisplay {
+        margin-top: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-left: 85.05pt;
+        margin-bottom: .0001pt;
+        text-align: left;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 8.0pt;
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: -.05pt;
+    }
+
+    /*noinspection ALL*/
+    p.TerminalDisplayinTable, li.TerminalDisplayinTable, div.TerminalDisplayinTable {
+        margin: 4.0pt 0in;
+        text-align: left;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 8.0pt;
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: -.05pt;
+    }
+
+    /*noinspection ALL*/
+    p.CopyrightDeclaration, li.CopyrightDeclaration, div.CopyrightDeclaration {
+        margin: 4.0pt 0in;
+        text-align: left;
+        line-height: normal;
+        layout-grid-mode: both;
+        punctuation-trim: none;
+        font-size: 18.0pt;
+        font-family: Arial;
+    }
+
+    /*noinspection ALL*/
+    p.TableHeading, li.TableHeading, div.TableHeading {
+        margin: 4.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.TableText, li.TableText, div.TableText {
+        margin: 0in 0in 4.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.HeadingMiddle, li.HeadingMiddle, div.HeadingMiddle {
+        margin: 0in 0in .0001pt;
+        text-align: center;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: none;
+        font-size: 10.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.Contents, li.Contents, div.Contents {
+        margin: 6.0pt 0in;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        page-break-before: always;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 12.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.ItemStepinTable, li.ItemStepinTable, div.ItemStepinTable {
+        margin: 2.0pt 0in 2.0pt 14.2pt;
+        text-align: left;
+        text-indent: -14.2pt;
+        line-height: normal;
+        layout-grid-mode: both;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*noinspection ALL*/
+    p.End, li.End, div.End {
+        margin: 8.0pt 0in 20.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 12.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 11.0pt;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+    }
+
+    /*p.1, li.1, div.1
+    {
+        margin: 8.0pt 0 20.0pt
+    ;
+        text-align:justify;
+        text-justify:inter-ideograph;
+        line-height:12.0pt;
+        layout-grid-mode:char;
+        punctuation-trim:leading;
+        font-size:11.0pt;
+        font-family: "Times New Roman", Times, serif;}*/
+    /*noinspection ALL*/
+
+    /*noinspection ALL*/
+    p.NotesHeading, li.NotesHeading, div.NotesHeading {
+        margin: 4.0pt 0in 2.0pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 15.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 9.0pt;
+        font-family: "Book Antiqua";
+        vertical-align: sub;
+        font-weight: bold;
+    }
+
+    /*noinspection ALL*/
+    p.NotesTextList, li.NotesTextList, div.NotesTextList {
+        margin: 2.0pt 0in 4.0pt 117.95pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        text-indent: -14.2pt;
+        line-height: 10.0pt;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    p.Code, li.Code, div.Code {
+        margin: 0 0 .0001pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 150%;
+        layout-grid-mode: char;
+        punctuation-trim: leading;
+        text-autospace: none;
+        font-size: 9.0pt;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    /*span.10
+    {font-family:SimSun;
+        color:black;
+        font-weight:bold;}
+    span.2
+    {font-family:SimSun;
+        color:black;
+        font-weight:bold;}*/
+    /*noinspection ALL*/
+    span.tw4winMark {
+        color: purple;
+        display: none;
+        vertical-align: sub;
+    }
+
+    /* Page Definitions */
+    @page WordSection1 {
+        size: 595.3pt 841.9pt;
+        margin: 85.05pt 56.7pt 85.05pt 56.7pt;
+        layout-grid: 15.6pt;
+    }
+
+    /* List Definitions */
+    ol {
+        margin-bottom: 0;
+    }
+
+    ul {
+        margin-bottom: 0;
+    }
+
+
+</style>
+
+
+<div class=WordSection1 style='layout-grid:15.6pt'>
+
+    <p class=MsoNormal
+       style='margin-top:.5in;margin-right:0;margin-bottom:20.0pt;
+margin-left:0'><b>
+        <img src="/photos/logo-small.png">
+        <span style='font-size:22.0pt'>&nbsp; Acceptance Report for
+Early Innovation Project</span></b></p>
+
+
+    
+    <h1 style='margin-left:0;text-indent:0'>I.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Basic Project Information</h1>
+
+    <div align=left>
+
+        <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=500
+               style='border-collapse:collapse;border:none'>
+
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Project Name</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.title}}</p>
+                </td>
+
+                <td width=140 valign=top style='width:139.5pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Project #</p>
+                </td>
+
+                <td width=144 valign=top style='width:144.4pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.projectNumber}}</p>
+                </td>
+            </tr>
+
+
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Contracting Partner</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'><span ng-repeat="partner in eicar.focusEngagement.contractingPartnersLabel">{{partner}}</span><br></p>
+                </td>
+                <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Cooperation Resource</p>
+                </td>
+                <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.contractingPartnersLabel[0]}}</p>
+                </td>
+            </tr>
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Cooperation Manager</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+                <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Project Manager </p>
+                </td>
+                <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+            </tr>
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Current Phase/All Phases</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+                <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Accounts Payable for the Current
+                        Phase/Total Contract Value</p>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>&nbsp;</p>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>&nbsp;</p>
+                </td>
+                <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+            </tr>
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Planned Start/End Date of the Phase</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+                <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Actual Start/End Date of the Phase</p>
+                </td>
+                <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+    <h1 style='margin-left:0;text-indent:0'>II.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span>Milestone Deliverables for Each Phase Under the Contract<span
+            style='font-weight:normal'> (Outputs and acceptance criteria for each phase
+stipulated in the contract; in the case of changes in the contract, the revised
+contract applies)</span></h1>
+
+    <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=600
+           style='width:600pt;border-collapse:collapse;border:none'>
+        <tr style='page-break-inside:avoid'>
+            <td width=47 valign=top style='width:.65in;border:solid windowtext 1.0pt;
+  background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Stage </span></p>
+            </td>
+            <td width=139 valign=top style='width:138.6pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Deliverables/Outputs </span></p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Criteria</span></p>
+            </td>
+        </tr>
+        <tr style='page-break-inside:avoid'>
+            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableText><span style='color:black'>1</span></p>
+            </td>
+            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='text-align:left'>1.</p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
+  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><b>&nbsp;</b></p>
+            </td>
+        </tr>
+        <tr style='page-break-inside:avoid'>
+            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableText><span style='color:black'>2</span></p>
+            </td>
+            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='margin-left:.25in;text-align:left;
+  text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+  </span>&nbsp;</p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
+  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span>&nbsp;</p>
+            </td>
+        </tr>
+        <tr style='page-break-inside:avoid'>
+            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableText><span style='color:black'>3</span></p>
+            </td>
+            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='margin-left:19.85pt;text-align:left'>&nbsp;</p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
+  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span>&nbsp;</p>
+            </td>
+        </tr>
+        <tr style='page-break-inside:avoid;height:49.65pt'>
+            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:49.65pt'>
+                <p class=TableText><span style='color:black'>4</span></p>
+            </td>
+            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:49.65pt'>
+                <p class=TableTextBlue align=left style='margin-left:19.85pt;text-align:left'>&nbsp;</p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:49.65pt'>
+                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
+  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span>&nbsp;</p>
+            </td>
+        </tr>
+    </table>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+    <h1 style='margin-left:0;text-indent:0'>III.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span>Actual Deliverables in Each Phase</h1>
+
+    <div align=center>
+
+        <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=482
+               style='width:481.95pt;border-collapse:collapse;border:none'>
+            <tr style='page-break-inside:avoid'>
+                <td width=47 valign=top style='width:.65in;border:solid windowtext 1.0pt;
+  background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading>No. </p>
+                </td>
+                <td width=204 valign=top style='width:203.6pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading>Deliverables/Outputs</p>
+                </td>
+                <td width=232 valign=top style='width:231.55pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading>Review Comment </p>
+                </td>
+            </tr>
+            <tr style='page-break-inside:avoid;height:48.75pt'>
+                <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:48.75pt'>
+                    <p class=TableText>Stage 1</p>
+                </td>
+                <td width=204 valign=top style='width:203.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:48.75pt'>
+                    <p class=TableTextBlue style='margin-left:.25in;text-indent:-.25in'>1.<span
+                            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;</p>
+                </td>
+                <td width=232 rowspan=2 valign=top style='width:231.55pt;border-top:none;
+  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:48.75pt'>
+                    <p class=TableTextBlue>&nbsp;</p>
+                </td>
+            </tr>
+            <tr style='page-break-inside:avoid'>
+                <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableText>Stage 2</p>
+                </td>
+                <td width=204 valign=top style='width:203.6pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue style='margin-left:.25in;text-indent:-.25in'>1.<span
+                            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;</p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+    <h1 style='margin-left:0;text-indent:0'>IV.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span>Actual Acceptance Results of Each Phase</h1>
+
+    <h2 style='margin-left:0;text-indent:0'>A.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&nbsp;</h2>
+
+    <h3 style='margin-left:0'>&nbsp;</h3>
+
+    <h3 style='margin-left:0'>&nbsp;</h3>
+
+    <h1 style='margin-left:0;text-indent:0'>V.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Description of Differences:<span style='font-weight:normal'> </span><span
+            style='font-weight:normal'>(Please list the differences below if the actual
+contract deliverables differ from contract requirements in terms of delivery
+content, time and quality. Specify the reasons if unqualified deliverables are
+accepted.)</span></h1>
+
+    <h2 style='margin-left:0;text-indent:0'>A.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&nbsp;</h2>
+
+    <h3>&nbsp;</h3>
+
+    <h1 style='margin-left:0;text-indent:0'>VI.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span>Comments and Suggestions on Each Phase</h1>
+
+    <p class=MsoNormal style='margin-left:21.25pt;text-indent:-21.25pt'>1 <span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Quality
+        of outputs from the phase </p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>xxx</span></p>
+
+    <p class=MsoNormal style='margin-left:21.25pt;text-indent:-21.25pt'>2 <span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Description
+        of our input (Please indicate whether we have made too much investment in the
+        phase; if so, please specify the reason.) </p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>xxx</span></p>
+
+    <p class=MsoNormal style='margin-left:21.25pt;text-indent:-21.25pt'>3 <span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+        partnerÕs technical expertise and cooperativeness</p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>xx</span></p>
+
+    <p class=MsoNormal style='margin-left:21.25pt;text-indent:-21.25pt'>4 <span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Project
+        problems and improvement suggestions</p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>xxx</span></p>
+
+    <p class=MsoNormal style='margin-left:21.25pt;text-indent:-21.25pt'>5 <span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Suggestions
+        on project feasibility </p>
+
+    <p class=MsoNormal><i>Comment from reviewers: explain the practicality of the
+        work</i></p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>xxx</span></p>
+
+    <h1 style='margin-left:0;text-indent:0'>VII.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Acceptance Conclusion for the Phase</h1>
+
+    <p class=MsoNormal>_ Excellent (Pass)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x Good
+        (Pass)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _ Average (Pass)&nbsp;&nbsp; _ Fail</p>
+
+    <p class=MsoNormal><span style='color:blue;layout-grid-mode:line'>Acceptance
+conclusion: Continue this project </span></p>
+
+    <p class=NotesHeading><img width=43 height=12 id="Picture 1"
+                               src="/public/photos/logo-small.png"
+                               alt=note></p>
+
+    <p class=NotesTextList style='margin-left:35.7pt;text-indent:-18.2pt'><span
+            style='font-size:6.5pt;font-family:Wingdings;vertical-align:super'>_<span
+            style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Please explain
+        reasons for the final review, especially for the Excellent and Good ratings; </p>
+
+    <p class=NotesTextList style='margin-left:35.7pt;text-indent:-18.2pt'><span
+            style='font-size:6.5pt;font-family:Wingdings;vertical-align:super'>_<span
+            style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Please specify the
+        actual quality of accepted deliverables under the payment term if the payment
+        term stipulates that the amount of payment may vary according to the final
+        quality of deliverables. </p>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+    <h1 style='margin-left:0;text-indent:0'>VIII.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Signatures of All Members of the Acceptance Team</h1>
+
+    <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=503
+           style='width:503.45pt;border-collapse:collapse;border:none'>
+        <tr style='height:25.4pt'>
+            <td width=503 colspan=6 valign=top style='width:503.45pt;border:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal><b><span lang=FR>Actual Acceptance Team</span></b></p>
+            </td>
+        </tr>
+        <tr style='height:25.4pt'>
+            <td width=68 valign=top style='width:68.1pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Name/ID</span></b></p>
+            </td>
+            <td width=81 valign=top style='width:81.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Department</span></b></p>
+            </td>
+            <td width=72 valign=top style='width:1.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Title </span></b></p>
+            </td>
+            <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Roles</span></b></p>
+            </td>
+            <td width=95 valign=top style='width:94.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Signature</span></b></p>
+            </td>
+            <td width=89 valign=top style='width:88.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Signature
+  Date</span></b></p>
+            </td>
+        </tr>
+        <tr style='height:25.85pt'>
+            <td width=68 valign=top style='width:68.1pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=81 valign=top style='width:81.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=72 valign=top style='width:1.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p align=left style='margin:0;margin-bottom:.0001pt;text-align:left'><span
+                        style='font-size:10.0pt;color:black'>Leader of Acceptance Team</span></p>
+            </td>
+            <td width=95 valign=top style='width:94.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=89 valign=top style='width:88.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+        </tr>
+        <tr style='height:25.4pt'>
+            <td width=68 valign=top style='width:68.1pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=81 valign=top style='width:81.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=72 valign=top style='width:1.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p align=left style='margin:0;margin-bottom:.0001pt;text-align:left'><span
+                        style='font-size:10.0pt;color:black'>Independent Technical Expert</span></p>
+            </td>
+            <td width=95 valign=top style='width:94.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=89 valign=top style='width:88.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.4pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+        </tr>
+        <tr style='height:25.85pt'>
+            <td width=68 valign=top style='width:68.1pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=81 valign=top style='width:81.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=72 valign=top style='width:1.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p align=left style='margin:0;margin-bottom:.0001pt;text-align:left'><span
+                        style='font-size:10.0pt;color:black'>Project Manager</span></p>
+            </td>
+            <td width=95 valign=top style='width:94.5pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=89 valign=top style='width:88.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:25.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><span lang=FR>&nbsp;</span></p>
+            </td>
+        </tr>
+    </table>
+
+    <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+    <p class=MsoNormal><span lang=FR>Special Notice&nbsp;:</span></p>
+
+    <p class=MsoNormal><span lang=FR>Project manager is responsible to certify that
+all the signed acceptors are the same listed in the approved charter. If there
+is any change of the acceptors, please list the name and reason in below.</span></p>
+
+    <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+    <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=468
+           style='width:468.4pt;border-collapse:collapse;border:none'>
+        <tr style='height:28.85pt'>
+            <td width=104 valign=top style='width:1.45in;border:solid windowtext 1.0pt;
+  background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Original
+  Acceptor/ID</span></b></p>
+            </td>
+            <td width=122 valign=top style='width:121.5pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Original
+  Acceptor Role</span></b></p>
+            </td>
+            <td width=108 valign=top style='width:1.5in;border:solid windowtext 1.0pt;
+  border-left:none;background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>New
+  Acceptor/ID</span></b></p>
+            </td>
+            <td width=135 valign=top style='width:134.5pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#E7E6E6;padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal align=left style='text-align:left'><b><span lang=FR>Reason
+  for Change</span></b></p>
+            </td>
+        </tr>
+        <tr style='height:29.4pt'>
+            <td width=104 valign=top style='width:1.45in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:29.4pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=122 valign=top style='width:121.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:29.4pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=108 valign=top style='width:1.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:29.4pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=135 valign=top style='width:134.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:29.4pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+        </tr>
+        <tr style='height:28.85pt'>
+            <td width=104 valign=top style='width:1.45in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=122 valign=top style='width:121.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=108 valign=top style='width:1.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+            <td width=135 valign=top style='width:134.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt;height:28.85pt'>
+                <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+            </td>
+        </tr>
+    </table>
+
+    <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+    <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+    <p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+</div>
+
+
+<h3>Diagnostics</h3>
+<b>Focus Engagement:</b>{{eicar.focusEngagement}}
