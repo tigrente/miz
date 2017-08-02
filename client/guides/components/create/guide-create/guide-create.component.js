@@ -1,7 +1,7 @@
 miz.directive("guideCreate", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/guide-create/guide-create.ng.html',
+      templateUrl: 'client/guides/components/create/guide-create/guide-create.ng.html',
       controllerAs: 'gc',
       bindToController: {
         guides: '='
@@ -21,7 +21,6 @@ miz.directive("guideCreate", function () {
           
           /* FUNCTIONS */
           this.addToGuides = function() {
-            console.log('GUIDE', this.guide);
             this.guides.push(this.guide);
             this.reset();
           }
@@ -45,7 +44,7 @@ miz.directive("guideCreate", function () {
           
           /* AUTORUN*/
           this.autorun(() => {
-            // this.addToGuides(); //Automatically open the container
+            this.addToGuides(); //Automatically open container
           }); //autorun
 
 

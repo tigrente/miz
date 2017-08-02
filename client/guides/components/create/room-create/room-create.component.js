@@ -1,7 +1,7 @@
 miz.directive("guideRoomCreate", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/room-create/room-create.ng.html',
+      templateUrl: 'client/guides/components/create/room-create/room-create.ng.html',
       controllerAs: 'rc',
       controller: function ($scope, $reactive) {
 
@@ -13,20 +13,49 @@ miz.directive("guideRoomCreate", function () {
           });
 
 
+          // TODO fix submission disabling
+
+
           /* SUBSCRIPTIONS */ 
-          this.subscribe('cms');
+
 
           /* AUTORUN*/
           this.autorun(() => {
 
           }); //autorun
 
+
           /* FUNCTIONS */
           this.createRoom = function () {
-            console.log('ROOM', this.room);
-            this.call('createGuideRoom', this.room, (err, data) => {
-                if (err) {
-                    alert('Something went wrong adding new room to database: ' + err);
+            this.call('createGuideRoom', this.room, (roomErr, roomData) => {
+                if (roomErr) {
+                    alert('Something went wrong adding a new room to database: ' + roomErr);
+                } else {
+                  this.guides.forEach((guide) => {
+                    // move articles into seperate array
+                    articles = guide.articles;
+                    delete guide.articles;
+
+                    // add parentRoomId
+                    guide.parentRoomId = roomData;
+
+                    this.call('createGuide', guide, (guideErr, guideData) => {
+                      if (guideErr) {
+                          alert('Something went wrong adding a new guide to database: ' + guideErr);
+                      } else {
+                        articles.forEach((article) => {
+                          // add guideId
+                          article.guideId = guideData;
+
+                          this.call('createArticle', article, (err, data) => {
+                            if (err) {
+                                alert('Something went wrong adding a new article to database: ' + err);
+                            }
+                          });
+                        });
+                      }
+                    });
+                });
                 }
             });
           };
@@ -37,9 +66,10 @@ miz.directive("guideRoomCreate", function () {
             'cmsType': 'room',
             'name': '',
             'adminDesc': '',
-            'guides': []
             // Other data added when inserting into DB
           };
+
+          this.guides = [];
 
           this.submissionDisabled = false; // TODO fix this
 

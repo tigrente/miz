@@ -1,7 +1,7 @@
 miz.directive("articleCreate", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/article-create/article-create.ng.html',
+      templateUrl: 'client/guides/components/create/article-create/article-create.ng.html',
       controllerAs: 'ac',
       bindToController: {
         articles: '='
@@ -21,7 +21,6 @@ miz.directive("articleCreate", function () {
           
           /* FUNCTIONS */
           this.addToArticles = function() {
-            console.log('ARTICLE', this.article);
             this.articles.push(this.article);
             this.reset();
           }
@@ -102,7 +101,7 @@ miz.directive("articleCreate", function () {
             ],
             
             
-            /*                quickInsertButtons: [  // quick upload buttons plugin not included below
+            /* quickInsertButtons: [  // quick upload buttons plugin not included below
               // 'image',
               'table',
               'ul',
@@ -140,7 +139,7 @@ miz.directive("articleCreate", function () {
             
             /* AUTORUN*/
             this.autorun(() => {
-                // this.addToArticles();
+                this.addToArticles(); // Automatically open container
             }); //autorun
             
           } // controller
