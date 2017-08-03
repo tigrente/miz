@@ -26,16 +26,6 @@ miz.directive("engEiCreateAcceptanceReport", function () {
 
             /** Initialize **/
 
-
-                //template for all new payment entries
-            let acceptorTemplate = {
-                    name: "",
-                    idNumber: "",
-                    lab: '',
-                    independent: false
-                };
-
-
             //ui helpers
             this.ui = {
                 editAcceptanceTeam: false  //true for development, otherwise should be false
@@ -76,42 +66,31 @@ miz.directive("engEiCreateAcceptanceReport", function () {
 
 
             /***************************************************************************************************
-             * addAcceptor
-             * Adds another acceptor to AcceptanceTeam
+             * phaseNumber
+             * Returns the phase number of the project (eg. phase 1 of 4)
              ****************************************************************************************************/
 
-            this.addAcceptor = function () {
+            this.phaseNumber = function () {
 
-
-                this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.push(acceptorTemplate);
-                this.updateAcceptanceTeam();
-
-            };
-
-            /***************************************************************************************************
-             * removeAcceptor
-             * Accepts index of acceptor to be removed from AcceptanceTeam
-             ****************************************************************************************************/
-
-            this.removeAcceptor = function (index) {
-
-                // Ensure that acceptors less than three can not be removed.
-                if (index > 2) {
-                    this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.splice(index, 1);
-                    this.updateAcceptanceTeam();
-                }
-
+                if (this.mileStoneIndex = 'finalAdditionalAcceptance')
+                    return this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length;
+                else
+                    return  parseInt(this.milestoneIndex) + 1;
             };
 
 
             /***************************************************************************************************
-             * updateAcceptanceTeam
-             * Commits updated acceptance team to server and turns of editing window
+             * totalNumberOfPhases
+             * Returns total number of phases
              ****************************************************************************************************/
 
-            this.updateAcceptanceTeam = function () {
+            this.totalNumberOfPhases = function () {
 
-                this.call("engagementUpdateEIAcceptanceTeam", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceTeam));
+                if (this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance)
+                    return this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length + 1;
+                else
+                    return this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length;
+
 
             };
 

@@ -1608,7 +1608,6 @@ margin-left:0'><b>
 Early Innovation Project</span></b></p>
 
 
-    
     <h1 style='margin-left:0;text-indent:0'>I.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span>Basic Project Information</h1>
 
@@ -1636,7 +1635,8 @@ Early Innovation Project</span></b></p>
 
                 <td width=144 valign=top style='width:144.4pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.projectNumber}}</p>
+                    <p class=TableTextBlue align=left style='text-align:left'>
+                        {{eicar.focusEngagement.projectNumber}}</p>
                 </td>
             </tr>
 
@@ -1650,7 +1650,9 @@ Early Innovation Project</span></b></p>
                 <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'><span ng-repeat="partner in eicar.focusEngagement.contractingPartnersLabel">{{partner}}</span><br></p>
+                    <p class=TableTextBlue align=left style='text-align:left'><span
+                            ng-repeat="partner in eicar.focusEngagement.contractingPartnersLabel">{{partner}}</span><br>
+                    </p>
                 </td>
                 <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1661,7 +1663,9 @@ Early Innovation Project</span></b></p>
                 <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.contractingPartnersLabel[0]}}</p>
+                    <p class=TableTextBlue align=left style='text-align:left'><span
+                            ng-repeat="partner in eicar.focusEngagement.cooperationResourcesLabel">{{partner}}</span>
+                    </p>
                 </td>
             </tr>
             <tr style='page-break-inside:avoid'>
@@ -1673,7 +1677,7 @@ Early Innovation Project</span></b></p>
                 <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.focusEngagement.bdOwnerLabel}}</p>
                 </td>
                 <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1684,19 +1688,21 @@ Early Innovation Project</span></b></p>
                 <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                    <p class=TableTextBlue align=left style='text-align:left'>
+                        {{eicar.focusEngagement.projectManager}}</p>
                 </td>
             </tr>
             <tr style='page-break-inside:avoid'>
                 <td width=99 valign=top style='width:99.05pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0 5.4pt 0 5.4pt'>
                     <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
-  text-align:left;line-height:120%'>Current Phase/All Phases</p>
+  text-align:left;line-height:120%'>Current Phase/All Phases (including signing payment)</p>
                 </td>
                 <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                    <p class=TableTextBlue align=left style='text-align:left'>{{eicar.phaseNumber() }} of
+                        {{eicar.totalNumberOfPhases()}}</p>
                 </td>
                 <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1704,15 +1710,13 @@ Early Innovation Project</span></b></p>
                     <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
   text-align:left;line-height:120%'>Accounts Payable for the Current
                         Phase/Total Contract Value</p>
-                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
-  text-align:left;line-height:120%'>&nbsp;</p>
-                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
-  text-align:left;line-height:120%'>&nbsp;</p>
                 </td>
                 <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                    <p class=TableTextBlue align=left style='text-align:left'>
+                        ${{eicar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[eicar.milestoneIndex].paymentAmount}}
+                        of ${{eicar.focusEngagement.earlyInnovationProjectData.contract.contractValue}} </p>
                 </td>
             </tr>
             <tr style='page-break-inside:avoid'>
@@ -1738,6 +1742,31 @@ Early Innovation Project</span></b></p>
                     <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
                 </td>
             </tr>
+
+            <tr style='page-break-inside:avoid'>
+                <td width=99 valign=top
+                    style='width:99.05pt;border:solid windowtext 1.0pt;  border-top:none;padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left
+                       style='margin:0;margin-bottom:.0001pt;  text-align:left;line-height:120%'>Configuration
+                        Manager</p>
+                </td>
+                <td width=99 valign=top style='width:99.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+                <td width=140 valign=top style='width:139.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableHeading align=left style='margin:0;margin-bottom:.0001pt;
+  text-align:left;line-height:120%'>Actual Start/End Date of the Phase</p>
+                </td>
+                <td width=144 valign=top style='width:144.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0 5.4pt 0 5.4pt'>
+                    <p class=TableTextBlue align=left style='text-align:left'>&nbsp;</p>
+                </td>
+            </tr>
         </table>
 
     </div>
@@ -1745,7 +1774,7 @@ Early Innovation Project</span></b></p>
     <p class=MsoNormal>&nbsp;</p>
 
     <h1 style='margin-left:0;text-indent:0'>II.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span>Milestone Deliverables for Each Phase Under the Contract<span
+</span>Milestone Deliverables for This Phase Under the Contract<span
             style='font-weight:normal'> (Outputs and acceptance criteria for each phase
 stipulated in the contract; in the case of changes in the contract, the revised
 contract applies)</span></h1>
@@ -1753,174 +1782,55 @@ contract applies)</span></h1>
     <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=600
            style='width:600pt;border-collapse:collapse;border:none'>
         <tr style='page-break-inside:avoid'>
-            <td width=47 valign=top style='width:.65in;border:solid windowtext 1.0pt;
-  background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableHeading><span style='color:black'>Stage </span></p>
-            </td>
-            <td width=139 valign=top style='width:138.6pt;border:solid windowtext 1.0pt;
-  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableHeading><span style='color:black'>Deliverables/Outputs </span></p>
+            <td width=139 valign=top
+                style='width:138.6pt;border:solid windowtext 1.0pt;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Milestone </span></p>
             </td>
             <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;
   border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableHeading><span style='color:black'>Criteria</span></p>
+                <p class=TableHeading><span style='color:black'>Acceptance Criteria</span></p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Deliverables Provided</span></p>
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
+                <p class=TableHeading><span style='color:black'>Comment</span></p>
             </td>
         </tr>
+
         <tr style='page-break-inside:avoid'>
-            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableText><span style='color:black'>1</span></p>
+            <td width=139 valign=top style='width:138.6pt;border:solid windowtext 1.0pt; padding:0 5.4pt 0 5.4pt'>
+                <p class=TableText><span style='color:black'>{{eicar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[eicar.milestoneIndex].milestone}} </span>
+                </p>
             </td>
-            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='text-align:left'>1.</p>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;padding:0 5.4pt 0 5.4pt'
+                froala-view="eicar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[eicar.milestoneIndex].deliverables">
             </td>
-            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
-  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><b>&nbsp;</b></p>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;padding:0 5.4pt 0 5.4pt'>
+
+            </td>
+            <td width=239 valign=top style='width:238.5pt;border:solid windowtext 1.0pt;padding:0 5.4pt 0 5.4pt'>
+
             </td>
         </tr>
-        <tr style='page-break-inside:avoid'>
-            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableText><span style='color:black'>2</span></p>
-            </td>
-            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='margin-left:.25in;text-align:left;
-  text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span>&nbsp;</p>
-            </td>
-            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
-  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>&nbsp;</p>
-            </td>
-        </tr>
-        <tr style='page-break-inside:avoid'>
-            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt'>
-                <p class=TableText><span style='color:black'>3</span></p>
-            </td>
-            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='margin-left:19.85pt;text-align:left'>&nbsp;</p>
-            </td>
-            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
-  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>&nbsp;</p>
-            </td>
-        </tr>
-        <tr style='page-break-inside:avoid;height:49.65pt'>
-            <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt;height:49.65pt'>
-                <p class=TableText><span style='color:black'>4</span></p>
-            </td>
-            <td width=139 valign=top style='width:138.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt;height:49.65pt'>
-                <p class=TableTextBlue align=left style='margin-left:19.85pt;text-align:left'>&nbsp;</p>
-            </td>
-            <td width=239 valign=top style='width:238.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt;height:49.65pt'>
-                <p class=TableTextBlue align=left style='margin-left:18.75pt;text-align:left;
-  text-indent:-.25in'><span style='font-family:Symbol'>_<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>&nbsp;</p>
-            </td>
-        </tr>
+
+
     </table>
 
     <p class=MsoNormal>&nbsp;</p>
 
-    <h1 style='margin-left:0;text-indent:0'>III.<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span>Actual Deliverables in Each Phase</h1>
-
-    <div align=center>
-
-        <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=482
-               style='width:481.95pt;border-collapse:collapse;border:none'>
-            <tr style='page-break-inside:avoid'>
-                <td width=47 valign=top style='width:.65in;border:solid windowtext 1.0pt;
-  background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableHeading>No. </p>
-                </td>
-                <td width=204 valign=top style='width:203.6pt;border:solid windowtext 1.0pt;
-  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableHeading>Deliverables/Outputs</p>
-                </td>
-                <td width=232 valign=top style='width:231.55pt;border:solid windowtext 1.0pt;
-  border-left:none;background:#D9D9D9;padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableHeading>Review Comment </p>
-                </td>
-            </tr>
-            <tr style='page-break-inside:avoid;height:48.75pt'>
-                <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt;height:48.75pt'>
-                    <p class=TableText>Stage 1</p>
-                </td>
-                <td width=204 valign=top style='width:203.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt;height:48.75pt'>
-                    <p class=TableTextBlue style='margin-left:.25in;text-indent:-.25in'>1.<span
-                            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;</p>
-                </td>
-                <td width=232 rowspan=2 valign=top style='width:231.55pt;border-top:none;
-  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt;height:48.75pt'>
-                    <p class=TableTextBlue>&nbsp;</p>
-                </td>
-            </tr>
-            <tr style='page-break-inside:avoid'>
-                <td width=47 valign=top style='width:.65in;border:solid black 1.0pt;
-  border-top:none;padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableText>Stage 2</p>
-                </td>
-                <td width=204 valign=top style='width:203.6pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0 5.4pt 0 5.4pt'>
-                    <p class=TableTextBlue style='margin-left:.25in;text-indent:-.25in'>1.<span
-                            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;</p>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-
-    <p class=MsoNormal>&nbsp;</p>
-
-    <h1 style='margin-left:0;text-indent:0'>IV.<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span>Actual Acceptance Results of Each Phase</h1>
-
-    <h2 style='margin-left:0;text-indent:0'>A.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span>&nbsp;</h2>
-
-    <h3 style='margin-left:0'>&nbsp;</h3>
-
-    <h3 style='margin-left:0'>&nbsp;</h3>
-
-    <h1 style='margin-left:0;text-indent:0'>V.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span>Description of Differences:<span style='font-weight:normal'> </span><span
-            style='font-weight:normal'>(Please list the differences below if the actual
+    <h1 style='margin-left:0;text-indent:0'>III. Description of Differences <br>
+        <span
+                style='font-weight:normal'>(Please list the differences below if the actual
 contract deliverables differ from contract requirements in terms of delivery
 content, time and quality. Specify the reasons if unqualified deliverables are
 accepted.)</span></h1>
 
-    <h2 style='margin-left:0;text-indent:0'>A.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span>&nbsp;</h2>
+    <br>
+    <br>
 
-    <h3>&nbsp;</h3>
 
     <h1 style='margin-left:0;text-indent:0'>VI.<span style='font:7.0pt "Times New Roman"'>&nbsp;
 </span>Comments and Suggestions on Each Phase</h1>
