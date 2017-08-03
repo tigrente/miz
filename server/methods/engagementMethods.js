@@ -320,29 +320,53 @@ Meteor.methods({
 
         console.log("Method engagementUpdate run.  [ID: " + engagementId + "] [field: " + field + "] [new info:" + data + "]");
 
+        // If the field to be updated includes any of these fields, update the labels on the engagement.
+        let updateLabels = false;
+        let labelUpdateArray = [
+            "cooperationResources",
+            "contractingPartners",
+            "bdOwner",
+            "bdRelated",
+            "filingStatus"
+        ];
+
 
         if (engagementId && field) {
 
             let set = {};
 
+            //if a simple field and data value was passed, do this...
+
             if ((typeof field === "string") && ((typeof data === "number") || (typeof data === "string") || ( data === null))) {
                 set[field] = data;
+
+                //check if labels need to be udpated, and if so, do it.
+                if (labelUpdateArray.includes(field))
+                    updateLabels = true;
+
             }
+
+
+            //if an object was passed as a field,
             else if (typeof field === "object") {
                 //array was passed  -assumes array of fields and array of updates with matching index || todo: depricate this)
                 if (Array.isArray(field)) {
-                    for (let i = 0; i < field.length; i++) {
+                    for (let i = 0; i < field.length; i++)
                         set[field[i]] = data[i];
-                    }
                 }
                 // an object was passed
                 else {
                     //troubleshooting with log
-                    let str = JSON.stringify(field);
+ /*                   let str = JSON.stringify(field);
                     str = JSON.stringify(field, null, 4); // (Optional) beautiful indented output.
-                    console.log(str); // Logs output to dev tools console.
-
+                    console.log('an object was passed:' + str); // Logs output to dev tools console.
+*/
                     set = field;
+
+                    for (let i = 0; i < labelUpdateArray.length; ++i) {
+                        if (set.hasOwnProperty(labelUpdateArray[i]))
+                            updateLabels = true;
+                    }
                 }
             }
 
@@ -350,25 +374,19 @@ Meteor.methods({
             set[field['modifiedById']] = Meteor.userId();
             set[field['modifiedDate']] = new Date();
 
-            console.log(set);
+            //console.log(set);
 
             Engagements.update(engagementId, {$set: set});
 
-            let labelUpdateArray = [
-                "cooperationResources",
-                "contractingResources",
-                "bdOwner",
-                "bdRelated",
-                "filingStatus"
-            ];
 
-
-            if (labelUpdateArray.includes(field))
+            if (updateLabels)
                 Meteor.call("engSetEngagementLabels", engagementId);
+
 
         }// if engagement
 
-    },  // engagementUpdate
+    }
+    ,  // engagementUpdate
 
     /**
      * engagementInitializeEarlyInnovationProjectData
@@ -397,7 +415,7 @@ Meteor.methods({
                 },
                 options: {
                     additionalFinalAcceptance: false,
-                    relativeTime : null,
+                    relativeTime: null,
                     deliverables: null
 
                 },
@@ -431,7 +449,8 @@ Meteor.methods({
         Engagements.update(engagementId, {$set: set});
 
 
-    },  // engagementInitializeEarlyInnovationProjectData
+    }
+    ,  // engagementInitializeEarlyInnovationProjectData
 
 
     engagementResetEIAcceptanceAndPayments: function (engagementId) {
@@ -466,7 +485,8 @@ Meteor.methods({
 
         } //else
 
-    },
+    }
+    ,
 
 
     engagementResetEIAcceptanceTeam: function (engagementId) {
@@ -498,7 +518,8 @@ Meteor.methods({
 
         } //else
 
-    },
+    }
+    ,
 
 
     engagementUpdateEIPaymentSchedule: function (engagementId, paymentScheduleArray) {
@@ -511,7 +532,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
     engagementUpdateEIAcceptanceAndPayments: function (engagementId, apObject) {
 
@@ -523,7 +545,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
 
     /*** START HERE ***/
@@ -541,7 +564,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
 
     engagementUpdateEIAcceptanceTeam: function (engagementId, acceptanceTeamArray) {
@@ -553,7 +577,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
     engagementUpdateEIAdditionalPayments: function (engagementId, paymentScheduleArray) {
 
@@ -564,7 +589,8 @@ Meteor.methods({
         };
 
         Engagements.update(engagementId, {$set: set});
-    },
+    }
+    ,
 
     engagementUpdateEIPaymentOption: function (engagementId, option, value) {
 
@@ -580,7 +606,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
     engagementUpdateEIAdditionalFinalAcceptance: function (engagementId, option, value) {
 
@@ -596,7 +623,8 @@ Meteor.methods({
 
         Engagements.update(engagementId, {$set: set});
 
-    },
+    }
+    ,
 
     engagementUpdateEIContractData: function (engagementId, contractData) {
 
@@ -622,7 +650,8 @@ Meteor.methods({
 
         }
 
-    },
+    }
+    ,
 
 
     /**
