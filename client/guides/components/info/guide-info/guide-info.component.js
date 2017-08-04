@@ -31,7 +31,7 @@ miz.directive("guideInfo", function () {
       /* FUNCTIONS */
 
       this.editGuide = function() {
-        console.log('Editing guide..')
+        window.location.href = '/guide/' + this.guideId + '/admin';
       }
       
       this.delete = function() {
