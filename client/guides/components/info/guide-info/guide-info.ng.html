@@ -1,10 +1,37 @@
 <tr>
-  <td> {{ ge.guide.title }} </td>
-  <td> {{ ge.guide.adminDesc }} </td>
-  <td> {{ ge.guide.publish }} </td>
-  <td> {{ ge.guide.childernArticleIds.length || 0 }} </td>
-  <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ge.editGuide()"></i> </td>      
+  <td> {{ gi.guide.title }} </td>
+  <td> {{ gi.guide.adminDesc }} </td>
+  <td> {{ gi.guide.publish }} </td>
+  <td> {{ gi.guide.childernArticleIds.length || 0 }} </td>
+  <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="gi.editGuide()"></i> </td>      
   <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
   <td> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
-  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ge.delete()"></i> </td>
+  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" data-toggle="modal"
+    data-target=".delete-guide-confirm-modal"></i> </td>
 </tr>
+
+
+<div class="modal fade" class="delete-guide-confirm-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete Guide?</h4>
+                <small style="color: darkgrey">
+                    Are you sure you want to delete this guide and all its articles?
+                </small>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                  class="btn btn-primary" data-dismiss="modal">No
+                </button>
+                <button type="button"
+                  ng-click="gi.delete()"
+                  class="btn btn-primary" data-dismiss="modal">Yes
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
