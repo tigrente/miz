@@ -1,7 +1,7 @@
 miz.directive("guideRoomAdmin", function ($compile) {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/room-admin/room-admin.ng.html',
+      templateUrl: 'client/guides/components/admin/room-admin/room-admin.ng.html',
       controllerAs: 'ra',
       controller: function ($scope, $reactive) {
 
