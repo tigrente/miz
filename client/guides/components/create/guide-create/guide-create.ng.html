@@ -1,19 +1,16 @@
-Add Guides:
-<button ng-click="gc.addToGuides()">+</button>
-<ul ng-repeat="guide in gc.guides">
-  <li>
-    Title:<span style="color:red;"> *</span>
-    <input type="text" ng-model="guide.title" ng-change="gc.submittable()"/>
-  </li>
-  <li>
-    Admin Desciption:
-    <input type="text" ng-model="guide.adminDesc"/>
-  </li>
-    <ul>
-      <li>
-        <article-create articles="guide.articles" can-submit-fn="rc.canSubmitCallback(canSubmit)"></article-create>
-      </li>
-    </ul>
-  </li>
-  <br/><br/>
-</ul>
+<tr class="injected-table-view">
+  <td> <input type="text" ng-model="gc.guide.title"> </td>
+  <td> <input type="text" ng-model="gc.guide.adminDesc"> </td>
+  <td> 
+    <select ng-model="gc.guide.publish" selected="preview">
+      <option value="publish">Publish</option>
+      <option value="preview">Preview</option>
+      <option value="hide">Hide</option>
+    </select>
+  </td>
+  <td> 0 </td>
+  <td> <button ng-click="gc.submit()" ng-disabled="!gc.canSubmitFn()">Save</button> </td>      
+  <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
+  <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
+  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="gc.hide()"></i> </td>
+</tr>

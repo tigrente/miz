@@ -14,13 +14,13 @@ Meteor.methods({
   
   createGuideRoom: function (newRoom) {
       // Check privilege
-      if (!Roles.userIsInRole(Meteor.userId(),
+      /*if (!Roles.userIsInRole(Meteor.userId(),
               ['superAdmin',
                   'editGuideRoom',
                   'editAllGuideRooms'
               ])) {
           throw new Meteor.Error("Insufficient Privilege to add new Guide Room.")
-      }
+              }*/
 
       console.log("Adding new guide room...");
 
@@ -28,7 +28,7 @@ Meteor.methods({
       //add auto data
 
       /* ROOM */
-      newRoom.createdById = Meteor.userId();
+    //   newRoom.createdById = Meteor.userId(); // Doesn't make sense to have ths here
       newRoom.creationDate = new Date();
       newRoom.modifiedById = Meteor.userId();
       newRoom.modifiedDate = new Date();
@@ -37,42 +37,134 @@ Meteor.methods({
           if (err)
               console.log('Error adding new guide room to db: ' + err);
           else {
-              console.log('New Guide Room Created: ' + data);
+              console.log('New guide room created: ' + data);
           }
       });
     },
 
     createGuide: function (newGuide) {
-      // Check privilege
-      if (!Roles.userIsInRole(Meteor.userId(),
-              ['superAdmin',
-                  'editGuide',
-                  'editAllGuides'
-              ])) {
-          throw new Meteor.Error("Insufficient Privilege to add new Guide.")
-      }
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editGuide',
+                    'editAllGuides'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to add new guide.")
+        }
 
-      console.log("Adding new guide...");
+        console.log("Adding new guide...");
 
 
-      //add auto data
+        //add auto data
 
-      /* GUIDES */
-      newGuide.createdById = Meteor.userId();
-      newGuide.creationDate = new Date();
-      newGuide.modifiedById = Meteor.userId();
-      newGuide.modifiedDate = new Date();
-      
-      // remove $$hashKey
-      delete newGuide.$$hashKey;
+        /* GUIDES */
+        newGuide.createdById = Meteor.userId();
+        newGuide.creationDate = new Date();
+        newGuide.modifiedById = Meteor.userId();
+        newGuide.modifiedDate = new Date();
+        
+        // remove $$hashKey
+        delete newGuide.$$hashKey;
 
-      return Guides.insert(newGuide, (err, data) => {
-          if (err)
-              console.log('Error adding new guide to db: ' + err);
-          else {
-              console.log('New Guide Created: ' + data);
-          }
-      });
+        return Guides.insert(newGuide, (err, data) => {
+            if (err)
+                console.log('Error adding new guide to db: ' + err);
+            else {
+                console.log('New guide created: ' + data);
+            }
+        });
+    },
+
+    updateParentGuideRoomWithChildGuideId: function (newGuideId, roomId) {
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editGuideRoom',
+                    'editAllGuideRooms'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to update parent guide room.")
+        }
+
+        console.log("updating parent guide room...");
+
+        return Cms.update({
+            _id: roomId
+        }, {
+            $set: {
+                modifiedById: Meteor.userId(),
+                modifiedDate: new Date()
+            },
+
+            $push: {
+                childrenGuideIds: newGuideId
+            }
+
+        }, (err, data) => {
+            if (err)
+                console.log('Error updating parent guide room: ' + err);
+            else {
+                console.log('parent room updated with child guides: ' + data);
+            }
+        });
+    },
+
+    deleteGuide: function (guideIdToDelete) {
+    // Check privilege
+    if (!Roles.userIsInRole(Meteor.userId(),
+            ['superAdmin',
+                'editGuide',
+                'editAllGuides'
+            ])) {
+        throw new Meteor.Error("Insufficient Privilege to delete guide.")
+    }
+
+    console.log("Deleting guide...");
+
+
+    //add auto data
+
+    return Guides.remove({
+            _id: guideIdToDelete
+        }, (err, data) => {
+            if (err)
+                console.log('Error deleting guide from db: ' + err);
+            else {
+                console.log('Guide deleted: ' + data);
+            }
+        });
+    },
+
+    updateParentGuideRoomWithDeletedChildGuideId: function (deletedGuideId, roomId) {
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editGuideRoom',
+                    'editAllGuideRooms'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to update parent guide room.")
+        }
+
+        console.log("updating parent guide room...");
+
+        return Cms.update({
+            _id: roomId
+        }, {
+            $set: {
+                modifiedById: Meteor.userId(),
+                modifiedDate: new Date()
+            },
+
+            $pull: {
+                childrenGuideIds: deletedGuideId
+            }
+
+        }, (err, data) => {
+            if (err)
+                console.log('Error updating parent guide room: ' + err);
+            else {
+                console.log('parent room updated with child guides: ' + data);
+            }
+        });
     },
 
     createArticle: function (newArticle) {
@@ -82,7 +174,7 @@ Meteor.methods({
                   'editArticle',
                   'editAllArticles'
               ])) {
-          throw new Meteor.Error("Insufficient Privilege to add new Article.")
+          throw new Meteor.Error("Insufficient Privilege to add new aticle.")
       }
 
       console.log("Adding new article...");
@@ -103,7 +195,7 @@ Meteor.methods({
           if (err)
               console.log('Error adding new article to db: ' + err);
           else {
-              console.log('New Article Created: ' + data);
+              console.log('New article created: ' + data);
           }
       });
     }

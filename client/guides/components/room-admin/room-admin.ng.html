@@ -1,0 +1,29 @@
+<select ng-model="ra.room"
+  ng-options="room.name for room in ra.rooms">
+</select>
+
+<table>
+    <th>Guide Title</th>
+    <th>Description</th>
+    <th>Visibility</th>
+    <th>Articles</th>
+    <th>Edit</th>
+    <th>Move Up</th>
+    <th>Move Down</th>
+    <th>Delete</th>
+</table>
+<table>
+    <div class="guide" ng-repeat="guideId in ra.room.childrenGuideIds">
+        <guide-info guide-id="guideId", room-id="ra.room._id"></guide-info>
+    </div>
+</table>
+
+<div class="alert alert-warning" role="alert" style="margin-top:10px" ng-if="ra.room._id && !ra.room.childrenGuideIds">
+    There are no guides yet...
+</div>
+
+<div ng-repeat="n in [] | range:ra.newGuides">
+    <guide-create room="ra.room" ind="$index"></guide-create>
+</div>
+
+<button ng-show="ra.room._id" ng-click="ra.incNewGuides()">Create Guide</button>

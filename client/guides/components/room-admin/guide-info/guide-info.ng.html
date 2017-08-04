@@ -1,0 +1,10 @@
+<tr>
+  <td> {{ ge.guide.title }} </td>
+  <td> {{ ge.guide.adminDesc }} </td>
+  <td> {{ ge.guide.publish }} </td>
+  <td> {{ ge.guide.childernArticleIds.length || 0 }} </td>
+  <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ge.editGuide()"></i> </td>      
+  <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
+  <td> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
+  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ge.delete()"></i> </td>
+</tr>

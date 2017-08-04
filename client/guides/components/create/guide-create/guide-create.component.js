@@ -4,61 +4,68 @@ miz.directive("guideCreate", function () {
       templateUrl: 'client/guides/components/create/guide-create/guide-create.ng.html',
       controllerAs: 'gc',
       bindToController: {
-        guides: '=',
-        canSubmitFn: '&'
+        room: '<',
+        ind: '<'
       },
       controller: function ($scope, $reactive) {
 
           $reactive(this).attach($scope);
-
+          
           /* HELPERS */
           this.helpers({
-
+            
           });
+          
+          /* AUTORUN*/
+          this.autorun(() => {
 
+          }); //autorun
 
           /* SUBSCRIPTIONS */ 
           
           
           /* FUNCTIONS */
-          this.addToGuides = function() {
-            this.guides.push(this.guide);
-            this.reset();
-          }
-          
           this.reset = function() {
             this.guide = {
               'cmsType': 'guide',
               'guideType': 'blog', // for now, hard code...
-              'publish': true, // for now hard code ...
-              'hidden': false, // for now, hard code ...
+              'publish': 'preview',
               'title': '',
-              'adminDesc': '',
-              'articles': []
+              'adminDesc': ''
               // Other data added when inserting into DB
             };
           }
-          
-          this.canSubmitCallback = function(canSubmit) {
-            this.canSubmits = canSubmit;
-            console.log('Got respose from article:', canSubmit);
-          };
-          
-          this.submittable = function() {
-            this.canSubmitFn(this.guide.title); //really weird..why does this work ?? would expect it to be !== ...
+
+          this.submit = function() {
+            this.hide();
+
+            this.call('createGuide', this.guide, (err, data) => {
+              if (err) {
+                alert('Something went wrong adding a new guide to database: ' + err);
+              } else {
+
+                this.call('updateParentGuideRoomWithChildGuideId', data, this.room._id, (err) => {
+                  if (err) {
+                    alert('Something went wrong trying to update the parent guide room: ' + err);
+                  }
+                });
+
+              }
+            });
           }
+
+          this.hide = function() {
+            $('.injected-table-view').eq(this.ind).hide();
+          }
+
+          this.canSubmitFn = function() {
+            // check that all guides have require properties
+            return this.guide.title && this.guide.adminDesc;
+          };
 
           /* INITIALIZE */
           this.guide = {};
           this.reset();
-
-          this.canSubmits = false;
-          
-          /* AUTORUN*/
-          this.autorun(() => {
-            this.addToGuides(); //Automatically open container
-          }); //autorun
-
 
       } // controller
   };  //return
