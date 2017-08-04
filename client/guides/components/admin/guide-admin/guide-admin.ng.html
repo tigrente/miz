@@ -1,0 +1,25 @@
+<table>
+    <th>Article</th>
+    <th>Updated</th>
+    <th>Updated By</th>
+    <th>Publish</th>
+    <th>Edit</th>
+    <th>Move Up</th>
+    <th>Move Down</th>
+    <th>Delete</th>
+</table>
+<table>
+    <div ng-repeat="articleId in ga.guide.childrenArticleIds">
+        <article-info article-id="articleId", guide-id="ga.guide._id"></article-info>
+    </div>
+</table>
+
+<div class="alert alert-warning" role="alert" style="margin-top:10px" ng-if="!ga.guide.childrenArticleIds">
+    There are no articles yet...
+</div>
+
+<div ng-repeat="n in [] | range:ga.newArticles">
+    <article-create guide="ga.guide" ind="$index"></article-create>
+</div>
+
+<button ng-click="ga.incNewArticles()">Create Article</button>
