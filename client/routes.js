@@ -369,54 +369,10 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         }
     })
     
-    .state('guideRoomCreate', {
-        url: '/create/room',
-        template: '<guide-room-create></guide-room-create>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
-            }
-        }
-    })
-
-    .state('guideCreate', {
-        url: '/create/guide',
-        template: '<guide-create></guide-create>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
-            }
-        }
-    })
-
-    .state('articleCreate', {
-        url: '/create/article',
-        template: '<article-create></article-create>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
-            }
-        }
-    })
     
-    .state('guideRoomDetail', {
-        url: '/room/:roomId',
-        template: '<guide-room></guide-room>',
+    .state('guideRoomCooperationManager', {
+        url: '/room/cooperation-manager',
+        template: '<cooperation-manager-guide-room></cooperation-manager-guide-room>',
         resolve: {
             currentUser: ($q) => {
                 if (Meteor.userId() == null) {
@@ -430,9 +386,9 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
     })
     
     
-    .state('guideRoomList', {
-        url: '/rooms/',
-        template: '<guide-room-list></guide-room-list>',
+    .state('guideRoomsAdmin', {
+        url: '/rooms/admin',
+        template: '<guide-room-admin></guide-room-admin>',
         resolve: {
             currentUser: ($q) => {
                 if (Meteor.userId() == null) {
