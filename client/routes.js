@@ -399,6 +399,21 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 }
             }
         }
+    })
+    
+    .state('guideAdmin', {
+        url: '/guide/:guideId/admin',
+        template: '<guide-admin></guide-admin>',
+        resolve: {
+            currentUser: ($q) => {
+                if (Meteor.userId() == null) {
+                    return $q.reject('AUTH_REQUIRED');
+                }
+                else {
+                    return $q.resolve();
+                }
+            }
+        }
     });
     
 
