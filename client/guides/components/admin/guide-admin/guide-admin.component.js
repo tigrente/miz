@@ -10,7 +10,7 @@ miz.directive("guideAdmin", function ($compile) {
           /* HELPERS */
           this.helpers({
             guide: () => {
-              return Guides.find({
+              return Guides.findOne({
                 _id: $stateParams.guideId
               });
             }

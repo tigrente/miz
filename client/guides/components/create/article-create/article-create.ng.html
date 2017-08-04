@@ -1,14 +1,15 @@
-Add Articles:
-<button ng-click="ac.addToArticles()">+</button>
-<ul ng-repeat="article in ac.articles">
-  <li>
-    Title:<span style="color:red;"> *</span>
-    <input type="text" ng-model="article.title"  ng-change="ac.submittable()"/>
-  </li>
-  <li>
-    Body:<span style="color:red;"> *</span>
-    <textarea froala="ac.froalaOptions"
-    ng-model="article.body" ng-change="ac.submittable()"></textarea>
-  <br/><br/>
-  </li>
-</ul>
+<tr class="injected-table-view">
+  <td> <input type="text" ng-model="ac.article.title"> </td>
+  <td> <p ng-model="ac.article.body"> </td>
+  <td> 
+    <select ng-model="ac.article.publish" selected="preview">
+      <option value="publish">Publish</option>
+      <option value="preview">Preview</option>
+      <option value="hide">Hide</option>
+    </select>
+  </td>
+  <td> <button ng-click="ac.submit()" ng-disabled="!ac.canSubmitFn()">Save</button> </td>      
+  <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
+  <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
+  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ac.hide()"></i> </td>
+</tr>
