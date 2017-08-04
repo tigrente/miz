@@ -24,10 +24,6 @@ miz.directive("guideRoomAdmin", function ($compile) {
           }); //autorun
 
           /* FUNCTIONS */
-          this.deleteNewGuide = function(ind) {
-            console.log('delete', ind);
-          }
-
           this.incNewGuides = function() {
             this.newGuides++;
           }
