@@ -30,6 +30,7 @@ miz.directive("guideCreate", function () {
               'cmsType': 'guide',
               'guideType': 'blog', // for now, hard code...
               'publish': 'preview',
+              'childrenArticleIds': [],
               'title': '',
               'adminDesc': ''
               // Other data added when inserting into DB
