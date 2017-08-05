@@ -2,9 +2,9 @@ miz.directive("article", function () {
   return {
       restrict: 'E',
       templateUrl: 'client/guides/components/article/article.ng.html',
-      controllerAs: 'artcCtrl',
+      controllerAs: 'ar',
       bindToController: {
-        article: '<'
+        articleId: '<'
       },
       controller: function ($scope, $reactive) {
 
@@ -12,12 +12,16 @@ miz.directive("article", function () {
 
           /* HELPERS */
           this.helpers({
-
+            article: () => {
+              return Articles.findOne({
+                _id: this.getReactively('articleId')
+              })
+            }
           });
 
 
           /* SUBSCRIPTIONS */
-          // this.subscribe('cms');
+          this.subscribe('articles');
 
           /* AUTORUN*/
           this.autorun(() => {
@@ -25,6 +29,9 @@ miz.directive("article", function () {
           }); //autorun
 
           /* FUNCTIONS */
+          this.view = function() {
+            console.log('Viewing article')
+          }
 
           /* INITIALIZE */
 

@@ -2,34 +2,39 @@ miz.directive("guideRoom", function () {
   return {
       restrict: 'E',
       templateUrl: 'client/guides/components/room/room.ng.html',
-      controllerAs: 'roomCtrl',
-      controller: function ($scope, $reactive, $stateParams) {
+      controllerAs: 'rc',
+      bindToController: {
+        roomName: '@'
+      },
+      controller: function ($scope, $reactive) {
 
-          $reactive(this).attach($scope);
-
+        $reactive(this).attach($scope);
         
-          /* HELPERS */
-          this.helpers({
+        
+        /* HELPERS */
+        this.helpers({
             room: () => {
                 return Cms.findOne({
-                    _id: $stateParams.roomId
+                    name: this.getReactively('roomName')
                 });
             }
-          });
-
-
-          /* SUBSCRIPTIONS */
-          this.subscribe('cms');
-
-          /* AUTORUN*/
-          this.autorun(() => {
-
-          }); //autorun
-
-          /* FUNCTIONS */
-
-          /* INITIALIZE */
-          this.guideIndex = 0;
+        });
+            
+        /* SUBSCRIPTIONS */
+        this.subscribe('cms');
+        
+        /* AUTORUN*/
+        this.autorun(() => {
+            
+        }); //autorun
+        
+        /* FUNCTIONS */
+        this.setGuideId = function(guideId) {
+            this.guideId = guideId;
+        }
+        
+        /* INITIALIZE */
+        this.guideId = '';
 
       } // controller
   };  //return

@@ -1,8 +1,8 @@
-miz.directive("guide", function () {
+miz.directive("guideName", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/guide/guide.ng.html',
-      controllerAs: 'gd',
+      template: '{{ un.guide | safj56dhjh56fguideName }}',
+      controllerAs: 'un',
       bindToController: {
         guideId: '<'
       },
@@ -16,22 +16,34 @@ miz.directive("guide", function () {
               return Guides.findOne({
                 _id: this.getReactively('guideId')
               });
-            }
+            } 
           });
 
+          /* AUTORUN */
+          this.autorun(() => {
+
+          });
 
           /* SUBSCRIPTIONS */
           this.subscribe('guides');
-
-          /* AUTORUN*/
-          this.autorun(() => {
-
-          }); //autorun
-
-          /* FUNCTIONS */
 
           /* INITIALIZE */
 
       } // controller
   };  //return
+});
+
+
+miz.filter('safj56dhjh56fguideName', () => {
+  return function (guide) {
+    if (!guide) {
+      return 'No name';
+    }
+  
+    if (guide.title) {
+      return guide.title;
+    }
+  
+    return guide;
+  }
 });

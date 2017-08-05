@@ -1,39 +1,21 @@
-<div role="tabpanel" class="tab-pane fade in active" id="active">
+<div ng-if="gd.guide.childrenArticleIds.count() !== 0">
     <div class="row">
         <div class="col-xs-12">
             <h4>Articles</h4>
-
-            <div class="panel-group" id="accordion" role="tablist"
-            aria-multiselectable="true" ng-repeat="article in gd.guide.articles">
-
-                <table class="table" ng-click="gd.panelOpen = !gd.panelOpen">
-                    <tr>
-                        <td style="font-weight: bold">{{article.title}}
-                        </td>
-                        <td style="font-weight: bold">
-                            {{ gd.getUser(article.createdById) | displayName }}
-                        </td>
-                        <td>{{ article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
-                    </tr>
-                </table>
-
-                <div class="panel-body" id="panel-body" ng-show="gd.panelOpen">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <h5 style="display: inline;
-                                            color:darkred;
-                                            text-decoration: none">
-                                            {{ article.title }}
-                                    </h5>
-                                </div>                    
-                                {{ article.body }}
-                        </div>
-                    </div>
-                  </div>
-                </div>
+            <table>
+                <th>Article</th>
+                <th>Created by</th>
+                <th>Last modified by</th>
+                <th>Created on</th>
+                <th>Last modified on</th>
+            </table>
+            <div ng-repeat="articleId in gd.guide.childrenArticleIds">
+                <article article-id="articleId"></article>
             </div>
         </div>
     </div>
+</div>
+
+<div class="alert alert-warning" role="alert" ng-if="gd.guide.childrenArticleIds.count() === 0" style="margin-top:10px">
+    There are no guides yet...
 </div>

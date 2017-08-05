@@ -1,20 +1,20 @@
 <h3>
-  {{ roomCtrl.room.name }}
+  {{ rc.room.name }}
 </h3>
-
-
 
 <div>
     <ul class="nav nav-tabs" role="tablist" >
-        <li role="presentation" ng-repeat="guide in roomCtrl.room.guides" ng-class="{active : $index === 0 }">
-          <a role="tab" tab-index="$index" data-toggle="tab" ng-click="roomCtrl.guideIndex = $index">{{ guide.title }}</a>
+        <li role="presentation" ng-repeat="guideId in rc.room.childrenGuideIds">
+          <a role="tab" tab-index="$index" data-toggle="tab" ng-click="rc.setGuideId(guideId)"> <!-- TODO set guide automatically -->
+            <guide-name guide-id="guideId"></guide-name>
+          </a>
         </li>
     </ul>
 </div>
 
-<div id="" ng-if="roomCtrl.room.guides.count() !== 0">
-  <guide guide="roomCtrl.room.guides[roomCtrl.guideIndex]"></guide>
+<div ng-if="rc.room.childrenGuideIds.count() !== 0">
+  <guide guide-id="rc.guideId"></guide>
 </div>
-<div class="alert alert-success" role="alert" ng-if="roomCtrl.room.guides.count() === 0" style="margin-top:10px">
+<div class="alert alert-warning" role="alert" ng-if="rc.room.childrenGuideIds.count() === 0" style="margin-top:10px">
     There are no guides yet...
 </div>

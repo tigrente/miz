@@ -1,5 +1,3 @@
-
-
 miz.directive("cooperationManagerGuideRoom", function () {
     return {
         restrict: 'E',
@@ -26,7 +24,7 @@ miz.directive("cooperationManagerGuideRoom", function () {
             /* FUNCTIONS */
             
             /* INITIALIZE */
-            // name = 'Cooperation Manager Guides';
+            this.name = 'Cooperation Manager Guides';
             
         } // controller
   };  //return

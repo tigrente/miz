@@ -1,3 +1,9 @@
-{{ artcCtrl.article.title }}
-<br/>
-{{ artcCtrl.article.content }}
+<table class="table" ng-click="ar.view()">
+    <tr>
+        <td style="font-weight: bold">{{ ar.article.title }}</td>
+        <td><username user-id="ar.article.createdById"></username></td>
+        <td><username user-id="ar.article.modifiedById"></username></td>
+        <td>{{ ar.article.creationDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
+        <td>{{ ar.article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
+    </tr>
+</table>
