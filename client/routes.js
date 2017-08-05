@@ -383,6 +383,20 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
+        .state('eiAcceptanceSummary', {
+            url: '/ei-acceptance-summary',
+            template: '<eng-ei-acceptance-summary></eng-ei-acceptance-summary>',
+            resolve: {
+                currentUser: ($q) => {
+                    if (Meteor.userId() == null) {
+                        return $q.reject('AUTH_REQUIRED');
+                    }
+                    else {
+                        return $q.resolve();
+                    }
+                }
+            }
+        })
 
         .state('searchResults', {
         url: '/search-results',
