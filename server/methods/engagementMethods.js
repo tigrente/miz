@@ -814,17 +814,14 @@ Meteor.methods({
 
     },
 
+    /**
+     * engUpdateEiAcceptanceStatus
+     * Does a check to see if the schedule, acceptance Criteria, and acceptance team have been defined for a project.
+     * Returns a string status.
+     * @param engagementId
+     */
 
     engUpdateEiAcceptanceStatus: function (engagementId) {
-
-        /**
-         * engUpdateEiAcceptanceStatus
-         * Does a check to see if the schedule, acceptance Criteria, and acceptance team have been defined for a project.
-         * Returns a string status.
-         * @param engagementId
-         */
-
-
 
         //Check for earlyInnovationData - initialize if nothing there
         Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
@@ -834,13 +831,15 @@ Meteor.methods({
 
         Meteor.call("engUpdateEiAcceptanceStatusScheduleComplete", engagementId);
         Meteor.call("engUpdateEiAcceptanceStatusCriteriaComplete", engagementId);
+        Meteor.call("engUpdateEiAcceptanceStatusTeamComplete", engagementId);
 
         let engagement = Engagements.findOne(engagementId);
         let acceptanceStatus = engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus;
 
 
         if (acceptanceStatus.scheduleComplete &&
-            acceptanceStatus.criteriaComplete) {
+            acceptanceStatus.criteriaComplete &&
+            acceptanceStatus.teamComplete) {
             totalAcceptanceSpecificationComplete = true;
             statusMessage = "Acceptance Spec Complete"  //should not see this.
         }
@@ -979,6 +978,59 @@ Meteor.methods({
 
     },
 
+
+    /***
+     * engUpdateEiAcceptanceStatusCriteriaComplete
+     * Checks payementStatus array of engagement to see if every payment and final payment acceptance criteria is defined.
+     * @param engagementId
+     */
+
+    engUpdateEiAcceptanceStatusTeamComplete: function (engagementId) {
+
+
+        //Check for earlyInnovationData - initialize if nothing there
+        Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
+        let engagement = Engagements.findOne(engagementId);
+
+
+        let acceptanceTeam = engagement.earlyInnovationProjectData.acceptanceTeam; //shorthand
+        let teamComplete = false;  // is the acceptance Team criteria complet
+        let acceptanceTeamMemberCount = 0;   // are there art least three team members?
+        let independentAcceptor = false; // is one of them marked as independent?
+
+// first, check to see that there are at least three acceptors
+        if (acceptanceTeam.length === 0)
+            teamComplete = false;  //should never see this
+        else {
+
+            //it does exists - so let's see if every planned payment has an acceptance criteria for it.
+
+            for (let i = 0; i < acceptanceTeam.length; ++i) {
+                if (acceptanceTeam[i].name)
+                    ++acceptanceTeamMemberCount;
+
+                if (acceptanceTeam[i].independent)
+                    independentAcceptor = true;
+            }
+        } //else
+
+        if ((acceptanceTeamMemberCount >= 3) && independentAcceptor)
+            teamComplete = true;
+// update engagement with new status
+
+        //console.log("UpdateAcceptanceStatus (Schedule): " + scheduleComplete);
+
+        let selector = {_id: engagementId};
+
+        let update = {
+            $set: {
+                "earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.teamComplete": teamComplete
+            }
+        };
+
+        Engagements.update(engagementId, update);
+
+    },
 
 })
 ; // Meteor methods
