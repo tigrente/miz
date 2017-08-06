@@ -784,27 +784,89 @@ Meteor.methods({
     },
 
 
-    engUpdateEiAcceptanceStatus: function (engagementId) {
+    /**
+     * engEiCheckForEarlyEngagementProjectData
+     * Checks to see if earlyInnovatioProjectData is part of an engagement.  If so, returns false.  If not,
+     * creates it and returns true, so that caller may recognize flag and retrieve the updated record
+     * @param engagementId
+     */
+    engEiNeedToRefreshForNewEiProjectData: function (engagementId) {
 
         let engagement = Engagements.findOne(engagementId);
-        let result;
-
-        //earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule
+        let refresh = false;
 
         //Check for earlyInnovationData - initialize if nothing there
         if (!engagement.hasOwnProperty('earlyInnovationProjectData')) {
-            console.log("Ei project data didn't exist for: " + engagement.title);
-            result = Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
-            engagement = Engagements.findOne(engagementId);
+            refresh = true;
+            console.log("Ei project data didn't exist for: " + engagement.title + ". Creating it...");
+            Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
         }
-
 
         if (!engagement.earlyInnovationProjectData.hasOwnProperty('acceptanceAndPayments')) {
-            console.log("Ei acceptanceAndPayment did not exist for: " + engagement.title);
-            result = Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
-
-            engagement = Engagements.findOne(engagementId);
+            refresh = true;
+            console.log("Ei project data didn't exist for: " + engagement.title + ". Creating it...");
+            Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
         }
+
+        return refresh;
+
+    },
+
+
+    engUpdateEiAcceptanceStatus: function (engagementId) {
+
+        /**
+         * engUpdateEiAcceptanceStatus
+         * Does a check to see if the schedule, acceptance Criteria, and acceptance team have been defined for a project.
+         * Returns a string status.
+         * @param engagementId
+         */
+
+
+        let engagement = Engagements.findOne(engagementId);
+        //Check for earlyInnovationData - initialize if nothing there
+        let refreshRequired = Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
+        if (refreshRequired)
+            engagement = Engagements.findOne(engagementId);
+
+
+        let totalAcceptanceSpecificationComplete = false;
+        let statusMessage = "Analyzing...";
+        Meteor.call("engUpdateEiAcceptanceStatusScheduleComplete", engagementId);
+        //Meteor.call("engUpdateEiAcceptanceStatusCriteriaComplete", engagementId);
+
+
+        if (engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete) {
+            totalAcceptanceSpecificationComplete = true;
+            statusMessage = "Acceptance Spec Complete"  //should not see this.
+        }
+        else {
+            totalAcceptanceSpecificationComplete = false;
+            statusMessage = "Acceptance Spec Incomplete!"  //should not see this.
+        }
+
+
+        let selector = {_id: engagementId};
+
+        let update = {
+            $set: {
+                "earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": statusMessage
+            }
+        };
+
+        Engagements.update(engagementId, update);
+
+    },
+
+
+    engUpdateEiAcceptanceStatusScheduleComplete: function (engagementId) {
+
+        //Check for earlyInnovationData - initialize if nothing there
+        let engagement = Engagements.findOne(engagementId);
+        let refreshRequired = Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
+        if (refreshRequired)
+            engagement = Engagements.findOne(engagementId);
+
 
         let scheduleComplete = false;
 
@@ -841,7 +903,7 @@ Meteor.methods({
             }
         }
 
-        console.log("UpdateAcceptanceStatus (Schedule): " + scheduleComplete);
+        //console.log("UpdateAcceptanceStatus (Schedule): " + scheduleComplete);
 
         let selector = {_id: engagementId};
 
@@ -852,6 +914,24 @@ Meteor.methods({
         };
 
         Engagements.update(engagementId, update);
+
+    }
+    ,
+
+    /***
+     * engUpdateEiAcceptanceStatusCriteriaComplete
+     * Checks payementStatus array of engagement to see if every payment and final payment acceptance criteria is defined.
+     * @param engagementId
+     */
+
+    engUpdateEiAcceptanceStatusCriteriaComplete: function (engagementId) {
+
+        let engagement = Engagements.findOne(engagementId);
+        //Check for earlyInnovationData - initialize if nothing there
+        let refreshRequired = Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
+        if (refreshRequired)
+            engagement = Engagements.findOne(engagementId);
+
 
     },
 

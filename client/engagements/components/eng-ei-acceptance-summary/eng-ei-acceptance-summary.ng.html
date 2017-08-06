@@ -1,8 +1,11 @@
+<!--suppress ALL -->
+
 <div class="row">
     <div class="col-xs-12">
         <div class="en-title">
             Futurewei Early Innovation Acceptance Summary
 
+            <!--suppress Annotator -->
             <button class="btn  btn-xs"
                     ng-click="eias.viewEngagementUserSummary()"
                     style="float: right;margin-left: 40px; background-color: darkred; color:white;">
@@ -74,8 +77,6 @@
                 <label for="filter-search" class="control-label">Search:</label><br>
                 <input id="filter-search" class="form-control input-sm" ng-model="eias.filter_search"
                        placeholder="Filter by keyword...">
-
-                </input>
             </div>
         </form>
 
@@ -149,11 +150,9 @@
                         <td class="en-team-summary-table-body-col-single">{{engagement.projectManager}}</td>
                         <td class="en-team-summary-table-body-col-single">{{engagement.bdOwnerLabel}}</td>
                         <td class="en-team-summary-table-body-col-single">
-                            Acceptance Spec Incomplete!
+                            {{engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage}}
                         </td>
                         <td class="en-team-summary-table-body-col-single" ng-if="true">
-                            Milestones Incomplete
-                            <br>
                             <span title="Milestone Schedule">MS</span>
                             <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: #0F9D58" class="fa fa-check-circle"></i>&nbsp;
                             <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: red" class="fa fa-times-circle"></i>&nbsp;
@@ -172,15 +171,15 @@
                                     <td style="border: solid grey thin;padding: 2px 3px 2px 3px">
                                         1<br>
                                         <i style="color: #0F9D58;  "
-                                           class="fa fa-check-circle">
+                                           class="fa fa-check-circle"></i>
                                     </td>
 
                                     <td style="border: solid grey thin;padding: 2px 3px 2px 3px">2<br><i
                                             style="color: #0F9D58; "
-                                            class="fa fa-check-circle"></td>
+                                            class="fa fa-check-circle"></i></td>
                                     <td style="border: solid grey thin;padding: 2px 3px 2px 3px">3<br><i
                                             style="color: red;"
-                                            class="fa fa-circle-o"></td>
+                                            class="fa fa-circle-o"></i></td>
                                 </tr>
                             </table>
                         </td>
