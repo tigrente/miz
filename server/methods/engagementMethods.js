@@ -470,7 +470,8 @@ Meteor.methods({
                 additionalPayments: [],
                 additionalFinalAcceptance: {
                     targetDate: null,
-                    actualDate: null
+                    actualDate: null,
+                    deliverables: null
                 },
                 options: {
                     additionalFinalAcceptance: false,
@@ -790,6 +791,7 @@ Meteor.methods({
      * creates it and returns true, so that caller may recognize flag and retrieve the updated record
      * @param engagementId
      */
+
     engEiNeedToRefreshForNewEiProjectData: function (engagementId) {
 
         let engagement = Engagements.findOne(engagementId);
@@ -823,20 +825,22 @@ Meteor.methods({
          */
 
 
-        let engagement = Engagements.findOne(engagementId);
-        //Check for earlyInnovationData - initialize if nothing there
-        let refreshRequired = Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
-        if (refreshRequired)
-            engagement = Engagements.findOne(engagementId);
 
+        //Check for earlyInnovationData - initialize if nothing there
+        Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
 
         let totalAcceptanceSpecificationComplete = false;
         let statusMessage = "Analyzing...";
+
         Meteor.call("engUpdateEiAcceptanceStatusScheduleComplete", engagementId);
-        //Meteor.call("engUpdateEiAcceptanceStatusCriteriaComplete", engagementId);
+        Meteor.call("engUpdateEiAcceptanceStatusCriteriaComplete", engagementId);
+
+        let engagement = Engagements.findOne(engagementId);
+        let acceptanceStatus = engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus;
 
 
-        if (engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete) {
+        if (acceptanceStatus.scheduleComplete &&
+            acceptanceStatus.criteriaComplete) {
             totalAcceptanceSpecificationComplete = true;
             statusMessage = "Acceptance Spec Complete"  //should not see this.
         }
@@ -932,6 +936,46 @@ Meteor.methods({
         if (refreshRequired)
             engagement = Engagements.findOne(engagementId);
 
+
+        let paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule; //shorthand
+        let criteriaComplete;  // is the acceptanceCriteriaCompelte
+
+
+        if (paymentSchedule.length === 0)
+            criteriaComplete = false;  //there are no payments scheduled, so no acceptance criteria
+        else {
+            //it does exists - so let's see if every planned payment has an acceptance criteria for it.
+            let allHaveAcceptanceCriteria = true;
+            for (let i = 0; i < paymentSchedule.length; ++i) {
+                if (!paymentSchedule[i].deliverables) {
+                    allHaveAcceptanceCriteria = false;
+                    break;
+                }
+            }
+
+            if (engagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance) {
+                if (!engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.deliverables) {
+                    allHaveAcceptanceCriteria = false;
+                }
+            }
+            criteriaComplete = allHaveAcceptanceCriteria;
+
+        }
+
+
+// update engagement with new status
+
+        //console.log("UpdateAcceptanceStatus (Schedule): " + scheduleComplete);
+
+        let selector = {_id: engagementId};
+
+        let update = {
+            $set: {
+                "earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.criteriaComplete": criteriaComplete
+            }
+        };
+
+        Engagements.update(engagementId, update);
 
     },
 

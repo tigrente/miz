@@ -152,16 +152,31 @@
                         <td class="en-team-summary-table-body-col-single">
                             {{engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage}}
                         </td>
-                        <td class="en-team-summary-table-body-col-single" ng-if="true">
-                            <span title="Milestone Schedule">MS</span>
-                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: #0F9D58" class="fa fa-check-circle"></i>&nbsp;
-                            <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: red" class="fa fa-times-circle"></i>&nbsp;
+                        <td class="en-team-summary-table-body-col-single" ng-if="true" style="text-align: left">
+                            <div>
+                                <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"
+                                   style="color: #0F9D58" class="fa fa-check-circle"></i>
+                                <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"
+                                   style="color: red" class="fa fa-times-circle"></i>
+                                <span title="Milestone Schedule">Schedule</span>
+                            </div>
 
+                            <div>
+                                <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.criteriaComplete"
+                                   style="color: #0F9D58" class="fa fa-check-circle"></i>
+                                <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.criteriaComplete"
+                                   style="color: red" class="fa fa-times-circle"></i>
+                                <span title="Milestone Schedule">Criteria</span>
+                            </div>
 
-                            <span title="Acceptance Criteria">AC</span> <i style="color: #0F9D58"
-                                                                           class="fa fa-check-circle"></i>&nbsp;
-                            <span title="Acceptance Team">AT</span> <i style="color: red"
-                                                                       class="fa fa-times-circle"></i>
+                            <div>
+                                <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.teamComplete"
+                                   style="color: #0F9D58" class="fa fa-check-circle"></i>
+                                <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.teamComplete"
+                                   style="color: red" class="fa fa-times-circle"></i>
+                                <span title="Milestone Schedule">Team</span>
+                            </div>
+
                         </td>
 
                         <td class="en-team-summary-table-body-col-single" ng-if="false">
@@ -189,8 +204,6 @@
                                                 <td class="en-team-summary-table-body-col-single">{{engagement.nextStep}}</td>-->
                         <td class="en-team-summary-table-body-col-single">{{eias.formatDate(engagement.lastUpdated)}}
                         </td>
-
-
 
 
                     </tr>
