@@ -24,6 +24,7 @@ miz.directive("engEiAcceptanceReportsTab", function () {
             /** Initialize **/
 
 
+
             //ui helpers
             this.ui = {
                 editAcceptanceTeam: false  //true for development, otherwise should be false
@@ -41,6 +42,10 @@ miz.directive("engEiAcceptanceReportsTab", function () {
             /** AUTORUN**/
             this.autorun(() => {
 
+                this.getReactively('focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule', true);
+
+                if (this.focusEngagement)
+                    this.call('engUpdateEiPaymentScheduleStatus', this.focusEngagement._id);
 
             }); //autorun
 

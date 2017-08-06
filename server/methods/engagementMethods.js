@@ -841,11 +841,24 @@ Meteor.methods({
             acceptanceStatus.criteriaComplete &&
             acceptanceStatus.teamComplete) {
             totalAcceptanceSpecificationComplete = true;
-            statusMessage = "Acceptance Spec Complete"  //should not see this.
+            statusMessage = "Acceptance Specification Complete"  //should not see this.
         }
         else {
             totalAcceptanceSpecificationComplete = false;
-            statusMessage = "Acceptance Spec Incomplete!"  //should not see this.
+            statusMessage = "Acceptance Specification Incomplete"  //should not see this.
+        }
+
+        // if specification is complete - start looking at acceptance schedule
+        // for each payment options: pending, due, overdue, complete
+        // then aggregate result
+
+        if (totalAcceptanceSpecificationComplete) {
+
+            //update each paymentStatus
+
+
+            //then look at each payment status and do something
+
         }
 
 
@@ -857,7 +870,7 @@ Meteor.methods({
             }
         };
 
-        Engagements.update(engagementId, update);
+        Engagements.update(selector, update);
 
     },
 
@@ -916,7 +929,7 @@ Meteor.methods({
             }
         };
 
-        Engagements.update(engagementId, update);
+        Engagements.update(selector, update);
 
     }
     ,
@@ -974,7 +987,7 @@ Meteor.methods({
             }
         };
 
-        Engagements.update(engagementId, update);
+        Engagements.update(selector, update);
 
     },
 
@@ -1028,9 +1041,74 @@ Meteor.methods({
             }
         };
 
-        Engagements.update(engagementId, update);
+        Engagements.update(selector, update);
 
     },
+
+    engUpdateEiPaymentScheduleStatus: function (engagementId) {
+
+        //  function to help with date calculation
+        Date.dateDiff = function (datepart, fromdate, todate) {
+            datepart = datepart.toLowerCase();
+            let diff = todate - fromdate;
+            let divideBy = {
+                w: 604800000,
+                d: 86400000,
+                h: 3600000,
+                n: 60000,
+                s: 1000
+            };
+
+            return Math.floor(diff / divideBy[datepart]);
+        };
+
+        Meteor.call('engEiNeedToRefreshForNewEiProjectData', engagementId);
+        let engagement = Engagements.findOne(engagementId);
+
+
+        let paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule; //shorthand
+        let paymentStatus = "unknown";
+        let msecPerDay = 24 * 60 * 60 * 1000;
+        let currentDate = new Date();
+        let currentDateMS = currentDate.getMilliseconds();
+
+
+        for (let i = 0; i < paymentSchedule.length; ++i) {
+            let payment = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[i];
+
+
+            if (payment.hasOwnProperty('actualDate') && payment.actualDate)
+                paymentStatus = "Acceptance Complete";
+            else {
+
+                let interval = Date.dateDiff('d', payment.targetDate, currentDate);
+
+                console.log('Interval: ' + interval);
+
+
+                if (interval < 0)
+                    paymentStatus = "Pending";
+                else if (interval <= 30)
+                    paymentStatus = "Due";
+                else if (interval > 30)
+                    paymentStatus = "Overdue";
+            } //else
+
+            //update the payment
+
+            let updateObj = {};
+            let field = 'earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.' + i + '.status';
+            updateObj[field] = paymentStatus;
+
+            let update = {
+                $set: updateObj
+            };
+
+            Engagements.update(engagementId, update);
+            paymentStatus = "unknown";
+        } // for each payment
+    }
+
 
 })
 ; // Meteor methods
