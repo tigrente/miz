@@ -188,6 +188,65 @@ Meteor.publish('engagementTeamSummary', function (filterTypeSelector, filterStat
 });
 
 /**
+ * eiAcceptanceSummary
+ * Publishes Engagements according to filter criteria.  Used for the engagement team summary
+ */
+
+Meteor.publish('eiAcceptanceSummary', function (filterStatusSelector, filterBdOwnerSelector,
+                                                sortOptions, filter_search, limit) {
+
+    if (!Roles.userIsInRole(this.userId,
+            ['superAdmin', 'viewEngagements', 'editEngagements'])) {
+        throw new Meteor.Error("Access denied")
+    }
+
+    let selector = {
+        $and: [
+            {"type": 'Early Innovation'},
+            filterStatusSelector,
+            filterBdOwnerSelector,
+
+
+            {
+                $or: [
+                    {'bdOwnerLabel': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'contractingPartnersLabel': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'cooperationResourcesLabel': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'title': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'tempLab': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'labLabel': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                    {'projectManager': {'$regex': '.*' + filter_search || '' + '.*', '$options': 'i'}},
+                ]
+            }
+
+
+        ]
+
+    };
+
+
+    options = {
+        limit: limit
+    };
+
+    Object.assign(options, sortOptions);
+
+    let engagementCollection = Engagements.find(selector, options);
+
+
+// Update acceptance status for all returned items
+    engagementCollection.forEach(function (engagement) {
+        console.log(engagement.title);
+        Meteor.call("engUpdateEiAcceptanceStatus", engagement._id);
+    });
+
+    return engagementCollection;
+
+
+});
+
+
+/**
  * engagementList
  * Publises list according to filter
  */
@@ -357,10 +416,10 @@ Meteor.methods({
                 // an object was passed
                 else {
                     //troubleshooting with log
- /*                   let str = JSON.stringify(field);
-                    str = JSON.stringify(field, null, 4); // (Optional) beautiful indented output.
-                    console.log('an object was passed:' + str); // Logs output to dev tools console.
-*/
+                    /*                   let str = JSON.stringify(field);
+                                       str = JSON.stringify(field, null, 4); // (Optional) beautiful indented output.
+                                       console.log('an object was passed:' + str); // Logs output to dev tools console.
+                   */
                     set = field;
 
                     for (let i = 0; i < labelUpdateArray.length; ++i) {
@@ -449,8 +508,7 @@ Meteor.methods({
         Engagements.update(engagementId, {$set: set});
 
 
-    }
-    ,  // engagementInitializeEarlyInnovationProjectData
+    },  // engagementInitializeEarlyInnovationProjectData
 
 
     engagementResetEIAcceptanceAndPayments: function (engagementId) {
@@ -542,25 +600,6 @@ Meteor.methods({
         let set = {
             "earlyInnovationProjectData.acceptanceAndPayments": apObject
         };
-
-        Engagements.update(engagementId, {$set: set});
-
-    }
-    ,
-
-
-    /*** START HERE ***/
-    engagementUpdateEIPaymentScheduleElement: function (engagementId, index, field, value) {
-
-        //console.log("EI Payment Option Update run");
-
-        let key = "earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[" + index + "]." + field;
-
-        //console.log(key);
-
-        let set = {};
-
-        set[key] = value;
 
         Engagements.update(engagementId, {$set: set});
 
@@ -742,7 +781,79 @@ Meteor.methods({
             } //if engagement
         } // if engagementId
 
-    }
+    },
+
+
+    engUpdateEiAcceptanceStatus: function (engagementId) {
+
+        let engagement = Engagements.findOne(engagementId);
+        let result;
+
+        //earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule
+
+        //Check for earlyInnovationData - initialize if nothing there
+        if (!engagement.hasOwnProperty('earlyInnovationProjectData')) {
+            console.log("Ei project data didn't exist for: " + engagement.title);
+            result = Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
+            engagement = Engagements.findOne(engagementId);
+        }
+
+
+        if (!engagement.earlyInnovationProjectData.hasOwnProperty('acceptanceAndPayments')) {
+            console.log("Ei acceptanceAndPayment did not exist for: " + engagement.title);
+            result = Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
+
+            engagement = Engagements.findOne(engagementId);
+        }
+
+        let scheduleComplete = false;
+
+        if (engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length &&
+            engagement.earlyInnovationProjectData.contract.signingDate) {
+            for (let i = 0; i < engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length; ++i) {
+                // check to see if the target date is valid.
+                if (Object.prototype.toString.call(engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[i].targetDate) === "[object Date]") {
+                    // it is a date
+                    if (isNaN(engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[i].targetDate.getTime())) {
+                        // date is not valid
+                        scheduleComplete = false;
+                    }
+                    else
+                        scheduleComplete = true;
+                }
+                else
+                    scheduleComplete = false;
+            }//for
+
+            //do check on final payment
+            if (engagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance) {
+                if (Object.prototype.toString.call(engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate) === "[object Date]") {
+                    // it is a date
+                    if (isNaN(engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate.getTime())) {
+                        // date is not valid
+                        scheduleComplete = false;
+                    }
+                    else
+                        scheduleComplete = true;
+                }
+                else
+                    scheduleComplete = false;
+            }
+        }
+
+        console.log("UpdateAcceptanceStatus (Schedule): " + scheduleComplete);
+
+        let selector = {_id: engagementId};
+
+        let update = {
+            $set: {
+                "earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete": scheduleComplete
+            }
+        };
+
+        Engagements.update(engagementId, update);
+
+    },
 
 
 })

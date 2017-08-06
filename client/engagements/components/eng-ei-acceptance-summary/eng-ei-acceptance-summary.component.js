@@ -20,13 +20,13 @@ miz.directive("engEiAcceptanceSummary", function () {
             $reactive(this).attach($scope);
 
             /** INITIALIZE **/
-            this.filter_type = "All";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
+            this.filter_acceptance_status = "All";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
             this.filterTypeSelector = {};
 
-            this.filter_status = "Active";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
+            this.filter_status = "Active";
             this.filterStatusSelector = {"filingStatus": "active"};
 
-            this.filter_bdOwner = "All";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
+            this.filter_bdOwner = "All";
             this.filterBdOwnerSelector = {};
 
             this.filter_search = '';
@@ -42,7 +42,7 @@ miz.directive("engEiAcceptanceSummary", function () {
 
                     engagementCollection: () => {
 
-                        this.getReactively('filterTypeSelector');
+
                         this.getReactively('filterStatusSelector');
                         this.getReactively('filterBdOwnerSelector');
                         this.getReactively('sortOptions');
@@ -50,7 +50,7 @@ miz.directive("engEiAcceptanceSummary", function () {
 
                         let selector = {
                             $and: [
-                                this.filterTypeSelector,
+                                {'type': 'Early Innovation'},
                                 this.filterStatusSelector,
                                 this.filterBdOwnerSelector,
 
@@ -90,13 +90,6 @@ miz.directive("engEiAcceptanceSummary", function () {
                         return Engagements.find(selector, this.sortOptions);
                     },
 
-                    filterTypeSelector: () => {
-                        this.getReactively('filter_type');
-                        if (this.filter_type == ("All" || null))
-                            return {};
-                        else
-                            return {"type": this.filter_type};
-                    },
 
                     filterStatusSelector: () => {
                         this.getReactively('filter_status');
@@ -157,11 +150,10 @@ miz.directive("engEiAcceptanceSummary", function () {
 
 
             /** SUBSCRIPTIONS **/
-            //todo: Make this subscription more selective and more efficient
-            this.subscribe('engagementTeamSummary', () => {
+            this.subscribe('eiAcceptanceSummary', () => {
                 return [
                     //variable passed to subscription
-                    this.getReactively('filterTypeSelector'),
+
                     this.getReactively('filterStatusSelector'),
                     this.getReactively('filterBdOwnerSelector'),
                     this.getReactively('sortOptions'),
@@ -181,23 +173,7 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             /** AUTORUN**/
             /*            this.autorun(() => {
-             /!*                this.getReactively('focusEngagement.currentStatus');
-             this.getReactively('focusEngagement.nextStep');
-             this.getReactively('focusEngagement.title');
-             this.getReactively('focusEngagement.tempOrg');
-             this.getReactively('focusEngagement.tempResource');
-             this.getReactively('focusEngagement.cooperationResources.length');
-             this.getReactively('focusEngagement.contractingPartners.length');
-             this.getReactively('focusEngagement.bdOwner');
-             this.getReactively('focusEngagement.bdRelated.length');
 
-             //update engagement on Meteor side when it changes in Angular
-             if (this.focusEngagement) { // check to see if engagement has loaded
-             this.call('engagementUpdate', this.focusEngagement, (err, result)=> {
-             if (err)
-             alert('engagementUpdate method error: ' + err);
-             });
-             }*!/
 
              }); //autorun*/
 
@@ -434,6 +410,45 @@ miz.directive("engEiAcceptanceSummary", function () {
             this.increaseEngagementLimit = function () {
                 this.engagementLimit += 60;
             };
+
+
+            /***************************************************************************************************
+             * acceptanceStatus ()
+             * Looks at state of focus engagment and determines the current acceptance status.
+             *
+             * Acceptance status may be:
+             *
+             * If terms are incomplvete (schedule, deliverables or acceptance team.
+             * - Executing/Closed: Acceptance Spec. Incomplete
+             * - Active: Acceptance Spec. Incomplete
+             * - On hold: Project on hold
+             *
+             * If terms are complete:
+             * -  Complete: All acceptance reports in OR final acceptance report in if project is after 8/1/2018
+             * -  Pending: Project is executing, nothing due
+             * -  Due:  Within 30 days of due date
+             * -  Overdue: Over 30 days of due date//
+             *
+             ****************************************************************************************************/
+
+
+
+
+            this.acceptanceStatus = function (engagement) {
+
+                let specificationComplete = false; // flag to determine if specification is complete.
+
+
+
+
+
+
+            };  //acceptanceStatus
+
+
+
+
+
 
 
 

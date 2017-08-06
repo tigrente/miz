@@ -1,22 +1,21 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="en-title">
-            Futurewei Engagement Summary
+            Futurewei Early Innovation Acceptance Summary
 
-        <button class="btn  btn-xs"
-                ng-click="eias.viewEngagementUserSummary()"
-                style="float: right;margin-left: 40px; background-color: darkred; color:white;">
-            View Your Engagements
-        </button>
+            <button class="btn  btn-xs"
+                    ng-click="eias.viewEngagementUserSummary()"
+                    style="float: right;margin-left: 40px; background-color: darkred; color:white;">
+                View Your Engagements
+            </button>
 
-    </div>
+        </div>
     </div>
 </div>
 
 <div class="en-team-summary-body" id="en-team-summary-body">
 
-    <div class="row en-team-summary-control-panel" id="en-team-summary-control-panel" >
-
+    <div class="row en-team-summary-control-panel" id="en-team-summary-control-panel">
 
 
         <!--<div class="en-team-summary-selector">-->
@@ -31,13 +30,13 @@
 
         <form class="form-horizontal ">
             <div class="form-group form-group-sm col-xs-3">
-                <label for="filter-type" class="control-label">Type:</label><br>
-                <select id="filter-type" ng-model="eias.filter_type">
+                <label for="filter-acceptance-status" class="control-label">Acceptance Status:</label><br>
+                <select id="filter-acceptance-status" ng-model="eias.filter_acceptance_status">
                     <option>All</option>
-                    <option>Early Innovation</option>
-                    <option>Technical Cooperation</option>
-                    <option>Business Development</option>
-                    <option>Internal Project</option>
+                    <option>Incomplete Registration</option>
+                    <option>Due and Overdue</option>
+                    <option>Overdue Only</option>
+                    <option>Closed</option>
                 </select>
             </div>
         </form>
@@ -61,11 +60,11 @@
                 <select id="filter-status" ng-model="eias.filter_status" style="height: auto;
     max-height: 180px;
     overflow-y: scroll;">
+                    <option>All</option>
                     <option>Active</option>
                     <option>Executing</option>
                     <option>On Hold</option>
                     <option>Closed</option>
-                    <option>All</option>
                 </select>
             </div>
         </form>
@@ -73,7 +72,8 @@
         <form class="form-horizontal ">
             <div class="form-group form-group-sm col-xs-3">
                 <label for="filter-search" class="control-label">Search:</label><br>
-                <input  id="filter-search" class="form-control input-sm" ng-model="eias.filter_search" placeholder="Filter by keyword...">
+                <input id="filter-search" class="form-control input-sm" ng-model="eias.filter_search"
+                       placeholder="Filter by keyword...">
 
                 </input>
             </div>
@@ -90,29 +90,41 @@
             <table class="table table-condensed table-head" id="en-team-summary-table-header">
                 <tr>
                     <td class="en-team-summary-table-body-col-single"
-                        ng-click = "eias.setSortOptions('organization')"
+                        ng-click="eias.setSortOptions('organization')"
                         style="color:darkred;"
-                        title="Click to sort">Organization</td>
+                        title="Click to sort">Organization
+                    </td>
                     <td class="en-team-summary-table-body-col-single"
-                        ng-click = "eias.setSortOptions('resource')"
+                        ng-click="eias.setSortOptions('resource')"
                         style="color:darkred;"
-                        title="Click to sort">Resource</td>
+                        title="Click to sort">Resource
+                    </td>
                     <td class="en-team-summary-table-body-col-double">Subject</td>
                     <td class="en-team-summary-table-body-col-single"
-                        ng-click = "eias.setSortOptions('lab')"
+                        ng-click="eias.setSortOptions('lab')"
                         style="color:darkred;"
-                        title="Click to sort">Lab</td>
+                        title="Click to sort">Lab
+                    </td>
                     <td class="en-team-summary-table-body-col-single">PM</td>
                     <td class="en-team-summary-table-body-col-single"
-                        ng-click = "eias.setSortOptions('bdOwner')"
+                        ng-click="eias.setSortOptions('bdOwner')"
                         style="color:darkred;"
-                        title="Click to sort">BD Owner</td>
-                    <td class="en-team-summary-table-body-col-single">Latest</td>
-                    <td class="en-team-summary-table-body-col-single">Next Step</td>
+                        title="Click to sort">BD Owner
+                    </td>
                     <td class="en-team-summary-table-body-col-single"
-                        ng-click = "eias.setSortOptions('updated')"
+                        title="Milestone Schedule Defined">Acceptance Status
+                    </td>
+                    <td class="en-team-summary-table-body-col-single"
+                        title="Milestone Schedule Defined">Acceptance Detail
+                    </td>
+
+                    <!--                    <th class="en-team-summary-table-body-col-single">Latest</th>
+                                        <th class="en-team-summary-table-body-col-single">Next Step</th>-->
+                    <td class="en-team-summary-table-body-col-single"
+                        ng-click="eias.setSortOptions('updated')"
                         style="color:darkred;"
-                        title="Click to sort">Updated</td>
+                        title="Click to sort">Updated
+                    </td>
 
                 </tr>
             </table>
@@ -122,24 +134,68 @@
 
                 <table class="table table-condensed table-body"
                        infinite-scroll="eias.increaseEngagementLimit()"
-                        infinite-scroll-parent>
+                       infinite-scroll-parent>
                     <tr ng-repeat="engagement in eias.engagementCollection"
                         ng-click="eias.viewEngagementDetail(engagement._id)"
                         ng-class="eias.overdue(engagement)"
-                        >
+                    >
 
-                        <td class="en-team-summary-table-body-col-single">{{engagement.contractingPartnersLabel[0]}}</td>
-                        <td class="en-team-summary-table-body-col-single">{{engagement.cooperationResourcesLabel[0]}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.contractingPartnersLabel[0]}}
+                        </td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.cooperationResourcesLabel[0]}}
+                        </td>
                         <td class="en-team-summary-table-body-col-double">{{engagement.title}}</td>
-                        <td class="en-team-summary-table-body-col-single"> {{engagement.tempLab}}</td>
-                        <td class="en-team-summary-table-body-col-single"> {{engagement.projectManager}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.tempLab}}</td>
+                        <td class="en-team-summary-table-body-col-single">{{engagement.projectManager}}</td>
                         <td class="en-team-summary-table-body-col-single">{{engagement.bdOwnerLabel}}</td>
-                        <td class="en-team-summary-table-body-col-single">{{engagement.currentStatus}}</td>
-                        <td class="en-team-summary-table-body-col-single">{{engagement.nextStep}}</td>
+                        <td class="en-team-summary-table-body-col-single">
+                            Acceptance Spec Incomplete!
+                        </td>
+                        <td class="en-team-summary-table-body-col-single" ng-if="true">
+                            Milestones Incomplete
+                            <br>
+                            <span title="Milestone Schedule">MS</span>
+                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: #0F9D58" class="fa fa-check-circle"></i>&nbsp;
+                            <i ng-if="!engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"  style="color: red" class="fa fa-times-circle"></i>&nbsp;
+
+
+                            <span title="Acceptance Criteria">AC</span> <i style="color: #0F9D58"
+                                                                           class="fa fa-check-circle"></i>&nbsp;
+                            <span title="Acceptance Team">AT</span> <i style="color: red"
+                                                                       class="fa fa-times-circle"></i>
+                        </td>
+
+                        <td class="en-team-summary-table-body-col-single" ng-if="false">
+
+                            <table align="center" style="height: 50px;">
+                                <tr>
+                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">
+                                        1<br>
+                                        <i style="color: #0F9D58;  "
+                                           class="fa fa-check-circle">
+                                    </td>
+
+                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">2<br><i
+                                            style="color: #0F9D58; "
+                                            class="fa fa-check-circle"></td>
+                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">3<br><i
+                                            style="color: red;"
+                                            class="fa fa-circle-o"></td>
+                                </tr>
+                            </table>
+                        </td>
+
+
+                        <!--                        <td class="en-team-summary-table-body-col-single">{{engagement.currentStatus}}</td>
+                                                <td class="en-team-summary-table-body-col-single">{{engagement.nextStep}}</td>-->
                         <td class="en-team-summary-table-body-col-single">{{eias.formatDate(engagement.lastUpdated)}}
                         </td>
 
+
+
+
                     </tr>
+
 
                 </table>
 

@@ -926,7 +926,7 @@ miz.directive("engEiPaymentSchedule", function () {
              * updateSigningDate
              * Updates the signing date on the agreement and checks relative calculations.
              ****************************************************************************************************/
-            /*todo: complete this*/
+
             this.updateSigningDate = function () {
 
                 // if specific dates determined, calculate the relative dates.
