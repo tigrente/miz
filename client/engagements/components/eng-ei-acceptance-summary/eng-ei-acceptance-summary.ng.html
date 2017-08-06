@@ -152,7 +152,9 @@
                         <td class="en-team-summary-table-body-col-single">
                             {{engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage}}
                         </td>
-                        <td class="en-team-summary-table-body-col-single" ng-if="true" style="text-align: left">
+                        <td class="en-team-summary-table-body-col-single"
+                            ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage === 'Acceptance Specification Incomplete'"
+                            style="text-align: left">
                             <div>
                                 <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.scheduleComplete"
                                    style="color: #0F9D58" class="fa fa-check-circle"></i>
@@ -179,23 +181,73 @@
 
                         </td>
 
-                        <td class="en-team-summary-table-body-col-single" ng-if="false">
 
-                            <table align="center" style="height: 50px;">
-                                <tr>
-                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">
-                                        1<br>
-                                        <i style="color: #0F9D58;  "
-                                           class="fa fa-check-circle"></i>
+                        <td class="en-team-summary-table-body-col-single"
+                            ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage !== 'Acceptance Specification Incomplete'">
+
+                            <table align="left" style="height: 50px;">
+                                <tr style="text-align: center">
+                                    <td ng-repeat="payment in engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule"
+                                        style="border: solid grey thin;padding: 2px 3px 2px 3px; text-align: center">
+
+                                            {{$index}}<br>
+
+
+                                            <i ng-if="payment.status === 'Acceptance Complete'"
+                                               style="color: #0F9D58;  "
+                                               class="fa fa-check-circle"></i>
+
+                                            <i ng-if="payment.status === 'Pending'"
+                                               style="color: black  "
+                                               class="fa fa-circle-o"></i>
+
+                                            <i ng-if="payment.status === 'Due'"
+                                               style="color: red  "
+                                               class="fa fa-circle-o"></i>
+
+                                            <i ng-if="payment.status === 'Overdue'"
+                                               style="color: red  "
+                                               class="fa fa-exclamation-circle"></i>
+
                                     </td>
 
-                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">2<br><i
-                                            style="color: #0F9D58; "
-                                            class="fa fa-check-circle"></i></td>
-                                    <td style="border: solid grey thin;padding: 2px 3px 2px 3px">3<br><i
-                                            style="color: red;"
-                                            class="fa fa-circle-o"></i></td>
-                                </tr>
+                                    <td ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance"
+                                        style="border: solid grey thin;padding: 2px 3px 2px 3px; text-align: center">
+
+                                            F<br>
+
+                                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Acceptance Complete'"
+                                               style="color: #0F9D58;  "
+                                               class="fa fa-check-circle"></i>
+
+                                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Pending'"
+                                               style="color: black  "
+                                               class="fa fa-circle-o"></i>
+
+                                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Due'"
+                                               style="color: red  "
+                                               class="fa fa-circle-o"></i>
+
+                                            <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Overdue'"
+                                               style="color: red  "
+                                               class="fa fa-exclamation-circle"></i>
+                                    </td>
+
+
+                                    <!--
+                                                                        <td style="border: solid grey thin;padding: 2px 3px 2px 3px">
+                                                                            1<br>
+                                                                            <i style="color: #0F9D58;  "
+                                                                               class="fa fa-check-circle"></i>
+                                                                        </td>
+
+                                                                        <td style="border: solid grey thin;padding: 2px 3px 2px 3px">2<br><i
+                                                                                style="color: #0F9D58; "
+                                                                                class="fa fa-check-circle"></i></td>
+                                                                        <td style="border: solid grey thin;padding: 2px 3px 2px 3px">3<br><i
+                                                                                style="color: red;"
+                                                                                class="fa fa-circle-o"></i></td>
+                                                                    </tr>-->
                             </table>
                         </td>
 
