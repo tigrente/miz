@@ -9,8 +9,8 @@
     </select>
   </td>
   <td> 0 </td>
-  <td> <button ng-click="gc.submit()" ng-disabled="!gc.canSubmitFn()">Save</button> </td>      
+  <td> <button ng-click="gc.submit($event)" ng-disabled="!gc.canSubmitFn()">Save</button> </td>      
   <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
   <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
-  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="gc.hide()"></i> </td>
+  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="gc.remove($event)"></i> </td>
 </tr>

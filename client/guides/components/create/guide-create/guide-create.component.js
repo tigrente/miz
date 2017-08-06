@@ -37,8 +37,8 @@ miz.directive("guideCreate", function () {
             };
           }
 
-          this.submit = function() {
-            this.hide();
+          this.submit = function($event) {
+            this.remove($event);
 
             this.call('createGuide', this.guide, (err, data) => {
               if (err) {
@@ -55,8 +55,8 @@ miz.directive("guideCreate", function () {
             });
           }
 
-          this.hide = function() {
-            $('.injected-table-view').eq(this.ind).hide();
+          this.remove = function($event) {
+            $event.target.closest('tr').remove();
           }
 
           this.canSubmitFn = function() {

@@ -34,8 +34,8 @@ miz.directive("articleCreate", function () {
         };
       }
 
-      this.submit = function() {
-        this.hide();
+      this.submit = function($event) {
+        this.remove($event);
 
         this.call('createArticle', this.article, (err, data) => {
           if (err) {
@@ -52,8 +52,8 @@ miz.directive("articleCreate", function () {
         });
       }
 
-      this.hide = function() {
-        $('.injected-table-view').eq(this.ind).hide();
+      this.remove = function($event) {
+        $event.target.closest('tr').remove();
       }
 
       this.canSubmitFn = function() {

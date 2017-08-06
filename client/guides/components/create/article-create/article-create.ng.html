@@ -1,4 +1,4 @@
-<tr class="injected-table-view">
+<tr>
   <td> <input type="text" ng-model="ac.article.title"> </td>
   <td> <p ng-model="ac.article.body"> </td>
   <td> 
@@ -8,8 +8,8 @@
       <option value="hide">Hide</option>
     </select>
   </td>
-  <td> <button ng-click="ac.submit()" ng-disabled="!ac.canSubmitFn()">Save</button> </td>      
+  <td> <button ng-click="ac.submit($event)" ng-disabled="!ac.canSubmitFn()">Save</button> </td>      
   <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
   <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
-  <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ac.hide()"></i> </td>
+  <td> <i class="fa fa-times remove" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ac.remove($event)"></i> </td>
 </tr>
