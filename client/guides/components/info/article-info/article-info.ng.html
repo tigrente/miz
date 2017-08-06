@@ -1,7 +1,7 @@
 <tr>
   <td> {{ ai.article.title }} </td>
   <td> {{ ai.article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }} </td>
-  <td> {{ ai.article.modifiedById | displayName }} </td>
+  <td> <username user-id="ai.article.modifiedById"></username> </td>
   <td> {{ ai.article.publish }} </td>
   <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ai.editGuide()"></i> </td>      
   <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
