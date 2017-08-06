@@ -854,12 +854,38 @@ Meteor.methods({
 
         if (totalAcceptanceSpecificationComplete) {
 
-            //update each paymentStatus
+            //update status of eachPayment
+            Meteor.call ('engUpdateEiPaymentScheduleStatus', engagementId);
+            engagement = Engagements.findOne(engagementId);  // refresh with new status
+            paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule;
+
+            // want to push status -> acceptance complete -> pending ->  due -> overdue
+            let statusLevelArray = [
+                'Acceptance Complete',
+                'Pending',
+                'Due',
+                'Overdue'
+            ];
+
+            let currentStatusLevel = 0;
+
+            for (let i = 0; i < paymentSchedule.length; ++i) {
+
+                if (paymentSchedule[i].status === "Overdue")
+                    currentStatusLevel = 3;
+                else if (paymentSchedule[i].status === "Due" && currentStatusLevel < 3)
+                    currentStatusLevel = 2;
+                else if (paymentSchedule[i].status === "Pending" && currentStatusLevel < 2)
+                    currentStatusLevel = 1;
+                else if (paymentSchedule[i].status === "Acceptance Complete" && currentStatusLevel < 1)
+                    currentStatusLevel = 0;
+
+            }
+
+            statusMessage = statusLevelArray[currentStatusLevel];
 
 
-            //then look at each payment status and do something
-
-        }
+        } // acceptance specification complete
 
 
         let selector = {_id: engagementId};
@@ -1068,10 +1094,7 @@ Meteor.methods({
 
         let paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule; //shorthand
         let paymentStatus = "unknown";
-        let msecPerDay = 24 * 60 * 60 * 1000;
         let currentDate = new Date();
-        let currentDateMS = currentDate.getMilliseconds();
-
 
         for (let i = 0; i < paymentSchedule.length; ++i) {
             let payment = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[i];
@@ -1107,6 +1130,7 @@ Meteor.methods({
             Engagements.update(engagementId, update);
             paymentStatus = "unknown";
         } // for each payment
+
     }
 
 
