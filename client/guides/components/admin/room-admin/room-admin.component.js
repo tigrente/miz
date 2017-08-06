@@ -24,12 +24,13 @@ miz.directive("guideRoomAdmin", function ($compile) {
           }); //autorun
 
           /* FUNCTIONS */
-          this.incNewGuides = function() {
-            this.newGuides++;
+          this.addNewGuide = function() {
+            $('#new-guides').append(
+              $compile("<guide-create room='ra.room'></guide-create>")($scope)
+            );
           }
 
           /* INITIALIZE */
-          this.newGuides = 0;
           this.room = {};
 
       } // controller

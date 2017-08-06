@@ -4,8 +4,7 @@ miz.directive("articleCreate", function () {
     templateUrl: 'client/guides/components/create/article-create/article-create.ng.html',
     controllerAs: 'ac',
     bindToController: {
-      guide: '<',
-      ind: '<'
+      guide: '<'
     },
     controller: function ($scope, $reactive) {
 

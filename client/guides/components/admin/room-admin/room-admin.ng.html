@@ -22,8 +22,6 @@
     There are no guides yet...
 </div>
 
-<div ng-repeat="n in [] | range:ra.newGuides">
-    <guide-create room="ra.room" ind="$index"></guide-create>
-</div>
+<div id="new-guides"></div>
 
-<button ng-show="ra.room._id" ng-click="ra.incNewGuides()">Create Guide</button>
+<button ng-show="ra.room._id" ng-click="ra.addNewGuide()">Create Guide</button>

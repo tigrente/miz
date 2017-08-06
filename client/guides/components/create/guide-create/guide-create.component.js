@@ -4,8 +4,7 @@ miz.directive("guideCreate", function () {
       templateUrl: 'client/guides/components/create/guide-create/guide-create.ng.html',
       controllerAs: 'gc',
       bindToController: {
-        room: '<',
-        ind: '<'
+        room: '<'
       },
       controller: function ($scope, $reactive) {
 

@@ -26,12 +26,13 @@ miz.directive("guideAdmin", function ($compile) {
           }); //autorun
 
           /* FUNCTIONS */
-          this.incNewArticles = function() {
-            this.newArticles++;
+          this.addNewArticle = function() {
+            $('#new-articles').append(
+              $compile("<article-create guide='ga.guide'></article-create>")($scope)
+            );
           }
 
           /* INITIALIZE */
-          this.newArticles = 0;
 
       } // controller
   };  //return

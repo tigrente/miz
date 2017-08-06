@@ -18,8 +18,7 @@
     There are no articles yet...
 </div>
 
-<div ng-repeat="n in [] | range:ga.newArticles">
-    <article-create guide="ga.guide" ind="$index"></article-create>
+<div id="new-articles">
 </div>
 
-<button ng-click="ga.incNewArticles()">Create Article</button>
+<button ng-click="ga.addNewArticle()">Create Article</button>
