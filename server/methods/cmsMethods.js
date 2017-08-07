@@ -177,6 +177,37 @@ Meteor.methods({
         });
     },
 
+    updateGuide: function(guideId, updatedGuide) {
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editGuide'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to update guide.")
+        }
+
+        console.log("Updating guide...");
+
+        return Guides.update({
+                _id: guideId
+            }, {
+                $set: {
+                    guideType: updatedGuide.guideType,
+                    publish: updatedGuide.publish,
+                    title: updatedGuide.title,
+                    admin: updatedGuide.adminDesc,
+                    modifiedById: Meteor.userId(),
+                    modifiedDate: new Date()
+                }
+            }, (err, data) => {
+                if (err)
+                    console.log('Error updating guide: ' + err);
+                else {
+                    console.log('Updated guide sucessfully: ' + data);
+                }
+        });
+    },
+
 
 
 
@@ -311,4 +342,37 @@ Meteor.methods({
             }
         });
     },
+
+    updateArticle: function(articleId, updatedArticle) {
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editArticle'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to update article.")
+        }
+
+        console.log("Updating article...");
+
+        return Articles.update({
+                _id: articleId
+            }, {
+                $set: {
+                    articleType: updatedArticle.articleType,
+                    publish: updatedArticle.publish,
+                    articleImage: updatedArticle.articleImage,
+                    files: updatedArticle.files,
+                    title: updatedArticle.title,
+                    body: updatedArticle.body,
+                    modifiedById: Meteor.userId(),
+                    modifiedDate: new Date()
+                }
+            }, (err, data) => {
+                if (err)
+                    console.log('Error updating article: ' + err);
+                else {
+                    console.log('Updated article sucessfully: ' + data);
+                }
+        });
+    }
   });
