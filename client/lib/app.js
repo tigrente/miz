@@ -6,6 +6,10 @@ import d3 from 'd3';
 import nvd3 from'nvd3';
 import angularNvd3 from 'angular-nvd3';
 //import ngTagsInput from 'ng-tags-input';
+import jszip from 'jszip';
+import doxctemplater from 'docxtemplater';
+
+
 
 
 miz = angular.module('miz', [
