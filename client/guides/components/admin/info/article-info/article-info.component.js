@@ -1,7 +1,7 @@
 miz.directive("articleInfo", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/info/article-info/article-info.ng.html',
+      templateUrl: 'client/guides/components/admin/info/article-info/article-info.ng.html',
       controllerAs: 'ai',
       bindToController: {
         articleId: '<',

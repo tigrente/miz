@@ -1,7 +1,7 @@
 miz.directive("guideInfo", function () {
   return {
     restrict: 'E',
-    templateUrl: 'client/guides/components/info/guide-info/guide-info.ng.html',
+    templateUrl: 'client/guides/components/admin/info/guide-info/guide-info.ng.html',
     controllerAs: 'gi',
     bindToController: {
       guideId: '<',
