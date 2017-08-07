@@ -5,6 +5,7 @@
   "dependencies": {
     "babel-runtime": "^6.25.0",
     "bcrypt": "^1.0.2",
+    "docxtemplater": "^3.1.5",
     "ng-tags-input": "^3.2.0",
     "progress": "^2.0.0"
   },
