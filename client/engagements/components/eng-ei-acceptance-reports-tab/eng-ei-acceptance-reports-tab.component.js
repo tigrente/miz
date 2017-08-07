@@ -46,7 +46,7 @@ miz.directive("engEiAcceptanceReportsTab", function () {
                 this.getReactively('focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.actualDate');
 
                 if (this.focusEngagement)
-                    this.call('engUpdateEiPaymentScheduleStatus', this.focusEngagement._id);
+                    this.call('engUpdateEiAcceptanceStatus', this.focusEngagement._id);
 
             }); //autorun
 

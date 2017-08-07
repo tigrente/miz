@@ -188,7 +188,7 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             this.lastUpdateString = function (lastUpdate) {
 
-                if (lastUpdate == null) {
+                if (!lastUpdate) {
                     return "Never updated...";
                 }
 
@@ -236,10 +236,8 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             this.formatDate = function (date) {
 
-                if (date == null) {
+                if (!date)
                     return "Never updated...";
-                }
-                ;
 
                 return moment(date).format("ddd M/D/YY");
             };

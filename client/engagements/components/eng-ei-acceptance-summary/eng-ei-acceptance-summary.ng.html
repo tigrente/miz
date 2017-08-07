@@ -34,12 +34,15 @@
         <form class="form-horizontal ">
             <div class="form-group form-group-sm col-xs-3">
                 <label for="filter-acceptance-status" class="control-label">Acceptance Status:</label><br>
-                <select id="filter-acceptance-status" ng-model="eias.filter_acceptance_status">
+                <select   id="filter-acceptance-status" ng-model="eias.filter_acceptance_status">
                     <option>All</option>
-                    <option>Incomplete Registration</option>
+                    <option>Specification Incomplete</option>
+
                     <option>Due and Overdue</option>
                     <option>Overdue Only</option>
-                    <option>Closed</option>
+                    <option>Pending</option>
+
+                    <option>Acceptance Complete</option>
                 </select>
             </div>
         </form>
@@ -48,8 +51,7 @@
         <form class="form-horizontal ">
             <div class="form-group form-group-sm col-xs-3">
                 <label for="filter-cm" class="control-label">Bizdev Owner:</label><br>
-                <select class="" id="filter-cm" ng-model="eias.filter_bdOwner">
-
+                <select   id="filter-cm" ng-model="eias.filter_bdOwner" onmousedown="if(this.options.length>8){this.size=8;}"  onchange='this.size=0;' onblur="this.size=0;">
                     <option>All</option>
                     <option ng-repeat="bdOwner in eias.bizDevOwnerSearchList">{{bdOwner.profile.name}}</option>
                 </select>
@@ -197,9 +199,9 @@
                                                style="color: #0F9D58;  "
                                                class="fa fa-check-circle"></i>
 
-                                            <i ng-if="payment.status === 'Pending'"
-                                               style="color: black  "
-                                               class="fa fa-circle-o"></i>
+                                            <i ng-if="payment.status === 'Pending'">
+                                                &nbsp;
+                                               </i>
 
                                             <i ng-if="payment.status === 'Due'"
                                                style="color: red  "
@@ -214,7 +216,7 @@
                                     <td ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance"
                                         style="border: solid grey thin;padding: 2px 3px 2px 3px; text-align: center">
 
-                                            F<br>&nbsp;
+                                            F<br>
 
 
                                             <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Acceptance Complete'"
@@ -223,7 +225,7 @@
 
                                             <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Pending'"
                                                style="color: black  "
-                                               class="fa fa-circle-o"></i>
+                                               >&nbsp;</i>
 
                                             <i ng-if="engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status === 'Due'"
                                                style="color: red  "

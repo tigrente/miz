@@ -857,7 +857,8 @@ Meteor.methods({
             //update status of eachPayment
             Meteor.call ('engUpdateEiPaymentScheduleStatus', engagementId);
             engagement = Engagements.findOne(engagementId);  // refresh with new status
-            paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule;
+            let paymentSchedule = engagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule;
+            let finalAcceptance = engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance;
 
             // want to push status -> acceptance complete -> pending ->  due -> overdue
             let statusLevelArray = [
@@ -871,6 +872,7 @@ Meteor.methods({
 
             for (let i = 0; i < paymentSchedule.length; ++i) {
 
+                //check payment schedule for worst status
                 if (paymentSchedule[i].status === "Overdue")
                     currentStatusLevel = 3;
                 else if (paymentSchedule[i].status === "Due" && currentStatusLevel < 3)
@@ -880,7 +882,17 @@ Meteor.methods({
                 else if (paymentSchedule[i].status === "Acceptance Complete" && currentStatusLevel < 1)
                     currentStatusLevel = 0;
 
-            }
+            } //for
+
+            //check final acceptance
+            if (finalAcceptance.status === "Overdue")
+                currentStatusLevel = 3;
+            else if (finalAcceptance.status=== "Due" && currentStatusLevel < 3)
+                currentStatusLevel = 2;
+            else if (finalAcceptance.status === "Pending" && currentStatusLevel < 2)
+                currentStatusLevel = 1;
+            else if (finalAcceptance.status === "Acceptance Complete" && currentStatusLevel < 1)
+                currentStatusLevel = 0;
 
             statusMessage = statusLevelArray[currentStatusLevel];
 

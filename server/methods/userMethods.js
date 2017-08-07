@@ -115,8 +115,7 @@ Meteor.publish('userBizDevOwnerSearch', function (searchString) {
             emails: 1,
             profile: 1,
             roles: 1
-        },
-        limit: 10
+        }
     };
 
     let selector = {
