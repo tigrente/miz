@@ -291,7 +291,7 @@ miz.directive("engEiAcceptanceSummary", function () {
              ****************************************************************************************************/
 
             this.resetFilters = function () {
-                this.filter_type = "All";
+                this.filter_acceptance_status = "All";
                 this.filter_status = "Active";
                 this.filter_bdOwner = "All";
                 this.filter_search = "";
@@ -305,40 +305,30 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             this.overdue = function (engagement) {
 
-                if (engagement.lastUpdated === null) {
-                    return "info";
-                }
+                let acceptanceStatus = engagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage;
 
-                Date.dateDiff = function (datepart, fromdate, todate) {
-                    datepart = datepart.toLowerCase();
-                    let diff = todate - fromdate;
-                    let divideBy = {
-                        w: 604800000,
-                        d: 86400000,
-                        h: 3600000,
-                        n: 60000,
-                        s: 1000
-                    };
+                    switch (acceptanceStatus) {
 
-                    return Math.floor(diff / divideBy[datepart]);
-                };
+                        case "Acceptance Specification Incomplete":
+                            return "warning";
+                            break;
 
+                        case "Overdue":
+                            return "danger";
+                            break;
 
-                let today = new Date();
+                        case "Due":
+                            return "info";
+                            break;
 
-                let hoursSinceLastUpdate = Date.dateDiff('h', engagement.lastUpdated, today);
-                let daysSinceLastUpdate = Date.dateDiff('d', engagement.lastUpdated, today);
-                // let weeksSinceLastUpdate = Date.dateDiff('w', engagement.lastUpdated, today);
+                        case "Pending":
+                            return "default";
+                            break;
 
-                if (hoursSinceLastUpdate < 10)
-                    return "info";
-
-                if (daysSinceLastUpdate > 7 && engagement.filingStatus == 'active')
-                    return "danger";
-
-                if (daysSinceLastUpdate > 3 && engagement.filingStatus == 'active')
-                    return "warning";
-
+                        case "Acceptance Complete":
+                            return "default";
+                            break;
+                    }
 
             };
 

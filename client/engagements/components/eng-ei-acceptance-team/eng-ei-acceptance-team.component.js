@@ -1,3 +1,4 @@
+focusEngagement = undefined;
 /*********************************************************************************************************
  * <eng-ei-deliverables>
  *     This directive is for displaying and editing early innovation payment schedules
@@ -7,11 +8,12 @@
 miz.directive("engEiAcceptanceTeam", function () {
 
 
+    // noinspection SpellCheckingInspection
     return {
         restrict: 'E',
         templateUrl: 'client/engagements/components/eng-ei-acceptance-team/eng-ei-acceptance-team.ng.html',
         controllerAs: 'eiat',
-        scope: true, // create seperate copy of scope
+        scope: true, // create separate copy of scope
         bindToController: {
             focusEngagement: "="
         },
@@ -40,7 +42,18 @@ miz.directive("engEiAcceptanceTeam", function () {
 
 
             // check to see if EI data present.  If not, let parent handle it and just ignore.
+            // noinspection Annotator
             if (!this.focusEngagement.hasOwnProperty('earlyInnovationProjectData')) {
+                // noinspection JSUnusedLocalSymbols
+                // noinspection Annotator
+                // noinspection JSUnusedLocalSymbols
+                // noinspection Annotator
+                // noinspection Annotator
+                // noinspection JSUnusedLocalSymbols
+                // noinspection Annotator
+                // noinspection Annotator
+                // noinspection JSUnusedLocalSymbols
+                // noinspection Annotator
                 this.call("engagementInitializeEarlyInnovationProjectData", this.focusEngagement._id, (err, result) => {
                     if (err)
                         alert("Issue initializing Early Innovation Project data in engagement.");
@@ -48,18 +61,28 @@ miz.directive("engEiAcceptanceTeam", function () {
             }
 
             // check if A&P data is present.  If not, call server to create template and update.
-            else if (!this.focusEngagement.earlyInnovationProjectData.hasOwnProperty('acceptanceTeam')) {
-                this.call("engagementResetEIAcceptanceTeam", this.focusEngagement._id, (err, result) => {
-                    if (err)
-                        alert("Error instantiating payment data.");
-                    else {
-                        this.ui.editAcceptanceTeam = true;
-                    }
-                });
+            else { // noinspection Annotator
+                if (!this.focusEngagement.earlyInnovationProjectData.hasOwnProperty('acceptanceTeam')) {
+                                // noinspection JSUnusedLocalSymbols
+                                // noinspection Annotator
+                                // noinspection Annotator
+                                // noinspection JSUnusedLocalSymbols
+                    // noinspection Annotator
+                    // noinspection Annotator
+                    // noinspection JSUnusedLocalSymbols
+                    this.call("engagementResetEIAcceptanceTeam", this.focusEngagement._id, (err, result) => {
+                                    if (err)
+                                        alert("Error instantiating payment data.");
+                                    else {
+                                        this.ui.editAcceptanceTeam = true;
+                                    }
+                                });
+                            }
             }
 
 
 
+            // noinspection Annotator
             /** HELPERS **/
             this.helpers({
 
@@ -110,7 +133,7 @@ miz.directive("engEiAcceptanceTeam", function () {
                         } // if (focusEngagement)
 
 
-                    }, //aceptanceTeam
+                    }, //acceptanceTeam
             */
                 }
             );
@@ -126,6 +149,7 @@ miz.directive("engEiAcceptanceTeam", function () {
              });*/
 
 
+            // noinspection Annotator
             /** AUTORUN**/
             this.autorun(() => {
 
@@ -144,6 +168,7 @@ miz.directive("engEiAcceptanceTeam", function () {
             this.addAcceptor = function () {
 
 
+                // noinspection Annotator
                 this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.push(acceptorTemplate);
                 this.updateAcceptanceTeam();
 
@@ -158,6 +183,7 @@ miz.directive("engEiAcceptanceTeam", function () {
 
                 // Ensure that acceptors less than three can not be removed.
                 if (index > 2) {
+                    // noinspection Annotator
                     this.focusEngagement.earlyInnovationProjectData.acceptanceTeam.splice(index, 1);
                     this.updateAcceptanceTeam();
                 }
@@ -172,6 +198,9 @@ miz.directive("engEiAcceptanceTeam", function () {
 
             this.updateAcceptanceTeam = function () {
 
+                // noinspection Annotator
+                // noinspection Annotator
+                // noinspection Annotator
                 this.call("engagementUpdateEIAcceptanceTeam", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceTeam));
 
             };
