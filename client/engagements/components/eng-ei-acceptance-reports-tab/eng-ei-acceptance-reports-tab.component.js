@@ -118,50 +118,46 @@ miz.directive("engEiAcceptanceReportsTab", function () {
 
                 alert ('button clicked');
 
-                const JSZip = require('jszip');
-                const Docxtemplater = require('docxtemplater');
-
-                const fs = require('fs');
-                const path = require('path');
-
-//Load the docx file as a binary
-                var content = fs.readFileSync(path.resolve(__dirname, '/input.docx'), 'binary');
-                alert("content:" );
-
-                let zip = new JSZip(content);
-
-                let doc = new Docxtemplater();
-                doc.loadZip(zip);
-
-//set the templateVariables
-                doc.setData({
-                    first_name: 'John',
-                    last_name: 'Doe',
-                    phone: '0652455478',
-                    description: 'New Website'
-                });
-
-                try {
-                    // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
-                    doc.render()
+                function loadFile(url,callback){
+                    alert ('loadfile');
+                    JSZipUtils.getBinaryContent(url,callback);
+                    alert ('post utils');
                 }
-                catch (error) {
-                    let e = {
-                        message: error.message,
-                        name: error.name,
-                        stack: error.stack,
-                        properties: error.properties,
+
+                loadFile("/client/engagements/components/eng-ei-acceptance-reports-tab/input.docx",function(error,content){
+                    if (error) { throw error };
+                    var zip = new JSZip(content);
+                    var doc=new Docxtemplater().loadZip(zip)
+                    doc.setData({
+                        first_name: 'John',
+                        last_name: 'Doe',
+                        phone: '0652455478',
+                        description: 'New Website'
+                    });
+
+                    try {
+                        // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+                        doc.render()
                     }
-                    console.log(JSON.stringify({error: e}));
-                    // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
-                    throw error;
-                }
+                    catch (error) {
+                        var e = {
+                            message: error.message,
+                            name: error.name,
+                            stack: error.stack,
+                            properties: error.properties,
+                        }
+                        console.log(JSON.stringify({error: e}));
+                        // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
+                        throw error;
+                    }
 
-                let buf = doc.getZip()
-                    .generate({type: 'nodebuffer'});
+                    var out=doc.getZip().generate({
+                        type:"blob",
+                        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    }) //Output the document using Data-URI
+                    saveAs(out,"output.docx")
+                })
 
-// buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-                fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
             };
 
 
