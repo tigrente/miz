@@ -8,8 +8,8 @@ import angularNvd3 from 'angular-nvd3';
 //import ngTagsInput from 'ng-tags-input';
 import jszip from 'jszip';
 import doxctemplater from 'docxtemplater';
-
-
+import fs from 'fs';
+import path from 'path';
 
 
 miz = angular.module('miz', [

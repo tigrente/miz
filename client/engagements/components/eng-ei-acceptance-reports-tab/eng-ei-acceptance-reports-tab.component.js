@@ -4,6 +4,7 @@
  *********************************************************************************************************/
 
 
+
 miz.directive("engEiAcceptanceReportsTab", function () {
 
 
@@ -110,23 +111,26 @@ miz.directive("engEiAcceptanceReportsTab", function () {
 
             /***************************************************************************************************
              * generateAcceptanceReportDocxtemplater
-             * Commits updated client payment schedule to server and turns of editing window
+             * This is a test module for docx templater -- not working yet!
              ****************************************************************************************************/
 
             this.generateAcceptanceReportDocxtemplater = function ( ) {
 
+                alert ('button clicked');
+
                 const JSZip = require('jszip');
                 const Docxtemplater = require('docxtemplater');
+
                 const fs = require('fs');
                 const path = require('path');
 
 //Load the docx file as a binary
-                var content = fs
-                    .readFileSync(path.resolve(__dirname, 'input.docx'), 'binary');
+                var content = fs.readFileSync(path.resolve(__dirname, '/input.docx'), 'binary');
+                alert("content:" );
 
-                var zip = new JSZip(content);
+                let zip = new JSZip(content);
 
-                var doc = new Docxtemplater();
+                let doc = new Docxtemplater();
                 doc.loadZip(zip);
 
 //set the templateVariables
@@ -142,7 +146,7 @@ miz.directive("engEiAcceptanceReportsTab", function () {
                     doc.render()
                 }
                 catch (error) {
-                    var e = {
+                    let e = {
                         message: error.message,
                         name: error.name,
                         stack: error.stack,
@@ -153,12 +157,11 @@ miz.directive("engEiAcceptanceReportsTab", function () {
                     throw error;
                 }
 
-                var buf = doc.getZip()
+                let buf = doc.getZip()
                     .generate({type: 'nodebuffer'});
 
 // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
                 fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
-
             };
 
 
