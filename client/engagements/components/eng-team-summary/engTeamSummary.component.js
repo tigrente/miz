@@ -360,6 +360,15 @@ miz.directive("engTeamSummary", function () {
                 $state.go('engagementUserSummary');
             };
 
+            /*********************************************************************************************************
+             * viewEiAcceptanceSummary
+             * Opens EI Engagement Summary Page
+             ********************************************************************************************************/
+
+            this.viewEiAcceptanceSummary = function () {
+                $state.go("eiAcceptanceSummary");
+            };
+
 
             /*********************************************************************************************************
              * setSortOptions

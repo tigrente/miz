@@ -5,9 +5,15 @@
 
         <button class="btn  btn-xs"
                 ng-click="en_ts.viewEngagementUserSummary()"
-                style="float: right;margin-left: 40px; background-color: darkred; color:white;">
+                style="float: right;margin-left: 10px; background-color: darkred; color:white;">
             View Your Engagements
         </button>
+
+            <button ng-click="en_ts.viewEiAcceptanceSummary()"
+                    class="btn  btn-xs"
+                    style="float: right; margin-left: 0; background-color: darkred; color:white;">
+                View EI Acceptance Summary
+            </button>
 
     </div>
     </div>
@@ -46,7 +52,7 @@
         <form class="form-horizontal ">
             <div class="form-group form-group-sm col-xs-3">
                 <label for="filter-cm" class="control-label">Bizdev Owner:</label><br>
-                <select class="" id="filter-cm" ng-model="en_ts.filter_bdOwner">
+                <select class="" id="filter-cm" ng-model="en_ts.filter_bdOwner" onmousedown="if(this.options.length>8){this.size=8;}"  onchange='this.size=0;' onblur="this.size=0;">
 
                     <option>All</option>
                     <option ng-repeat="bdOwner in en_ts.bizDevOwnerSearchList">{{bdOwner.profile.name}}</option>

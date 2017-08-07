@@ -203,6 +203,16 @@ miz.directive("engUserSummary", function () {
                 };
 
                 /*********************************************************************************************************
+                 * viewEiAcceptanceSummary
+                 * Opens EI Engagement Summary Page
+                 ********************************************************************************************************/
+
+                this.viewEiAcceptanceSummary = function () {
+                    $state.go("eiAcceptanceSummary");
+                };
+
+
+                /*********************************************************************************************************
                  * turnOffSafety
                  * Turns off safety - loads all engagements and hides button
                  ********************************************************************************************************/

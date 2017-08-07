@@ -368,6 +368,15 @@ miz.directive("engEiAcceptanceSummary", function () {
                 $state.go('engagementUserSummary');
             };
 
+            /*********************************************************************************************************
+             * viewEngagementTeamSummary
+             * Opens Engagement User Summary
+             ********************************************************************************************************/
+
+            this.viewEngagementTeamSummary = function () {
+                /*location.href = '/engagement-team-summary';*/
+                $state.go("engagementTeamSummary");
+            };
 
             /*********************************************************************************************************
              * setSortOptions
