@@ -1,0 +1,12 @@
+.article-title:hover {
+  background-color: #aaa;
+  cursor: pointer;
+}
+
+.article-edit {
+  display: none;
+}
+
+.article-title:hover .article-edit {
+  display: inline;
+}

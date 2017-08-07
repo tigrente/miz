@@ -32,7 +32,7 @@ miz.directive("articleInfo", function () {
         
         /* FUNCTIONS */
         this.editArticle = function() {
-          console.log('Editing article..')
+          window.location.href = '/article/' + this.articleId + '/edit';
         }
         
         this.delete = function() {
