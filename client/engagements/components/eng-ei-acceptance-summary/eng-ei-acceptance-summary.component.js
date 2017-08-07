@@ -20,6 +20,8 @@ miz.directive("engEiAcceptanceSummary", function () {
             $reactive(this).attach($scope);
 
             /** INITIALIZE **/
+            document.title = "Miz: EI Acceptance Summary";
+
             this.filter_acceptance_status = "All";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
             this.filterAcceptanceStatusSelector = {};
 
