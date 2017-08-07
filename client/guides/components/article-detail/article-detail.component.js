@@ -1,12 +1,9 @@
-miz.directive("article", function () {
+miz.directive("articleDetail", function () {
   return {
       restrict: 'E',
-      templateUrl: 'client/guides/components/article/article.ng.html',
-      controllerAs: 'ar',
-      bindToController: {
-        articleId: '<'
-      },
-      controller: function ($scope, $reactive) {
+      templateUrl: 'client/guides/components/article-detail/article-detail.ng.html',
+      controllerAs: 'ad',
+      controller: function ($scope, $reactive, $stateParams) {
 
           $reactive(this).attach($scope);
 
@@ -14,7 +11,7 @@ miz.directive("article", function () {
           this.helpers({
             article: () => {
               return Articles.findOne({
-                _id: this.getReactively('articleId')
+                _id: $stateParams.articleId
               })
             }
           });
@@ -29,9 +26,6 @@ miz.directive("article", function () {
           }); //autorun
 
           /* FUNCTIONS */
-          this.view = function() {
-            window.location.href += '/article/' + this.articleId;
-          }
 
           /* INITIALIZE */
 

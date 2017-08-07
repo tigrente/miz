@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+
+            <div class="page-header">
+                <h1 style="color:#005eff;margin-bottom:0px">{{ ad.article.title }}</h1>
+                <h3 style="margin-top:0px">
+                    <small>
+                        <username user-id="ad.article.createdById"></username> -
+                        {{ ad.article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}
+                    </small>
+                </h3>  
+            </div>
+
+            <div class="" froala-view="ad.article.body"></div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="jumbotron" data-spy="affix" data-offset-top="205">
+                Coming Soon
+            </div>
+        </div>
+    </div>
+</div>
