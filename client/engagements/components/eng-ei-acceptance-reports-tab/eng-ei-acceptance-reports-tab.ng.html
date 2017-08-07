@@ -1,7 +1,7 @@
 <h4>Acceptance Reports</h4>
 
 <h5>Focus Acceptamce</h5>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus}}
-<h5>Focus Payment</h5>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule}}
+<h5>Final</h5>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance}}
 <h5>Focus</h5> {{eiar.focusEngagementId}}
 <div style="border: black thin solid;">
 
@@ -47,6 +47,33 @@
                                 run-on-drop="eiar.acceptanceReportAdded($index)"
                                 run-on-delete="eiar.acceptanceReportDeleted($index)"
                                 file-description="'Acceptance Report'">
+                        </util-file-holder>
+                    </td>
+
+
+
+                </tr>
+                <tr ng-if="eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance">
+                    <!--track by index because some entries are identical-->
+
+
+                    <td>F</td>
+
+                    <td><i>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status}}</i></td>
+
+                    <td>Post-Payment Final Acceptance Report</td>
+
+                    <td>{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.targetDate | date:'shortDate'}}</td>
+                    <td style="color: red">{{eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.actualDate | date:'shortDate'}}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" ng-click="eiar.generateAcceptanceReportTemplate('final')">Generate Template</button>
+                    </td>
+                    <td>
+                        <util-file-holder
+                                file="eiar.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.acceptanceReportFile"
+                                run-on-drop="eiar.acceptanceReportAdded('final')"
+                                run-on-delete="eiar.acceptanceReportDeleted('final')"
+                                file-description="'Final Acceptance Report'">
                         </util-file-holder>
                     </td>
 

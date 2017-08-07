@@ -1131,6 +1131,46 @@ Meteor.methods({
             paymentStatus = "unknown";
         } // for each payment
 
+
+        //Now do all of that for the Final Acceptance report, if required
+
+        if(engagement.earlyInnovationProjectData.acceptanceAndPayments.options.additionalFinalAcceptance) {
+            let finalAcceptance = engagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance; // shorthand
+            let paymentStatus; //final acceptance payment status
+
+            if (finalAcceptance.hasOwnProperty('actualDate') && finalAcceptance.actualDate)
+                paymentStatus = "Acceptance Complete";
+            else {
+
+                let interval = Date.dateDiff('d', finalAcceptance.targetDate, currentDate);
+
+                console.log('Interval: ' + interval);
+
+
+                if (interval < 0)
+                    paymentStatus = "Pending";
+                else if (interval <= 30)
+                    paymentStatus = "Due";
+                else if (interval > 30)
+                    paymentStatus = "Overdue";
+            } //else
+
+            //update the payment
+
+            let updateObj = {};
+            let field = 'earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.status';
+            updateObj[field] = paymentStatus;
+
+            let update = {
+                $set: updateObj
+            };
+
+            Engagements.update(engagementId, update);
+
+        }
+
+
+
     }
 
 

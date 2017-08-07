@@ -43,6 +43,7 @@ miz.directive("engEiAcceptanceReportsTab", function () {
             this.autorun(() => {
 
                 this.getReactively('focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule', true);
+                this.getReactively('focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.actualDate');
 
                 if (this.focusEngagement)
                     this.call('engUpdateEiPaymentScheduleStatus', this.focusEngagement._id);
@@ -74,11 +75,17 @@ miz.directive("engEiAcceptanceReportsTab", function () {
 
             this.acceptanceReportAdded = function (index) {
 
+                if (index === 'final') {
+                    this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.actualDate = new Date();
+                    this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagement._id, 'actualDate', new Date());
+                    this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagement._id, 'acceptanceReportFile', this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.acceptanceReportFile);
+                }
+                else {
+                    this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].actualDate = new Date();
+                    this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
+                }
 
-                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].actualDate = new Date();
 
-
-                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
 
             };
 
@@ -88,12 +95,21 @@ miz.directive("engEiAcceptanceReportsTab", function () {
              ****************************************************************************************************/
 
             this.acceptanceReportDeleted = function (index) {
+                if (index === 'final') {
+                    this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.additionalFinalAcceptance.actualDate = null;
+                    this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagement._id, 'actualDate', null);
+                    this.call("engagementUpdateEIAdditionalFinalAcceptance", this.focusEngagement._id, 'acceptanceReportFile', null);
+                }
+                else {
+                    this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].actualDate = null;
+                    //this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].acceptanceReportFile = null;
 
-                this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].actualDate = null;
-                //this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule[index].acceptanceReportFile = null;
+                    this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
+                }
 
 
-                this.call("engagementUpdateEIPaymentSchedule", this.focusEngagement._id, angular.copy(this.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule));
+
+
 
 
             };
