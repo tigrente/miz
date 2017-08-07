@@ -21,6 +21,8 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             /** INITIALIZE **/
             this.filter_acceptance_status = "All";  //filter for engagement type (e.g. Early Innovation, Tech Cooperation, etc.)
+            this.filterAcceptanceStatusSelector = {};
+
             this.filterTypeSelector = {};
 
             this.filter_status = "Active";
@@ -42,15 +44,18 @@ miz.directive("engEiAcceptanceSummary", function () {
 
                     engagementCollection: () => {
 
-
+                        this.getReactively('filterAcceptanceStatusSelector');
                         this.getReactively('filterStatusSelector');
                         this.getReactively('filterBdOwnerSelector');
                         this.getReactively('sortOptions');
                         this.getReactively('filter_search');
 
+
+
                         let selector = {
                             $and: [
                                 {'type': 'Early Innovation'},
+                                this.filterAcceptanceStatusSelector,
                                 this.filterStatusSelector,
                                 this.filterBdOwnerSelector,
 
@@ -78,18 +83,55 @@ miz.directive("engEiAcceptanceSummary", function () {
                                         {'title': {'$regex': '.*' + this.filter_search || '' + '.*', '$options': 'i'}},
                                         {'tempLab': {'$regex': '.*' + this.filter_search || '' + '.*', '$options': 'i'}},
                                         {'labLabel': {'$regex': '.*' + this.filter_search || '' + '.*', '$options': 'i'}},
-                                        {'projectManager': {'$regex': '.*' + this.filter_search || '' + '.*', '$options': 'i'}}
+                                        {
+                                            'projectManager': {
+                                                '$regex': '.*' + this.filter_search || '' + '.*',
+                                                '$options': 'i'
+                                            }
+                                        }
                                     ]
                                 }
-
-
                             ]
-
                         };
 
                         return Engagements.find(selector, this.sortOptions);
                     },
 
+
+                    filterAcceptanceStatusSelector: () => {
+                        this.getReactively('filter_acceptance_status');
+
+                        switch (this.filter_acceptance_status) {
+
+                            case "Specification Incomplete":
+                                return {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Acceptance Specification Incomplete"};
+                                break;
+
+                            case "Overdue Only":
+                                return {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Overdue"};
+                                break;
+
+                            case "Due and Overdue":
+                                return {
+                                    $or: [
+                                        {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Overdue"},
+                                        {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Due"}
+                                    ]
+                                };
+                                break;
+
+                            case "Pending":
+                                return {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Pending"};
+                                break;
+
+                            case "Acceptance Complete":
+                                return {"earlyInnovationProjectData.acceptanceAndPayments.acceptanceStatus.statusMessage": "Acceptance Complete"};
+                                break;
+
+                            default:
+                                return {};
+                        }
+                    },
 
                     filterStatusSelector: () => {
                         this.getReactively('filter_status');
@@ -153,7 +195,7 @@ miz.directive("engEiAcceptanceSummary", function () {
             this.subscribe('eiAcceptanceSummary', () => {
                 return [
                     //variable passed to subscription
-
+                    this.getReactively('filterAcceptanceStatusSelector'),
                     this.getReactively('filterStatusSelector'),
                     this.getReactively('filterBdOwnerSelector'),
                     this.getReactively('sortOptions'),
@@ -320,7 +362,7 @@ miz.directive("engEiAcceptanceSummary", function () {
 
             this.viewEngagementDetail = function (engagementId) {
                 //location.href = "/engagements/" + engagementId;
-                window.open("/engagements/" + engagementId,'_newtab');
+                window.open("/engagements/" + engagementId, '_newtab');
             };
 
 
@@ -437,17 +479,7 @@ miz.directive("engEiAcceptanceSummary", function () {
                 let specificationComplete = false; // flag to determine if specification is complete.
 
 
-
-
-
-
             };  //acceptanceStatus
-
-
-
-
-
-
 
 
             /** JQUERY **/

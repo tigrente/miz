@@ -192,7 +192,7 @@ Meteor.publish('engagementTeamSummary', function (filterTypeSelector, filterStat
  * Publishes Engagements according to filter criteria.  Used for the engagement team summary
  */
 
-Meteor.publish('eiAcceptanceSummary', function (filterStatusSelector, filterBdOwnerSelector,
+Meteor.publish('eiAcceptanceSummary', function (filterAcceptanceStatusSelector, filterStatusSelector, filterBdOwnerSelector,
                                                 sortOptions, filter_search, limit) {
 
     if (!Roles.userIsInRole(this.userId,
@@ -203,6 +203,7 @@ Meteor.publish('eiAcceptanceSummary', function (filterStatusSelector, filterBdOw
     let selector = {
         $and: [
             {"type": 'Early Innovation'},
+            filterAcceptanceStatusSelector,
             filterStatusSelector,
             filterBdOwnerSelector,
 
@@ -236,7 +237,7 @@ Meteor.publish('eiAcceptanceSummary', function (filterStatusSelector, filterBdOw
 
 // Update acceptance status for all returned items
     engagementCollection.forEach(function (engagement) {
-        console.log(engagement.title);
+        //console.log(engagement.title);
         Meteor.call("engUpdateEiAcceptanceStatus", engagement._id);
     });
 
@@ -590,6 +591,7 @@ Meteor.methods({
         };
 
         Engagements.update(engagementId, {$set: set});
+        Meteor.call("engUpdateEiAcceptanceStatus", engagementId);
 
     }
     ,
@@ -603,6 +605,7 @@ Meteor.methods({
         };
 
         Engagements.update(engagementId, {$set: set});
+        Meteor.call("engUpdateEiAcceptanceStatus", engagementId);
 
     }
     ,
@@ -616,6 +619,7 @@ Meteor.methods({
         };
 
         Engagements.update(engagementId, {$set: set});
+        Meteor.call("engUpdateEiAcceptanceStatus", engagementId);
 
     }
     ,
@@ -662,6 +666,7 @@ Meteor.methods({
         set[key] = value;
 
         Engagements.update(engagementId, {$set: set});
+        Meteor.call("engUpdateEiAcceptanceStatus", engagementId);
 
     }
     ,
@@ -690,6 +695,8 @@ Meteor.methods({
 
         }
 
+        Meteor.call("engUpdateEiAcceptanceStatus", engagementId);
+
     }
     ,
 
@@ -704,7 +711,7 @@ Meteor.methods({
      */
     engSetEngagementLabels: function (engagementId) {
 
-        console.log("Method engSetEngagementLabels run: " + engagementId);
+        //console.log("Method engSetEngagementLabels run: " + engagementId);
 
         if (engagementId) {
             let engagement = Engagements.findOne(engagementId);
@@ -802,12 +809,15 @@ Meteor.methods({
             refresh = true;
             console.log("Ei project data didn't exist for: " + engagement.title + ". Creating it...");
             Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
+            engagement = Engagements.findOne(engagementId);
         }
+
 
         if (!engagement.earlyInnovationProjectData.hasOwnProperty('acceptanceAndPayments')) {
             refresh = true;
             console.log("Ei project data didn't exist for: " + engagement.title + ". Creating it...");
             Meteor.call("engagementInitializeEarlyInnovationProjectData", engagementId);
+
         }
 
         return refresh;
@@ -1118,7 +1128,7 @@ Meteor.methods({
 
                 let interval = Date.dateDiff('d', payment.targetDate, currentDate);
 
-                console.log('Interval: ' + interval);
+                //console.log('Interval: ' + interval);
 
 
                 if (interval < 0)
@@ -1156,7 +1166,7 @@ Meteor.methods({
 
                 let interval = Date.dateDiff('d', finalAcceptance.targetDate, currentDate);
 
-                console.log('Interval: ' + interval);
+                //console.log('Interval: ' + interval);
 
 
                 if (interval < 0)
