@@ -5,11 +5,7 @@ import ngAnimate from 'angular-animate';
 import d3 from 'd3';
 import nvd3 from'nvd3';
 import angularNvd3 from 'angular-nvd3';
-//import ngTagsInput from 'ng-tags-input';
-import JSZip from 'jszip';
-import Docxtemplater from 'docxtemplater';
-import FileSaver from  'file-saver'
-import JSZipUtils from 'jszip-utils';
+
 
 miz = angular.module('miz', [
     'angular-meteor',   //meteor package: angular
