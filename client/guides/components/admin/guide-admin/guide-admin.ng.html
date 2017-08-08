@@ -1,8 +1,11 @@
-Title: <a href="#" editable-text="ga.guide.title" e-label="Guide Title">{{ ga.guide.title || 'empty' }}</a>
+Title: <a href="#" editable-text="ga.editedGuide.title" e-label="Guide Title" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.title || 'Guide Title' }}</a>
 <br/>
-Description: <a href="#" editable-text="ga.guide.adminDesc" e-label="Admin Description">{{ ga.guide.adminDesc || 'empty' }}</a>
+Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin Description" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.adminDesc || 'Guide Description' }}</a>
 
-<button type="button" class="btn btn-primary" ng-click="ga.update()">Save</button>
+<div ng-show="ga.isEditingGuide()">
+    <button type="button" class="btn btn-primary" style="float:right" ng-click="ga.update()" ng-disabled="!ga.canSaveData()">Save</button>
+    <button type="button" class="btn btn-default" style="float:right" ng-click="ga.reset()">Cancel</button>
+</div>
 
 <table>
     <th>Article</th>
