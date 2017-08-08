@@ -26,6 +26,18 @@ miz.directive("guideAdmin", function ($compile) {
           }); //autorun
 
           /* FUNCTIONS */
+          this.update = function() {
+            console.log(this.guide);
+            this.call('updateGuide', $stateParams.guideId, this.guide,
+              (err) => {
+                if (err) {
+                  alert('Something went wrong updating the guide: ' + err);
+                } else {
+                  alert('Guide updated');
+                }
+              });
+          }
+
           this.addNewArticle = function() {
             $('#new-articles').append(
               $compile("<article-create guide='ga.guide'></article-create>")($scope)
