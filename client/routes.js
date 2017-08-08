@@ -48,7 +48,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
 
     $stateProvider
 
-    /** LOGIN PAGE **/
+    /* LOGIN PAGE */
 
         .state('welcome', {
             url: '/',
@@ -56,7 +56,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
         })
 
 
-        /** ADMINISTRATIVE TOOLS **/
+        /* USER TOOLS */
 
         .state('registerUser', {
             url: '/registerUser',
@@ -102,7 +102,9 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 }
             }
         })
-
+        
+        /* MISC ROUTES */
+        
         .state('backup', {
             url: '/backup-restore',
             template: '<backup-restore></backup-restore>',
@@ -110,15 +112,15 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
                 currentUser: ($q) => {
                     if ((Meteor.userId() == null) ||
                         (!Roles.userIsInRole(Meteor.userId(), 'superAdmin'))) {
-                        return $q.reject('AUTH_REQUIRED');
-                    }
+                            return $q.reject('AUTH_REQUIRED');
+                        }
                     else {
                         return $q.resolve();
                     }
                 }
             }
         })
-
+            
         .state('dashboard', {
             url: '/dashboard',
             template: '<dash-main></dash-main>',
@@ -134,7 +136,25 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
-
+    
+        .state('references', {
+            url: '/references',
+            templateUrl: 'client/references/views/references.ng.html',
+            controller: 'ReferencesCtrl',
+            resolve: {
+                currentUser: ($q) => {
+                    if (Meteor.userId() == null) {
+                        return $q.reject('AUTH_REQUIRED');
+                    }
+                    else {
+                        return $q.resolve();
+                    }
+                }
+            }
+        })
+            
+            /* PARTNER TOOLS */
+            
         .state('partners', {
             url: '/partners',
             template: '<partner-summary></partner-summary>',
@@ -180,6 +200,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
+        /* LABS TOOLS */
 
         .state('labs', {
             url: '/labs',
@@ -242,21 +263,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
-        .state('search', {
-            url: '/search/:searchTerm',
-            templateUrl: 'client/search/views/search.ng.html',
-            controller: 'SearchCtrl',
-            resolve: {
-                currentUser: ($q) => {
-                    if (Meteor.userId() == null) {
-                        return $q.reject('AUTH_REQUIRED');
-                    }
-                    else {
-                        return $q.resolve();
-                    }
-                }
-            }
-        })
+        /* ENGAGEMENT TOOLS */
 
         .state('engagements', {
             url: '/engagements',
@@ -336,11 +343,28 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
+        /* SEARCH TOOLS */
 
-        .state('references', {
-            url: '/references',
-            templateUrl: 'client/references/views/references.ng.html',
-            controller: 'ReferencesCtrl',
+        .state('searchResults', {
+            url: '/search-results',
+            template: '<search-results></search-results>',
+            resolve: {
+                currentUser: ($q) => {
+                    if (Meteor.userId() == null) {
+                        return $q.reject('AUTH_REQUIRED');
+                    }
+                    else {
+                        return $q.resolve();
+
+                    }
+                }
+            }
+        })
+        
+        .state('search', {
+            url: '/search/:searchTerm',
+            templateUrl: 'client/search/views/search.ng.html',
+            controller: 'SearchCtrl',
             resolve: {
                 currentUser: ($q) => {
                     if (Meteor.userId() == null) {
@@ -353,21 +377,7 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
             }
         })
 
-    .state('searchResults', {
-        url: '/search-results',
-        template: '<search-results></search-results>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-
-                }
-            }
-        }
-    })
+    /* GUIDE ROOM TOOLS */
     
     
     .state('guideRoomCooperationManager', {
