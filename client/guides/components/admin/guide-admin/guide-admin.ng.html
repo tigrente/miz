@@ -7,15 +7,17 @@ Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin
     <button type="button" class="btn btn-default" style="float:right" ng-click="ga.reset()">Cancel</button>
 </div>
 
-<table>
-    <th>Article</th>
-    <th>Updated</th>
-    <th>Updated By</th>
-    <th>Publish</th>
-    <th>Edit</th>
-    <th>Move Up</th>
-    <th>Move Down</th>
-    <th>Delete</th>
+<table class="gr-table">
+    <tr class="gr-table-row">
+        <th>Article</th>
+        <th>Updated</th>
+        <th>Updated By</th>
+        <th>Publish</th>
+        <th>Edit</th>
+        <th>Move Up</th>
+        <th>Move Down</th>
+        <th>Delete</th>
+    </tr>
 </table>
 <table>
     <div ng-repeat="articleId in ga.guide.childrenArticleIds">

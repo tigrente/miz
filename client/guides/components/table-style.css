@@ -1,0 +1,14 @@
+table.gr-table {
+  font-family: arial, sans-serif;
+  width: 100%;
+}
+
+tr.gr-table-row > th,td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr.gr-table-row-clickable > th,td {
+  cursor: pointer;
+}

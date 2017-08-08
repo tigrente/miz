@@ -2,17 +2,19 @@
   ng-options="room.name for room in ra.rooms">
 </select>
 
-<table>
-    <th>Guide Title</th>
-    <th>Description</th>
-    <th>Visibility</th>
-    <th>Articles</th>
-    <th>Edit</th>
-    <th>Move Up</th>
-    <th>Move Down</th>
-    <th>Delete</th>
+<table class="gr-table">
+    <tr class="gr-table-row">
+        <th>Guide Title</th>
+        <th>Description</th>
+        <th>Visibility</th>
+        <th>Articles</th>
+        <th>Edit</th>
+        <th>Move Up</th>
+        <th>Move Down</th>
+        <th>Delete</th>
+    </tr>
 </table>
-<table>
+<table class="gr-table">
     <div class="guide" ng-repeat="guideId in ra.room.childrenGuideIds">
         <guide-info guide-id="guideId", room-id="ra.room._id"></guide-info>
     </div>

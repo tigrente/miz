@@ -19,8 +19,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h4>Articles</h4>
-                    <table>
-                        <tr>
+                    <table class="gr-table">
+                        <tr class="gr-table-row">
                             <th>Article</th>
                             <th>Body</th>
                             <th>Created by</th>
@@ -28,7 +28,7 @@
                             <th>Created on</th>
                             <th>Last modified on</th>
                         </tr>
-                        <tr ng-repeat="article in rc.articles" ui-sref="{{ rc.articleDetailSref }}({ articleId: article._id })">
+                        <tr class="gr-table-row gr-table-row-clickable" ng-repeat="article in rc.articles" ui-sref="{{ rc.articleDetailSref }}({ articleId: article._id })">
                             <td style="font-weight: bold">{{ article.title }}</td>
                             <td> <div froala-view="rc.substring(article.body, 75)"></div> </td>
                             <td><username user-id="article.createdById"></username></td>
