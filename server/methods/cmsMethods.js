@@ -195,7 +195,7 @@ Meteor.methods({
                     guideType: updatedGuide.guideType,
                     publish: updatedGuide.publish,
                     title: updatedGuide.title,
-                    admin: updatedGuide.adminDesc,
+                    adminDesc: updatedGuide.adminDesc,
                     modifiedById: Meteor.userId(),
                     modifiedDate: new Date()
                 }
