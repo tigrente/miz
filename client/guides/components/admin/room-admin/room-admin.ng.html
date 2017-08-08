@@ -1,6 +1,6 @@
-<select ng-model="ra.currentRoom"
-  ng-options="room.name for room in ra.rooms" ng-selected="ra.currentRoom">
-</select>
+<a href="#" editable-select="ra.currentRoom" e-ng-options="room.name for room in ra.rooms" buttons="no">
+{{ ra.currentRoom.name }}
+</a>
 
 <table class="gr-table" id="new-guides">
     <tr class="gr-table-row">
