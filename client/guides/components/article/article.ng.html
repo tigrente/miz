@@ -1,6 +1,7 @@
 <table class="table" ng-click="ar.view()">
     <tr style="cursor:pointer">
         <td style="font-weight: bold">{{ ar.article.title }}</td>
+        <td> <div froala-view="ar.substring(ar.article.body, 75)"></div> </td>
         <td><username user-id="ar.article.createdById"></username></td>
         <td><username user-id="ar.article.modifiedById"></username></td>
         <td>{{ ar.article.creationDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>

@@ -33,6 +33,11 @@ miz.directive("article", function () {
             window.location.href += '/article/' + this.articleId;
           }
 
+          this.substring = function (str, ind) {
+            if (str && str.length > ind)
+              return str.substring(0, ind) + '...';
+          }
+
           /* INITIALIZE */
 
       } // controller
