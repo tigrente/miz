@@ -1,6 +1,6 @@
-<tr class="injected-table-view">
+<tr class="injected-table-view gr-table-row">
   <td> <a href="#" editable-text="gc.guide.title" e-label="Guide Title">{{ gc.guide.title || 'Guide Name' }}</a> </td>
-  <td> <a href="#" editable-text="ac.guide.adminDesc" e-label="Guide Description">{{ gc.guide.title || 'Guide Description' }}</a> </td>
+  <td> <a href="#" editable-text="gc.guide.adminDesc" e-label="Guide Description">{{ gc.guide.adminDesc || 'Guide Description' }}</a> </td>
   <td> 
     <a href="#" editable-select="gc.guide.publish" e-ng-options="s.value as s.text for s in gc.xEditableVisStatuses" buttons="no">
       {{ gc.showXEditableVisStatus() }}
