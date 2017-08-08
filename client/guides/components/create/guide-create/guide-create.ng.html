@@ -1,15 +1,13 @@
 <tr class="injected-table-view">
-  <td> <input type="text" ng-model="gc.guide.title"> </td>
-  <td> <input type="text" ng-model="gc.guide.adminDesc"> </td>
+  <td> <a href="#" editable-text="gc.guide.title" e-label="Guide Title">{{ gc.guide.title || 'Guide Name' }}</a> </td>
+  <td> <a href="#" editable-text="ac.guide.adminDesc" e-label="Guide Description">{{ gc.guide.title || 'Guide Description' }}</a> </td>
   <td> 
-    <select ng-model="gc.guide.publish" selected="preview">
-      <option value="publish">Publish</option>
-      <option value="preview">Preview</option>
-      <option value="hide">Hide</option>
-    </select>
+    <a href="#" editable-select="gc.guide.publish" e-ng-options="s.value as s.text for s in gc.xEditableVisStatuses" buttons="no">
+      {{ gc.showXEditableVisStatus() }}
+    </a>
   </td>
   <td> 0 </td>
-  <td> <button ng-click="gc.submit($event)" ng-disabled="!gc.canSubmitFn()">Save</button> </td>      
+  <td> <button type="button" class="btn btn-primary" ng-click="gc.submit($event)" ng-disabled="!gc.canSubmitFn()">Save</button> </td>      
   <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
   <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
   <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="gc.remove($event)"></i> </td>

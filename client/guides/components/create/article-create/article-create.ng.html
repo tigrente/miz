@@ -1,14 +1,12 @@
 <tr>
-  <td> <input type="text" ng-model="ac.article.title"> </td>
-  <td> <p ng-model="ac.article.body"> </td>
+  <td> <a href="#" editable-text="ac.article.title" e-label="Article Title">{{ ac.article.title || 'Article Name' }}</a> </td>
+  <td> <div froala-view="ac.article.body"></div> </td>
   <td> 
-    <select ng-model="ac.article.publish" selected="preview">
-      <option value="publish">Publish</option>
-      <option value="preview">Preview</option>
-      <option value="hide">Hide</option>
-    </select>
+    <a href="#" editable-select="ac.article.publish" e-ng-options="s.value as s.text for s in ac.xEditableVisStatuses" buttons="no">
+      {{ ac.showXEditableVisStatus() }}
+    </a>
   </td>
-  <td> <button ng-click="ac.submit($event)" ng-disabled="!ac.canSubmitFn()">Save</button> </td>      
+  <td> <button type="button" class="btn btn-primary" ng-click="ac.submit($event)" ng-disabled="!ac.canSubmitFn()">Save</button> </td>
   <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
   <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
   <td> <i class="fa fa-times remove" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ac.remove($event)"></i> </td>

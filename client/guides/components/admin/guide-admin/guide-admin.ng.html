@@ -1,6 +1,6 @@
-Title: <input type="text" ng-model="ga.guide.title">
+Title: <a href="#" editable-text="ga.guide.title" e-label="Guide Title">{{ ga.guide.title || 'empty' }}</a>
 <br/>
-Description: <input type="text" ng-model="ga.guide.adminDesc">
+Description: <a href="#" editable-text="ga.guide.adminDesc" e-label="Admin Description">{{ ga.guide.adminDesc || 'empty' }}</a>
 
 <button type="button" class="btn btn-primary" ng-click="ga.update()">Save</button>
 

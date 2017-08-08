@@ -24,18 +24,6 @@ miz.directive("guideCreate", function () {
           
           
           /* FUNCTIONS */
-          this.reset = function() {
-            this.guide = {
-              'cmsType': 'guide',
-              'guideType': 'blog', // for now, hard code...
-              'publish': 'preview',
-              'childrenArticleIds': [],
-              'title': '',
-              'adminDesc': ''
-              // Other data added when inserting into DB
-            };
-          }
-
           this.submit = function($event) {
             this.remove($event);
 
@@ -63,9 +51,27 @@ miz.directive("guideCreate", function () {
             return this.guide.title && this.guide.adminDesc;
           };
 
+          this.showXEditableVisStatus = function() {
+            selected = _.where(this.xEditableVisStatuses, { value: this.guide.publish });
+            return (this.guide.publish && selected.length) ? selected[0].text : 'Not set';
+          }
+
           /* INITIALIZE */
-          this.guide = {};
-          this.reset();
+          this.guide = {
+            'cmsType': 'guide',
+            'guideType': 'blog', // for now, hard code...
+            'publish': 'preview',
+            'childrenArticleIds': [],
+            'title': '',
+            'adminDesc': ''
+            // Other data added when inserting into DB
+          };
+
+          this.xEditableVisStatuses = [
+            { value: 'publish', text: 'Publish'},
+            { value: 'preview', text: 'Preview'},
+            { value: 'hide', text: 'Hide'}
+          ]
 
       } // controller
   };  //return

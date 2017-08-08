@@ -16,6 +16,11 @@ miz.directive("articleEdit", function () {
             return Articles.findOne({
               _id: $stateParams.articleId
             })
+          },
+
+          editedArticle: () => {
+            this.getReactively('article');
+            return _.clone(this.article);
           }
         });
 
@@ -30,6 +35,7 @@ miz.directive("articleEdit", function () {
 
         /* FUNCTIONS */
         this.update = function () {
+
           this.call('updateArticle', $stateParams.articleId, this.editedArticle,
             (err, data) => {
               if (err) {
@@ -37,24 +43,49 @@ miz.directive("articleEdit", function () {
               }
           });
 
-          this.editing = false;
+          this.reset();
         }
 
-        this.editArticle = function() {
-          this.editing = true;
+        this.editBody = function() {
+          this.bodyChanged = true;
+        }
+        
+        this.isEditingBody = function() {
+            return this.bodyChanged || false;
+        }
+
+        this.isEditingArticle = function() {
+            return (this.articleChanged || this.bodyChanged) || false;
+        }
+
+        this.reset = function() {
+          this.bodyChanged = false;
+          this.articleChanged = false;
           this.editedArticle = _.clone(this.article);
         }
 
-        this.isEditing = function() {
-          if (this.editing) {
-            return this.editing;
+        this.showXEditableVisStatus = function() {
+          if (this.editedArticle) {
+            selected = _.where(this.xEditableVisStatuses, { value: this.editedArticle.publish });
+            return (this.editedArticle.publish && selected.length) ? selected[0].text : 'Not set';
           }
-          return false;
+          return 'Not set';
+        }
+
+        this.canSaveData = function() {
+          return this.editedArticle.title && this.editedArticle.body;
         }
 
         /* INITIALIZE */
-        this.editing = false;
+        this.articleChanged = false;
+        this.bodyChanged = false;
         this.editedArticle = {};
+
+        this.xEditableVisStatuses = [
+          { value: 'publish', text: 'Publish'},
+          { value: 'preview', text: 'Preview'},
+          { value: 'hide', text: 'Hide'}
+        ]
 
         //froala WYSIWYG options
         $.FroalaEditor.DEFAULTS.key = 'evjavgjH3fij==';

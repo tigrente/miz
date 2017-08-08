@@ -3,43 +3,33 @@
         <div class="col-sm-9">
 
             <div class="page-header">
-                <div ng-show="ae.isEditing()" style="display:inline-block;float:right">
-                    <select ng-model="ae.article.publish">
-                        <option value="publish">Publish</option>
-                        <option value="preview">Preview</option>
-                        <option value="hide">Hide</option>
-                    </select>
-
-                <button type="button" class="btn btn-primary" ng-click="ae.update()">Save</button>
-                <button type="button" class="btn btn-default" ng-click="ae.editing = false">Cancel</button>
-              </div>
-                <h1>
-                  <span class="article-title" ng-hide="ae.isEditing()" ng-click="ae.editArticle()">
-                    {{ ae.article.title }}
-                    <span class="article-edit">
-                      <i class="fa fa-pencil" aria-hidden="true" style="font-size:25px"></i>
-                    </span>
-                  </span>
-                </h1>
-                <input type="text" ng-model="ae.editedArticle.title" ng-show="ae.isEditing()">
-
+                <div style="display:inline-block;float:right;text-align:center">
+                    <div>
+                        <a href="#" editable-select="ae.editedArticle.publish" e-ng-options="s.value as s.text for s in ae.xEditableVisStatuses"
+                            e-ng-change="ae.articleChanged = true" buttons="no">
+                            {{ ae.showXEditableVisStatus() }}
+                        </a>
+                        <br/>
+                        <i>VISIBILITY</i>
+                    </div>
+                    <div ng-show="ae.isEditingArticle()">
+                        <button type="button" class="btn btn-primary" ng-click="ae.update()" ng-disabled="!ae.canSaveData()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="ae.reset()">Cancel</button>
+                    </div>
+                </div>
+                <h1><a href="#" editable-text="ae.editedArticle.title" e-label="Article Title"
+                    e-ng-change="ae.articleChanged = true">{{ ae.editedArticle.title || '' }}</a></h1>
                 <h3 style="margin-top:0px">
                     <small>
                         <username user-id="ae.article.createdById"></username> -
                         {{ ae.article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}
                     </small>
                 </h3>
-
             </div>
 
-            <div class="article-title" ng-hide="ae.isEditing()" ng-click="ae.editArticle()">
-                <div  froala-view="ae.article.body"></div>
-                <span class="article-edit">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </span>
-            </div>
+            <div froala-view="ae.article.body" ng-click="ae.editBody()" ng-hide="ae.isEditingBody()" style="cursor:pointer"></div>
             <textarea class="froala" froala="ae.froalaOptions"
-              ng-model="ae.editedArticle.body" ng-if="ae.isEditing()"></textarea>
+                ng-model="ae.editedArticle.body" ng-if="ae.isEditingBody()"></textarea>
         </div>
 
         <div class="col-sm-3">

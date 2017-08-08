@@ -19,19 +19,6 @@ miz.directive("articleCreate", function () {
       this.autorun(() => {
 
       }); //autorun
-      
-      this.reset = function() {
-        this.article = {
-          'cmsType': 'article',
-          'articleType': 'blogWithFiles', // for now, hard code...
-          'publish': 'preview',
-          'articleImage': null, // for later...
-          'files': [], // for later...
-          'title': '',
-          'body': "<i>This is a auto-generated body stub. Click here to edit!</i>"
-          // Other data added when inserting into DB
-        };
-      }
 
       this.submit = function($event) {
         this.remove($event);
@@ -59,10 +46,29 @@ miz.directive("articleCreate", function () {
         // check that all guides have require properties
         return this.article.title && this.article.body;
       };
+
+      this.showXEditableVisStatus = function() {
+        selected = _.where(this.xEditableVisStatuses, { value: this.article.publish });
+        return (this.article.publish && selected.length) ? selected[0].text : 'Not set';
+      }
       
       /* INITIALIZE */
-      this.article = {};
-      this.reset();
+      this.article = {
+        'cmsType': 'article',
+        'articleType': 'blogWithFiles', // for now, hard code...
+        'publish': 'preview',
+        'articleImage': null, // for later...
+        'files': [], // for later...
+        'title': '',
+        'body': "<i>This is a auto-generated body stub. Click here to edit!</i>"
+        // Other data added when inserting into DB
+      };
+
+      this.xEditableVisStatuses = [
+        { value: 'publish', text: 'Publish'},
+        { value: 'preview', text: 'Preview'},
+        { value: 'hide', text: 'Hide'}
+      ]
 
     } // controller
   };  //return
