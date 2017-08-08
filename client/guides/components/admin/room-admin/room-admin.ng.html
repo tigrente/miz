@@ -1,8 +1,8 @@
-<select ng-model="ra.room"
-  ng-options="room.name for room in ra.rooms">
+<select ng-model="ra.currentRoom"
+  ng-options="room.name for room in ra.rooms" ng-selected="ra.currentRoom">
 </select>
 
-<table class="gr-table">
+<table class="gr-table" id="new-guides">
     <tr class="gr-table-row">
         <th>Guide Title</th>
         <th>Description</th>
@@ -13,17 +13,49 @@
         <th>Move Down</th>
         <th>Delete</th>
     </tr>
-</table>
-<table class="gr-table">
-    <div class="guide" ng-repeat="guideId in ra.room.childrenGuideIds">
-        <guide-info guide-id="guideId", room-id="ra.room._id"></guide-info>
-    </div>
+    <tr ng-repeat="guide in ra.guides">
+        <td> {{ guide.title }} </td>
+        <td> {{ guide.adminDesc }} </td>
+        <td> {{ guide.publish }} </td>
+        <td> {{ guide.childrenArticleIds.length || 0 }} </td>
+        <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ra.editGuide(guide._id)"></i> </td>      
+        <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
+        <td> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
+        <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" data-toggle="modal"
+            data-target="#delete-guide-confirm-modal" ng-click="ra.guideIdToDelete = guide._id"></i> </td>
+    </tr>
 </table>
 
-<div class="alert alert-warning" role="alert" style="margin-top:10px" ng-if="ra.room._id && !ra.room.childrenGuideIds">
+<div class="modal fade" id="delete-guide-confirm-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Delete Guide?</h4>
+                    <small style="color: darkgrey">
+                        Are you sure you want to delete this guide and all its articles?
+                    </small>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button"
+                    ng-click="ra.guideIdToDelete = -1"
+                    class="btn btn-primary" data-dismiss="modal">No
+                </button>
+                <button type="button"
+                ng-click="ra.deleteGuide()"
+                class="btn btn-primary" data-dismiss="modal">Yes
+            </button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="alert alert-warning" role="alert" style="margin-top:10px" ng-if="ra.currentRoom._id && ra.guides.count() === 0">
     There are no guides yet...
 </div>
 
-<div id="new-guides"></div>
 
-<button ng-show="ra.room._id" ng-click="ra.addNewGuide()">Create Guide</button>
+<button type="button" class="btn btn-primary" 
+    ng-show="ra.currentRoom._id" ng-click="ra.addNewGuide()" ng-disabled="ra.canAddNewGuide()">Create Guide +</button>
