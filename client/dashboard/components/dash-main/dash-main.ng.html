@@ -29,6 +29,10 @@ Todo: Modularize Tabs to Enable Lazy Loading
                 <dash-item-reports></dash-item-reports>
             </div>
 
+            <div ng-if="db.currentMenuItem == 'guide-room'">
+                <guide-room room-name="Cooperation Manager Guides"></guide-room>
+            </div>
+
             <div ng-if="db.currentMenuItem == 'metrics'">
                 <h1> Metrics Page Loaded</h1>
             </div>

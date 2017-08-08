@@ -117,6 +117,15 @@ miz.directive("dashSidebar", function () {
                     "label": "label label-info",
 
                 },
+                {
+                    "name": "guide-room",
+                    "text": "Cooperation Manager Guides",
+                    "sref": "#",
+                    "icon": "icon-docs",
+                    "label": "label label-info",
+
+                },
+
                 /*                {
                  "name": "metrics",
                  "text": "Metrics",

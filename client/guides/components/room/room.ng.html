@@ -1,20 +1,24 @@
-<h3>
-  {{ rc.room.name }}
-</h3>
+<div class="container-fluid">
+  <div class="row" style="padding: 5px 15px 5px 15px;">
+    <h3>
+      {{ rc.room.name }}
+    </h3>
 
-<div>
-    <ul class="nav nav-tabs" role="tablist" >
-        <li role="presentation" ng-repeat="guideId in rc.room.childrenGuideIds">
-          <a role="tab" tab-index="$index" data-toggle="tab" ng-click="rc.setGuideId(guideId)"> <!-- TODO set guide automatically -->
-            <guide-name guide-id="guideId"></guide-name>
-          </a>
-        </li>
-    </ul>
-</div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist" >
+            <li role="presentation" ng-repeat="guideId in rc.room.childrenGuideIds">
+              <a role="tab" tab-index="$index" data-toggle="tab" ng-click="rc.setGuideId(guideId)"> <!-- TODO set guide automatically -->
+                <guide-name guide-id="guideId"></guide-name>
+              </a>
+            </li>
+        </ul>
+    </div>
 
-<div ng-if="rc.room.childrenGuideIds.count() !== 0">
-  <guide guide-id="rc.guideId"></guide>
-</div>
-<div class="alert alert-warning" role="alert" ng-if="rc.room.childrenGuideIds.count() === 0" style="margin-top:10px">
-    There are no guides yet...
+    <div ng-if="rc.room.childrenGuideIds.count() !== 0">
+      <guide guide-id="rc.guideId"></guide>
+    </div>
+    <div class="alert alert-warning" role="alert" ng-if="rc.room.childrenGuideIds.count() === 0" style="margin-top:10px">
+        There are no guides yet...
+    </div>
+  </div>
 </div>
