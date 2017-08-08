@@ -55,7 +55,8 @@ miz.directive("guideAdmin", function ($compile) {
           }
 
           this.canSaveData = function() {
-            return this.editedGuide.title && this.editedGuide.adminDesc;
+            if (this.editedGuide)
+              return this.editedGuide.title && this.editedGuide.adminDesc;
           }
 
           this.isEditingGuide = function() {
