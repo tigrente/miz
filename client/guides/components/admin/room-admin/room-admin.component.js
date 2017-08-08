@@ -93,7 +93,7 @@ miz.directive("guideRoomAdmin", function ($compile) {
                 }
               });
               
-              this.call('updateParentGuideRoomWithDeletedChildGuideId', this.guideId, this.roomId, (err) => {
+              this.call('updateParentGuideRoomWithDeletedChildGuideId', this.guideIdToDelete, this.currentRoom._id, (err) => {
                 if (err) {
                   alert('Something went wrong trying to update the parent guide room: ' + err);
                 }

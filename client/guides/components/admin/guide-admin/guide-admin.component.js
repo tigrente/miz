@@ -124,7 +124,7 @@ miz.directive("guideAdmin", function ($compile) {
               }
             });
             
-            this.call('updateParentGuideWithDeletedChildArticleId', this.articleId, this.guideId, (err) => {
+            this.call('updateParentGuideWithDeletedChildArticleId', this.articleIdToDelete, $stateParams.guideId, (err) => {
               if (err) {
                 alert('Something went wrong trying to update the parent guide: ' + err);
               }
