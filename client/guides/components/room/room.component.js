@@ -4,7 +4,8 @@ miz.directive("guideRoom", function () {
       templateUrl: 'client/guides/components/room/room.ng.html',
       controllerAs: 'rc',
       bindToController: {
-        roomName: '@'
+        roomName: '@',
+        articleDetailSref: '@'
       },
       controller: function ($scope, $reactive) {
 
@@ -17,11 +18,41 @@ miz.directive("guideRoom", function () {
                 return Cms.findOne({
                     name: this.getReactively('roomName')
                 });
+            },
+
+            guides: () => {
+                this.getReactively('room');
+
+                if (this.room) {
+                    return Guides.find({
+                    _id: {
+                        $in: this.room.childrenGuideIds
+                    }
+                    });
+                }
+            },
+
+            currentGuide: () => {
+                return Guides.findOne();
+            },
+
+            articles: () => {
+                this.getReactively('currentGuide');
+
+                if (this.currentGuide) {
+                  return Articles.find({
+                    _id: {
+                      $in: this.currentGuide.childrenArticleIds
+                    }
+                  });
+                }
             }
         });
             
         /* SUBSCRIPTIONS */
         this.subscribe('cms');
+        this.subscribe('guides');
+        this.subscribe('articles');
         
         /* AUTORUN*/
         this.autorun(() => {
@@ -29,12 +60,16 @@ miz.directive("guideRoom", function () {
         }); //autorun
         
         /* FUNCTIONS */
-        this.setGuideId = function(guideId) {
-            this.guideId = guideId;
+        this.setGuide = function(guide) {
+            this.currentGuide = guide;
         }
-        
+
+        this.substring = function (str, ind) {
+            if (str && str.length > ind)
+              return str.substring(0, ind) + '...';
+        }
+
         /* INITIALIZE */
-        this.guideId = '';
 
       } // controller
   };  //return
