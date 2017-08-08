@@ -1,4 +1,4 @@
-<table class="table" ng-click="ar.view()">
+<table class="table" ui-sref="guideRoomCooperationManagerArticle({ articleId: ar.articleId })">
     <tr style="cursor:pointer">
         <td style="font-weight: bold">{{ ar.article.title }}</td>
         <td> <div froala-view="ar.substring(ar.article.body, 75)"></div> </td>

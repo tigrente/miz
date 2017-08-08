@@ -379,22 +379,6 @@ miz.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
 
     /* GUIDE ROOM TOOLS */
     
-    
-    .state('guideRoomCooperationManager', {
-        url: '/room/cooperation-manager',
-        template: '<cooperation-manager-guide-room></cooperation-manager-guide-room>',
-        resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
-            }
-        }
-    })
-    
     .state('guideRoomCooperationManagerArticle', {
         url: '/room/cooperation-manager/article/:articleId',
         template: '<article-detail></article-detail>',

@@ -29,9 +29,6 @@ miz.directive("article", function () {
           }); //autorun
 
           /* FUNCTIONS */
-          this.view = function() {
-            window.location.href += '/article/' + this.articleId;
-          }
 
           this.substring = function (str, ind) {
             if (str && str.length > ind)
