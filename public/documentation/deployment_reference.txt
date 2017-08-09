@@ -33,7 +33,7 @@ UPDATING MIZ
     // did it not work?  Fix your proxy settings
         >> npm config edit
         >> 
-proxy=http://a00754691:S00perman@proxyus3.huawei.com:8080/
+proxy=http://YOUR_HUAWEI_NUMBER:YOUR_HUAWEI_PASSWORD@proxyus3.huawei.com:8080/
 strict-ssl=false
  (remove the proxy-https)
 
