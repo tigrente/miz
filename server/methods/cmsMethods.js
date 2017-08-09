@@ -58,7 +58,32 @@ Meteor.methods({
       });
     },
 
+    updateGuideRoomDescription: function (guideRoomId, newDescription) {
+        // Check privilege
+        if (!Roles.userIsInRole(Meteor.userId(),
+                ['superAdmin',
+                    'editGuideRoom',
+                    'editAllGuideRooms'
+                ])) {
+            throw new Meteor.Error("Insufficient Privilege to update guide room.")
+        }
 
+        console.log("Updated guide room...");
+
+        return Cms.update({
+                _id: guideRoomId
+            }, {
+                $set: {
+                    adminDesc: newDescription
+                }
+            }, (err, data) => {
+                if (err)
+                    console.log('Error updating guide room description: ' + err);
+                else {
+                    console.log('Updated guide room description successfully: ' + data);
+                }
+        });
+    },
 
 
     /***************************************************************************/

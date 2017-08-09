@@ -20,7 +20,7 @@ miz.directive("guideRoomAdmin", function ($compile) {
             guides: () => {
               this.getReactively('currentRoom');
 
-              if (this.currentRoom) {
+              if (this.currentRoom && this.currentRoom.childrenGuideIds) {
                 return Guides.find({
                   _id: {
                       $in: this.currentRoom.childrenGuideIds
@@ -41,6 +41,16 @@ miz.directive("guideRoomAdmin", function ($compile) {
           }); //autorun
           
           /* FUNCTIONS */
+          this.updateRoomDescription = function(data) {
+            if (data.adminDesc !== this.currentRoom.adminDesc) {
+              this.call('updateGuideRoomDescription', this.currentRoom._id, data, (err) => {
+                if (err) {
+                  alert('Something went wrong adding updating the guide room description: ' + err);
+                }
+              });
+            }
+          }
+
           this.resetNewGuide = function() {
             this.newGuide = {
               'cmsType': 'guide',
