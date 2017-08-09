@@ -17,7 +17,7 @@ Meteor.startup(() => {
     const room = {
       'cmsType': 'room',
       'name': cooperationManagerGuideroomName,
-      'adminDesc': 'TBD',
+      'adminDesc': 'Default Description',
       // Other data added when inserting into DB
     };
 
@@ -30,26 +30,4 @@ Meteor.startup(() => {
     });
 
   }
-
-  if (Cms.find({
-    name: 'Test'
-  }).count() === 0) {
-  
-    const room = {
-      'cmsType': 'room',
-      'name': 'Test',
-      'adminDesc': 'TBD',
-      // Other data added when inserting into DB
-    };
-
-    Meteor.call('createGuideRoom', room, (err, data) => {
-      if (err) {
-          console.log('Something went wrong adding a new room to database: ' + err); 
-      } else {
-        console.log('Successfully created guide room', 'Test', `(${data})`);
-      }
-    });
-
-  }
-
 });
