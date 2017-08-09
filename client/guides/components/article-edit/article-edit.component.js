@@ -26,7 +26,7 @@ miz.directive("articleEdit", function () {
 
 
         /* SUBSCRIPTIONS */
-        this.subscribe('articles');
+        this.subscribe('articlesAll');
 
         /* AUTORUN*/
         this.autorun(() => {

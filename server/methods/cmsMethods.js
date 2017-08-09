@@ -1,12 +1,28 @@
 Meteor.publish('cms', function() {
-  return Cms.find({});
+    return Cms.find({});
 });
 
 Meteor.publish('guides', function() {
-    return Guides.find({});
+    const selector = {
+        publish: 'publish'
+    };
+
+    return Guides.find(selector);
 });
 
 Meteor.publish('articles', function() {
+    const selector = {
+        publish: 'publish'
+    };
+
+    return Articles.find(selector);
+});
+
+Meteor.publish('guidesAll', function() {
+    return Guides.find({});
+});
+
+Meteor.publish('articlesAll', function() {
     return Articles.find({});
 });
 

@@ -35,8 +35,8 @@ miz.directive("guideAdmin", function ($compile) {
 
 
           /* SUBSCRIPTIONS */
-          this.subscribe('guides');
-          this.subscribe('articles');
+          this.subscribe('guidesAll');
+          this.subscribe('articlesAll');
 
           /* AUTORUN*/
           this.autorun(() => {
