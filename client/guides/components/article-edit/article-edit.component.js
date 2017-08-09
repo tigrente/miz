@@ -18,9 +18,11 @@ miz.directive("articleEdit", function () {
             })
           },
 
-          editedArticle: () => {
+          articleBody: () => {
             this.getReactively('article');
-            return _.clone(this.article);
+            if (this.article) {
+              return _.clone(this.article.body);
+            }
           }
         });
 
@@ -34,16 +36,26 @@ miz.directive("articleEdit", function () {
         }); //autorun
 
         /* FUNCTIONS */
-        this.update = function () {
-
-          this.call('updateArticle', $stateParams.articleId, this.editedArticle,
-            (err, data) => {
+        this.updateArticle = function () {
+          this.call('updateArticle', $stateParams.articleId, this.article,
+            (err) => {
               if (err) {
                 alert('Something went wrong updating the article: ' + err);
               }
           });
+        }
 
-          this.reset();
+        this.updateBody = function () {
+          this.article.body = this.articleBody;
+          this.call('updateArticle', $stateParams.articleId, this.article,
+            (err) => {
+              if (err) {
+                alert('Something went wrong updating the article: ' + err);
+              } else {
+                this.bodyChanged = false;
+              }
+          });
+
         }
 
         this.editBody = function() {
@@ -54,32 +66,26 @@ miz.directive("articleEdit", function () {
             return this.bodyChanged || false;
         }
 
-        this.isEditingArticle = function() {
-            return (this.articleChanged || this.bodyChanged) || false;
-        }
-
-        this.reset = function() {
+        this.resetBody = function() {
+          this.articleBody = _.clone(this.article.body);
           this.bodyChanged = false;
-          this.articleChanged = false;
-          this.editedArticle = _.clone(this.article);
         }
 
         this.showXEditableVisStatus = function() {
-          if (this.editedArticle) {
-            selected = _.where(this.xEditableVisStatuses, { value: this.editedArticle.publish });
-            return (this.editedArticle.publish && selected.length) ? selected[0].text : 'Not set';
+          if (this.article) {
+            selected = _.where(this.xEditableVisStatuses, { value: this.article.publish });
+            return (this.article.publish && selected.length) ? selected[0].text : 'Not set';
           }
           return 'Not set';
         }
 
-        this.canSaveData = function() {
-          return this.editedArticle.title && this.editedArticle.body;
+        this.canSaveBody = function() {
+          this.getReactively('articleBody');
+          return this.articleBody;
         }
 
         /* INITIALIZE */
-        this.articleChanged = false;
         this.bodyChanged = false;
-        this.editedArticle = {};
 
         this.xEditableVisStatuses = [
           { value: 'publish', text: 'Publish'},

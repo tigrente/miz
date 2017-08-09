@@ -51,6 +51,15 @@ miz.directive("guideRoomAdmin", function ($compile) {
             }
           }
 
+          this.updateGuide = function(guide) {
+            this.call('updateGuide', guide._id, guide,
+              (err) => {
+                if (err) {
+                  alert('Something went wrong updating the guide: ' + err);
+                }
+              });
+          }
+
           this.resetNewGuide = function() {
             this.newGuide = {
               'cmsType': 'guide',
@@ -73,7 +82,7 @@ miz.directive("guideRoomAdmin", function ($compile) {
                 <td> <a href="#" editable-text="ra.newGuide.adminDesc" e-label="Guide Description">{{ ra.newGuide.adminDesc || 'Guide Description' }}</a> </td>
                 <td> 
                   <a href="#" editable-select="ra.newGuide.publish" e-ng-options="s.value as s.text for s in ra.xEditableVisStatuses" buttons="no">
-                    {{ ra.showXEditableVisStatus() }}
+                    {{ ra.showXEditableVisStatus(ra.newGuide) }}
                   </a>
                 </td>
                 <td> - </td>
@@ -141,9 +150,12 @@ miz.directive("guideRoomAdmin", function ($compile) {
             return this.newGuide.title && this.newGuide.adminDesc;
           };
 
-          this.showXEditableVisStatus = function() {
-            selected = _.where(this.xEditableVisStatuses, { value: this.newGuide.publish });
-            return (this.newGuide.publish && selected.length) ? selected[0].text : 'Not set';
+          this.showXEditableVisStatus = function(guide) {
+            if (guide) {
+              selected = _.where(this.xEditableVisStatuses, { value: guide.publish });
+              return (guide.publish && selected.length) ? selected[0].text : 'Not set';
+            }
+            return 'Not set';
           }
 
           /* INITIALIZE */

@@ -4,21 +4,15 @@
 
             <div class="page-header">
                 <div style="display:inline-block;float:right;text-align:center">
-                    <div>
-                        <a href="#" editable-select="ae.editedArticle.publish" e-ng-options="s.value as s.text for s in ae.xEditableVisStatuses"
-                            e-ng-change="ae.articleChanged = true" buttons="no">
+                    <a href="#" editable-select="ae.article.publish" e-ng-options="s.value as s.text for s in ae.xEditableVisStatuses"
+                        onaftersave="ae.updateArticle()" buttons="no">
                             {{ ae.showXEditableVisStatus() }}
-                        </a>
-                        <br/>
-                        <i>VISIBILITY</i>
-                    </div>
-                    <div ng-show="ae.isEditingArticle()">
-                        <button type="button" class="btn btn-primary" ng-click="ae.update()" ng-disabled="!ae.canSaveData()">Save</button>
-                        <button type="button" class="btn btn-default" ng-click="ae.reset()">Cancel</button>
-                    </div>
+                    </a>
+                    <br/>
+                    <i>VISIBILITY</i>
                 </div>
-                <h1><a href="#" editable-text="ae.editedArticle.title" e-label="Article Title"
-                    e-ng-change="ae.articleChanged = true">{{ ae.editedArticle.title || '' }}</a></h1>
+                <h1><a href="#" editable-text="ae.article.title" e-label="Article Title" e-required
+                    onaftersave="ae.updateArticle()">{{ ae.article.title || '' }}</a></h1>
                 <h3 style="margin-top:0px">
                     <small>
                         <username user-id="ae.article.createdById"></username> -
@@ -27,9 +21,13 @@
                 </h3>
             </div>
 
-            <div froala-view="ae.article.body" ng-click="ae.editBody()" ng-hide="ae.isEditingBody()" style="cursor:pointer"></div>
+            <div froala-view="ae.articleBody" ng-click="ae.editBody()" ng-hide="ae.isEditingBody()" style="cursor:pointer"></div>
             <textarea class="froala" froala="ae.froalaOptions"
-                ng-model="ae.editedArticle.body" ng-if="ae.isEditingBody()"></textarea>
+                ng-model="ae.articleBody" ng-if="ae.isEditingBody()"></textarea>
+            <div ng-show="ae.isEditingBody()">
+                <button type="button" class="btn btn-primary" ng-click="ae.updateBody()" ng-disabled="!ae.canSaveBody()">Save</button>
+                <button type="button" class="btn btn-default" ng-click="ae.resetBody()">Cancel</button>
+            </div>
         </div>
 
         <div class="col-sm-3">

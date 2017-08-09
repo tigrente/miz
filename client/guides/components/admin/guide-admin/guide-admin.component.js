@@ -15,11 +15,6 @@ miz.directive("guideAdmin", function ($compile) {
               });
             },
 
-            editedGuide: () => {
-              this.getReactively('guide');
-              return _.clone(this.guide);
-            },
-
             articles: () => {
               this.getReactively('guide');
 
@@ -44,17 +39,22 @@ miz.directive("guideAdmin", function ($compile) {
           }); //autorun
 
           /* FUNCTIONS */
-          this.update = function() {
-            this.call('updateGuide', $stateParams.guideId, this.editedGuide,
+          this.updateGuide = function() {
+            this.call('updateGuide', $stateParams.guideId, this.guide,
               (err) => {
                 if (err) {
                   alert('Something went wrong updating the guide: ' + err);
-                } else {
-                  alert('Guide updated');
                 }
               });
+          }
 
-            this.reset();
+          this.updateArticle = function(article) {
+            this.call('updateArticle', article._id, article,
+              (err) => {
+                if (err) {
+                  alert('Something went wrong updating the article: ' + err);
+                }
+              });
           }
 
           this.resetNewArticle = function() {
@@ -97,20 +97,6 @@ miz.directive("guideAdmin", function ($compile) {
             this.getReactively('newArticle');
             return _.size(this.newArticle) !== 0;
           }
-
-          this.reset = function() {
-            this.guideChanged = false;
-            this.editedGuide = _.clone(this.guide);
-          }
-
-          this.canSaveData = function() {
-            if (this.editedGuide)
-              return this.editedGuide.title && this.editedGuide.adminDesc;
-          }
-
-          this.isEditingGuide = function() {
-            return this.guideChanged || false;
-        }
 
         this.editArticle = function(articleId) {
           window.location.href = '/article/' + articleId + '/edit';
@@ -173,7 +159,6 @@ miz.directive("guideAdmin", function ($compile) {
         }
 
         /* INITIALIZE */
-        this.guideChanged = false;
         this.articleIdToDelete = -1;
 
         this.newArticle = {};

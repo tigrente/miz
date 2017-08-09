@@ -1,21 +1,17 @@
 <div style="display:inline-block;float:right;text-align:center">
-    <div ng-show="ga.isEditingGuide()">
-        <button type="button" class="btn btn-primary" style="float:right" ng-click="ga.update()" ng-disabled="!ga.canSaveData()">Save</button>
-        <button type="button" class="btn btn-default" style="float:right" ng-click="ga.reset()">Cancel</button>
-    </div>
     <div>
-        <a href="#" editable-select="ga.editedGuide.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses"
-            e-ng-change="ga.guideChanged = true" buttons="no">
-            {{ ga.showXEditableVisStatus(ga.editedGuide) }}
+        <a href="#" editable-select="ga.guide.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses"
+            onaftersave="ga.updateGuide()" buttons="no">
+                {{ ga.showXEditableVisStatus(ga.guide) }}
         </a>
         <br/>
         <i>VISIBILITY</i>
     </div>
 </div>
 
-Title: <a href="#" editable-text="ga.editedGuide.title" e-label="Guide Title" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.title || 'Guide Title' }}</a>
+Title: <a href="#" editable-text="ga.guide.title" e-required e-label="Guide Title" onaftersave="ga.updateGuide()">{{ ga.guide.title || 'Guide Title' }}</a>
 <br/>
-Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin Description" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.adminDesc || 'Guide Description' }}</a>
+Description: <a href="#" editable-text="ga.guide.adminDesc" e-required e-label="Admin Description" onaftersave="ga.updateGuide()">{{ ga.guide.adminDesc || 'Guide Description' }}</a>
 
 <table class="gr-table" id="new-articles">
     <tr class="gr-table-row">
@@ -29,10 +25,15 @@ Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin
         <th>Delete</th>
     </tr>
     <tr ng-repeat="article in ga.articles">
-        <td> {{ article.title }} </td>
+        <td> <a href="#" editable-text="article.title" e-label="Article Title" e-required onaftersave="ga.updateArticle(article)">{{ article.title || 'Article Title' }}</a> </td>
         <td> {{ article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }} </td>
         <td> <username user-id="article.modifiedById"></username> </td>
-        <td> {{ article.publish }} </td>
+        <td>
+            <a href="#" editable-select="article.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses"
+                buttons="no" onaftersave="ga.updateArticle(article)">
+                    {{ ga.showXEditableVisStatus(article) }}
+            </a>
+        </td>
         <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ga.editArticle(article._id)"></i> </td>
         <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
         <td> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
@@ -73,4 +74,4 @@ Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin
 </div>
 
 <button type="button" class="btn btn-primary" 
-    ng-show="ga.editedGuide._id" ng-click="ga.addNewArticle()" ng-disabled="ga.canAddNewArticle()">Create Article +</button>
+    ng-show="ga.guide._id" ng-click="ga.addNewArticle()" ng-disabled="ga.canAddNewArticle()">Create Article +</button>
