@@ -1,11 +1,21 @@
+<div style="display:inline-block;float:right;text-align:center">
+    <div ng-show="ga.isEditingGuide()">
+        <button type="button" class="btn btn-primary" style="float:right" ng-click="ga.update()" ng-disabled="!ga.canSaveData()">Save</button>
+        <button type="button" class="btn btn-default" style="float:right" ng-click="ga.reset()">Cancel</button>
+    </div>
+    <div>
+        <a href="#" editable-select="ga.editedGuide.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses"
+            e-ng-change="ga.guideChanged = true" buttons="no">
+            {{ ga.showXEditableVisStatus(ga.editedGuide) }}
+        </a>
+        <br/>
+        <i>VISIBILITY</i>
+    </div>
+</div>
+
 Title: <a href="#" editable-text="ga.editedGuide.title" e-label="Guide Title" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.title || 'Guide Title' }}</a>
 <br/>
 Description: <a href="#" editable-text="ga.editedGuide.adminDesc" e-label="Admin Description" e-ng-change="ga.guideChanged = true">{{ ga.editedGuide.adminDesc || 'Guide Description' }}</a>
-
-<div ng-show="ga.isEditingGuide()">
-    <button type="button" class="btn btn-primary" style="float:right" ng-click="ga.update()" ng-disabled="!ga.canSaveData()">Save</button>
-    <button type="button" class="btn btn-default" style="float:right" ng-click="ga.reset()">Cancel</button>
-</div>
 
 <table class="gr-table" id="new-articles">
     <tr class="gr-table-row">
