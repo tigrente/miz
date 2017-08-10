@@ -14,7 +14,7 @@ miz.directive("engDetail", function () {
             controllerAs: 'ed',
             bindToController: true,
             transclude: true,
-            controller: function ($scope, $reactive, $stateParams, $state, $element) {
+            controller: function ($scope, $reactive, $stateParams, $state) {
 
                 $reactive(this).attach($scope);
 
@@ -51,12 +51,17 @@ miz.directive("engDetail", function () {
 
                 this.windowInnerHeight = window.innerHeight;
 
+                // noinspection JSUnusedGlobalSymbols
+                // noinspection Annotator
+                // noinspection JSUnusedGlobalSymbols
+                // noinspection Annotator
                 /** HELPERS **/
 
                 this.helpers({
 
-                        //Featured partner to be displayed and modifed
+                        //Featured partner to be displayed and modified
                         focusEngagement: () => {
+                            // noinspection Annotator
                             this.getReactively('focusEngagementId');
 
                             if (this.focusEngagementId) {
@@ -135,6 +140,7 @@ miz.directive("engDetail", function () {
 
                         //Collection of Parent partners of the feature partner
                         cooperationResources: () => {
+                            // noinspection Annotator
                             if (this.getReactively("focusEngagement.cooperationResources")) {
                                 return Partners.find({
                                     _id: {$in: this.focusEngagement.cooperationResources}
@@ -145,6 +151,7 @@ miz.directive("engDetail", function () {
 
                         //Collection of Parent partners of the feature partner
                         contractingPartners: () => {
+                            // noinspection Annotator
                             if (this.getReactively("focusEngagement.contractingPartners")) {
                                 return Partners.find({
                                     _id: {$in: this.focusEngagement.contractingPartners}
@@ -153,6 +160,7 @@ miz.directive("engDetail", function () {
                         },
 
                         setNewFilingStatus: () => {
+                            // noinspection Annotator
                             if (this.getReactively("focusEngagement.filingStatus")) {
                                 this.newFilingStatus = this.focusEngagement.filingStatus;
 
@@ -160,6 +168,7 @@ miz.directive("engDetail", function () {
                         },
 
                         formattedDealValue: () => {
+                            // noinspection Annotator
                             if (this.getReactively("focusEngagement.dealValue")) {
                                 let fdl = this.focusEngagement.dealValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                 return "$" + fdl;
@@ -172,8 +181,10 @@ miz.directive("engDetail", function () {
                 );
 
 
+                // noinspection Annotator
                 /** SUBSCRIPTIONS **/
                 this.subscribe('focusEngagement', () => {
+                    // noinspection Annotator
                     return [
                         this.getReactively('focusEngagementId'), //ensure that a selected engagement can be seen
                     ]
@@ -183,13 +194,16 @@ miz.directive("engDetail", function () {
                  return [
                  this.getReactively('engagementFilterFilingStatus'),  //variable passed to subscription
                  this.getReactively('focusEngagementId'), //ensure that a selected engagement can be seen
-                 this.getReactively('engagementFilterString') //searchString - for searching all CM's engagments
+                 this.getReactively('engagementFilterString') //searchString - for searching all CM's engagements
                  ]
                  });*/
 
                 /*     this.subscribe('images');*/
 
+                // noinspection Annotator
                 this.subscribe('partnersOfEngagement', () => {
+                    // noinspection Annotator
+                    // noinspection Annotator
                     return [
                         this.getReactively('focusEngagement.cooperationResources'),  //variable passed to subscription
                         this.getReactively('focusEngagement.contractingPartners'),  //variable passed to subscription
@@ -203,8 +217,10 @@ miz.directive("engDetail", function () {
                  });*/
 
 
+                // noinspection Annotator
                 /** Subscription to user list to search for bizDevOwners */
                 this.subscribe('userBizDevOwnerSearch', () => {
+                    // noinspection Annotator
                     return [
                         // searchTerm
                         this.getReactively('bizDevOwnerSearch')
@@ -212,9 +228,11 @@ miz.directive("engDetail", function () {
                 });
 
 
+                // noinspection Annotator
                 /** Subscription to users for list of current biz dev owners. */
 
                 this.subscribe('userSimpleList', () => {
+                    // noinspection Annotator
                     return [
                         // array of user ids to look up
                         this.getReactively('partner.bizDevOwners', true)
@@ -222,6 +240,7 @@ miz.directive("engDetail", function () {
                 });
 
 
+                // noinspection Annotator
                 /** AUTORUN**/
 
                 this.autorun(() => {
@@ -260,7 +279,7 @@ miz.directive("engDetail", function () {
 
                 /**
                  * updateEngagement
-                 * Given a field name or array of field names, will update the server-side enagement with new
+                 * Given a field name or array of field names, will update the server-side engagement with new
                  * information of focusEngagement.
                  *
                  * @param field - field or array of fields to be updated on server from focus Engagement
@@ -272,7 +291,7 @@ miz.directive("engDetail", function () {
 
                         //single value
                         if (typeof field === "string") {
-                            //noinspection JSUnresolvedVariable
+                            //noinspection JSUnresolvedVariable,Annotator
                             this.call('engagementUpdate', this.focusEngagement._id, field, this.focusEngagement[field], (err) => {
                                 if (err)
                                     alert('engagementUpdate method error: ' + err);
@@ -287,6 +306,7 @@ miz.directive("engDetail", function () {
                                 set[field[i]] = this.focusEngagement[field[i]];
                             }
 
+                            // noinspection Annotator
                             this.call('engagementUpdate', this.focusEngagement._id, set, (err) => {
                                 if (err)
                                     alert('engagementUpdate method error: ' + err);
@@ -320,7 +340,7 @@ miz.directive("engDetail", function () {
 
                 /***************************************************************************************************
                  * takeOwnershipOfEngagement
-                 * Sets the bdOwner of the engagment to the current user.
+                 * Sets the bdOwner of the engagement to the current user.
                  ****************************************************************************************************/
 
                 this.takeOwnershipOfEngagement = function () {
@@ -345,11 +365,15 @@ miz.directive("engDetail", function () {
                     };
 
 
+                    // noinspection Annotator
+                    // noinspection JSUnusedLocalSymbols
+                    // noinspection Annotator
                     this.call("logsCreateEntry", angular.copy(newLogEntry), (err, result) => {
                         if (err) {
                             alert('Something went wrong when creating log entry: ' + err);
                             console.log(err);
-                        }
+                        } else
+                            return result;
                     });
 
 
@@ -367,6 +391,7 @@ miz.directive("engDetail", function () {
                         return "Never updated...";
                     }
 
+                    // noinspection SpellCheckingInspection
                     Date.dateDiff = function (datepart, fromdate, todate) {
                         datepart = datepart.toLowerCase();
                         let diff = todate - fromdate;
@@ -438,7 +463,7 @@ miz.directive("engDetail", function () {
 
 
                             // automatically record a log entry for the change
-                            var newLogEntry = {
+                            let newLogEntry = {
                                 subjectId: this.focusEngagementId,
                                 date: new Date(),
                                 subEntries: [{
@@ -450,11 +475,13 @@ miz.directive("engDetail", function () {
                             };
 
 
+                            // noinspection Annotator
                             this.call("logsCreateEntry", angular.copy(newLogEntry), (err, result) => {
                                 if (err) {
                                     alert('Something went wrong when creating log entry: ' + err);
                                     console.log(err);
-                                }
+                                } else
+                                    return result;
                             });
 
                             if (this.newFilingStatus = 'closed') {
@@ -495,7 +522,7 @@ miz.directive("engDetail", function () {
 
                 this.updateType = function () {
                     if (this.focusEngagement) {
-                        if (this.focusEngagement.type != this.newType) {
+                        if (this.focusEngagement.type !== this.newType) {
 
                             let originalType = this.focusEngagement.type;
                             this.focusEngagement.type = this.newType;
@@ -514,11 +541,13 @@ miz.directive("engDetail", function () {
 
                             };
 
+                            // noinspection Annotator
                             this.call("logsCreateEntry", angular.copy(newLogEntry), (err, result) => {
                                 if (err) {
                                     alert('Something went wrong when creating log entry: ' + err);
                                     console.log(err);
-                                }
+                                } else
+                                    return result;
                             });
 
                             this.newStatus = null;
