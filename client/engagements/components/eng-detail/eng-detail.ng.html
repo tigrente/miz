@@ -2,6 +2,7 @@
 <script>
     //Refresh top level menu (need to find a way to make this a global function that works...)
     $('nav a').parents('li,ul').removeClass('active');
+    // noinspection ThisExpressionReferencesGlobalObjectJS
     $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
 </script>
 
@@ -185,7 +186,7 @@
                         EXECUTING
                     </span>
 
-                    <span ng-if="edfocusEngagement.filingStatus == 'on hold'"
+                    <span ng-if="ed.focusEngagement.filingStatus == 'on hold'"
                           style="color:darkorange; font-weight: bold">
                         ON HOLD
                     </span>
@@ -396,7 +397,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                >&times;</span></button>
                 <h4 class="modal-title">Select Engagement Partners</h4>
                 <small style="color: darkgrey">
                     This is the professor, consultant, or other talent actually doing the project. <br>
@@ -440,7 +441,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                >&times;</span></button>
                 <h4 class="modal-title">Select BizDev Manager for this Engagement</h4>
                 <small style="color: darkgrey">
                     Each engagement is allowed only one accountable person. If additional BD people are added,
@@ -483,7 +484,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                >&times;</span></button>
                 <h4 class="modal-title">Change the status for this engagement...</h4>
 
             </div>
@@ -599,7 +600,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                >&times;</span></button>
                 <h4 class="modal-title">Change the type of this engagement...</h4>
 
             </div>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{meteor-packages-auto-import-browser, meteor-packages-auto-import-npm}" />
+    <file url="file://$PROJECT_DIR$" libraries="{miz/node_modules}" />
+    <file url="PROJECT" libraries="{angular-DefinitelyTyped, angular-meteor-DefinitelyTyped, angular-ui-router-DefinitelyTyped, angular-xeditable-DefinitelyTyped, angularjs-DefinitelyTyped, jQuery-2.0.0, meteor-DefinitelyTyped, meteor-packages-auto-import-browser, meteor-packages-auto-import-npm, miz/node_modules, node-DefinitelyTyped}" />
     <includedPredefinedLibrary name="Meteor project library" />
-    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
