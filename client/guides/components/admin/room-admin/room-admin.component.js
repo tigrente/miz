@@ -60,46 +60,6 @@ miz.directive("guideRoomAdmin", function ($compile) {
               });
           }
 
-          this.resetNewGuide = function() {
-            this.newGuide = {
-              'cmsType': 'guide',
-              'guideType': 'blog', // for now, hard code...
-              'publish': 'preview',
-              'childrenArticleIds': [],
-              'title': '',
-              'adminDesc': ''
-              // Other data added when inserting into DB
-            };
-          }
-
-          this.addNewGuide = function() {
-            this.resetNewGuide();
-            
-            $('#new-guides').append(
-              $compile(`
-              <tr class="injected-table-view">
-                <td class="gr-table-row"> <a href="#" editable-text="ra.newGuide.title" e-label="Guide Title">{{ ra.newGuide.title || 'Guide Name' }}</a> </td>
-                <td class="gr-table-row"> <a href="#" editable-text="ra.newGuide.adminDesc" e-label="Guide Description">{{ ra.newGuide.adminDesc || 'Guide Description' }}</a> </td>
-                <td class="gr-table-row"> 
-                  <a href="#" editable-select="ra.newGuide.publish" e-ng-options="s.value as s.text for s in ra.xEditableVisStatuses" buttons="no">
-                    {{ ra.showXEditableVisStatus(ra.newGuide) }}
-                  </a>
-                </td>
-                <td class="gr-table-row"> - </td>
-                <td class="gr-table-row"> <button type="button" class="btn btn-primary" ng-click="ra.submitNewGuide($event)" ng-disabled="!ra.canSubmitNewGuideFn()">Save</button> </td> 
-                <td class="gr-table-row"> - </td>
-                <td class="gr-table-row"> - </td>
-                <td class="gr-table-row"> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ra.removeNewGuide($event)"></i> </td>
-              </tr>`
-              )($scope)
-            );
-          }
-
-          this.canAddNewGuide = function() {
-            this.getReactively('newGuide');
-            return _.size(this.newGuide) !== 0;
-          }
-
           this.editGuide = function(guideId) {
             window.location.href = '/guide/' + guideId + '/admin';
           }
@@ -124,7 +84,7 @@ miz.directive("guideRoomAdmin", function ($compile) {
             this.guideIdToDelete = -1;
           }
  
-          this.submitNewGuide = function($event) {
+          this.addNewGuide = function() {
             this.call('createGuide', this.newGuide, (err, data) => {
               if (err) {
                 alert('Something went wrong adding a new guide to database: ' + err);
@@ -136,19 +96,7 @@ miz.directive("guideRoomAdmin", function ($compile) {
                 });
               }
             });
-
-            this.removeNewGuide($event);
           }
-
-          this.removeNewGuide = function($event) {
-            $event.target.closest('tr').remove();
-            this.newGuide = {};
-          }
-
-          this.canSubmitNewGuideFn = function() {
-            // check that guide has require properties
-            return this.newGuide.title && this.newGuide.adminDesc;
-          };
 
           this.showXEditableVisStatus = function(guide) {
             if (guide) {
@@ -161,7 +109,16 @@ miz.directive("guideRoomAdmin", function ($compile) {
           /* INITIALIZE */
           this.guideIdToDelete = -1;
 
-          this.newGuide = {};
+          this.newGuide = {
+            'cmsType': 'guide',
+            'guideType': 'blog', // for now, hard code...
+            'publish': 'preview',
+            'childrenArticleIds': [],
+            'title': 'New Guide',
+            'adminDesc': 'New Guide Description'
+            // Other data added when inserting into DB
+          };
+
           this.xEditableVisStatuses = [
             { value: 'publish', text: 'Publish'},
             { value: 'preview', text: 'Preview'},

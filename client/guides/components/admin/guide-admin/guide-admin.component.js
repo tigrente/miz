@@ -57,47 +57,6 @@ miz.directive("guideAdmin", function ($compile) {
               });
           }
 
-          this.resetNewArticle = function() {
-            this.newArticle = {
-              'cmsType': 'article',
-              'articleType': 'blogWithFiles', // for now, hard code...
-              'publish': 'preview',
-              'articleImage': null, // for later...
-              'files': [], // for later...
-              'title': '',
-              'body': "<i>This is a auto-generated body stub. Click here to edit!</i>"
-              // Other data added when inserting into DB
-            };
-          }
-
-          this.addNewArticle = function() {
-            this.resetNewArticle();
-
-            $('#new-articles').append(
-              $compile(`
-                <tr>
-                <td class="gr-table-row"> <a href="#" editable-text="ga.newArticle.title" e-label="Article Title">{{ ga.newArticle.title || 'Article Name' }}</a> </td>
-                <td class="gr-table-row"> - </td>
-                <td class="gr-table-row"> - </td>
-                <td class="gr-table-row"> 
-                  <a href="#" editable-select="ga.newArticle.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses" buttons="no">
-                    {{ ga.showXEditableVisStatus(ga.newArticle) }}
-                  </a>
-                </td>
-                <td class="gr-table-row"> <button type="button" class="btn btn-primary" ng-click="ga.submitNewArticle($event)" ng-disabled="!ga.canSubmitNewArticleFn()">Save</button> </td>
-                <td class="gr-table-row"> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
-                <td class="gr-table-row"> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
-                <td class="gr-table-row"> <i class="fa fa-times remove" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ga.removeNewArticle($event)"></i> </td>
-                </tr>
-              `)($scope)
-            );
-          }
-
-          this.canAddNewArticle = function() {
-            this.getReactively('newArticle');
-            return _.size(this.newArticle) !== 0;
-          }
-
         this.editArticle = function(articleId) {
           window.location.href = '/article/' + articleId + '/edit';
         }
@@ -122,7 +81,7 @@ miz.directive("guideAdmin", function ($compile) {
           this.articleIdToDelete = -1;
         }
 
-        this.submitNewArticle = function($event) {
+        this.addNewArticle = function() {
           this.call('createArticle', this.newArticle, (err, data) => {
             if (err) {
               alert('Something went wrong adding a new article to database: ' + err);
@@ -134,19 +93,7 @@ miz.directive("guideAdmin", function ($compile) {
               });
             }
           });
-
-          this.removeNewArticle($event);
         }
-
-        this.removeNewArticle = function($event) {
-          $event.target.closest('tr').remove();
-          this.newArticle = {};
-        }
-
-        this.canSubmitNewArticleFn = function() {
-          // check that article has require properties
-          return this.newArticle.title && this.newArticle.body;
-        };
 
         this.showXEditableVisStatus = function(article) {
           this.getReactively('article');
@@ -161,7 +108,17 @@ miz.directive("guideAdmin", function ($compile) {
         /* INITIALIZE */
         this.articleIdToDelete = -1;
 
-        this.newArticle = {};
+        this.newArticle = {
+          'cmsType': 'article',
+          'articleType': 'blogWithFiles', // for now, hard code...
+          'publish': 'preview',
+          'articleImage': null, // for later...
+          'files': [], // for later...
+          'title': 'New Article',
+          'body': "<i>This is a auto-generated body stub. Click here to edit!</i>"
+          // Other data added when inserting into DB
+        };
+
         this.xEditableVisStatuses = [
           { value: 'publish', text: 'Publish'},
           { value: 'preview', text: 'Preview'},

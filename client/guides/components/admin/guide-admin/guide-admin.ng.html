@@ -13,7 +13,7 @@ Title: <a href="#" editable-text="ga.guide.title" e-required e-label="Guide Titl
 <br/>
 Description: <a href="#" editable-text="ga.guide.adminDesc" e-required e-label="Admin Description" onaftersave="ga.updateGuide()">{{ ga.guide.adminDesc || 'Guide Description' }}</a>
 
-<table class="gr-table" id="new-articles">
+<table class="gr-table">
     <tr>
         <th class="gr-table-row">Article</th>
         <th class="gr-table-row">Updated</th>
@@ -74,4 +74,4 @@ Description: <a href="#" editable-text="ga.guide.adminDesc" e-required e-label="
 </div>
 
 <button type="button" class="btn btn-primary" 
-    ng-show="ga.guide._id" ng-click="ga.addNewArticle()" ng-disabled="ga.canAddNewArticle()">Create Article +</button>
+    ng-show="ga.guide._id" ng-click="ga.addNewArticle()">Create Article +</button>
