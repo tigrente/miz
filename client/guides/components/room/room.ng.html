@@ -21,21 +21,21 @@
                 <div class="col-xs-12">
                     <h4>Articles</h4>
                     <table class="gr-table">
-                        <tr class="gr-table-row">
-                            <th>Article</th>
-                            <th>Body</th>
-                            <th>Created by</th>
-                            <th>Last modified by</th>
-                            <th>Created on</th>
-                            <th>Last modified on</th>
+                        <tr>
+                            <th class="gr-table-row">Article</th>
+                            <th class="gr-table-row">Body</th>
+                            <th class="gr-table-row">Created by</th>
+                            <th class="gr-table-row">Last modified by</th>
+                            <th class="gr-table-row">Created on</th>
+                            <th class="gr-table-row">Last modified on</th>
                         </tr>
-                        <tr class="gr-table-row gr-table-row-clickable" ng-repeat="article in rc.articles" ui-sref="{{ rc.articleDetailSref }}({ articleId: article._id })">
-                            <td style="font-weight: bold">{{ article.title }}</td>
-                            <td> <div froala-view="rc.substring(article.body, 75)"></div> </td>
-                            <td><username user-id="article.createdById"></username></td>
-                            <td><username user-id="article.modifiedById"></username></td>
-                            <td>{{ article.creationDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
-                            <td>{{ article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
+                        <tr ng-repeat="article in rc.articles" ui-sref="{{ rc.articleDetailSref }}({ articleId: article._id })">
+                            <td class="gr-table-row gr-table-row-clickable" style="font-weight: bold">{{ article.title }}</td>
+                            <td class="gr-table-row gr-table-row-clickable"> <div froala-view="rc.substring(article.body, 75)"></div> </td>
+                            <td class="gr-table-row gr-table-row-clickable"><username user-id="article.createdById"></username></td>
+                            <td class="gr-table-row gr-table-row-clickable"><username user-id="article.modifiedById"></username></td>
+                            <td class="gr-table-row gr-table-row-clickable">{{ article.creationDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
+                            <td class="gr-table-row gr-table-row-clickable">{{ article.modifiedDate | amDateFormat: 'ddd, MMM Do YYYY' }}</td>
                         </tr>
                     </table>
                 </div>
@@ -46,7 +46,7 @@
             There are no articles yet...
         </div>
     </div>
-    <div class="alert alert-warning" role="alert" ng-if="rc.room.childrenGuideIds.count() === 0" style="margin-top:10px">
+    <div class="alert alert-warning" role="alert" ng-if="rc.guides.count() === 0" style="margin-top:10px">
         There are no guides yet...
     </div>
   </div>

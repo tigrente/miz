@@ -5,30 +5,30 @@
 <a href="#" editable-text="ra.currentRoom.adminDesc" e-label="Description" onaftersave="ra.updateRoomDescription($data)">{{ ra.currentRoom.adminDesc || 'New Description' }}</a>
 
 <table class="gr-table" id="new-guides">
-    <tr class="gr-table-row">
-        <th>Guide Title</th>
-        <th>Description</th>
-        <th>Visibility</th>
-        <th>Articles</th>
-        <th>Edit</th>
-        <th>Move Up</th>
-        <th>Move Down</th>
-        <th>Delete</th>
+    <tr>
+        <th class="gr-table-row">Guide Title</th>
+        <th class="gr-table-row">Description</th>
+        <th class="gr-table-row">Visibility</th>
+        <th class="gr-table-row">Articles</th>
+        <th class="gr-table-row">Edit</th>
+        <th class="gr-table-row">Move Up</th>
+        <th class="gr-table-row">Move Down</th>
+        <th class="gr-table-row">Delete</th>
     </tr>
     <tr ng-repeat="guide in ra.guides">
-        <td> <a href="#" editable-text="guide.title" e-required e-label="Guide Title" onaftersave="ra.updateGuide(guide)">{{ guide.title || 'Guide Title' }}</a> </td>
-        <td> <a href="#" editable-text="guide.adminDesc" e-required e-label="Guide Description" onaftersave="ra.updateGuide(guide)">{{ guide.adminDesc || 'Guide Description' }}</a> </td>
-        <td>
+        <td class="gr-table-row"> <a href="#" editable-text="guide.title" e-required e-label="Guide Title" onaftersave="ra.updateGuide(guide)">{{ guide.title || 'Guide Title' }}</a> </td>
+        <td class="gr-table-row"> <a href="#" editable-text="guide.adminDesc" e-required e-label="Guide Description" onaftersave="ra.updateGuide(guide)">{{ guide.adminDesc || 'Guide Description' }}</a> </td>
+        <td class="gr-table-row">
             <a href="#" editable-select="guide.publish" e-ng-options="s.value as s.text for s in ra.xEditableVisStatuses"
                 buttons="no" onaftersave="ra.updateGuide(guide)">
                     {{ ra.showXEditableVisStatus(guide) }}
             </a>
         </td>
-        <td> {{ guide.childrenArticleIds.length || 0 }} </td>
-        <td> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ra.editGuide(guide._id)"></i> </td>      
-        <td> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
-        <td> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
-        <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" data-toggle="modal"
+        <td class="gr-table-row"> {{ guide.childrenArticleIds.length || 0 }} </td>
+        <td class="gr-table-row"> <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" ng-click="ra.editGuide(guide._id)"></i> </td>      
+        <td class="gr-table-row"> <i class="fa fa-arrow-up" aria-hidden="true" style="cursor:pointer"></i> </td>       
+        <td class="gr-table-row"> <i class="fa fa-arrow-down" aria-hidden="true" style="cursor:pointer"></i> </td>      
+        <td class="gr-table-row"> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" data-toggle="modal"
             data-target="#delete-guide-confirm-modal" ng-click="ra.guideIdToDelete = guide._id"></i> </td>
     </tr>
 </table>

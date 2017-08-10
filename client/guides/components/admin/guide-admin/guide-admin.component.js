@@ -76,18 +76,18 @@ miz.directive("guideAdmin", function ($compile) {
             $('#new-articles').append(
               $compile(`
                 <tr>
-                <td> <a href="#" editable-text="ga.newArticle.title" e-label="Article Title">{{ ga.newArticle.title || 'Article Name' }}</a> </td>
-                <td> - </td>
-                <td> - </td>
-                <td> 
+                <td class="gr-table-row"> <a href="#" editable-text="ga.newArticle.title" e-label="Article Title">{{ ga.newArticle.title || 'Article Name' }}</a> </td>
+                <td class="gr-table-row"> - </td>
+                <td class="gr-table-row"> - </td>
+                <td class="gr-table-row"> 
                   <a href="#" editable-select="ga.newArticle.publish" e-ng-options="s.value as s.text for s in ga.xEditableVisStatuses" buttons="no">
                     {{ ga.showXEditableVisStatus(ga.newArticle) }}
                   </a>
                 </td>
-                <td> <button type="button" class="btn btn-primary" ng-click="ga.submitNewArticle($event)" ng-disabled="!ga.canSubmitNewArticleFn()">Save</button> </td>
-                <td> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
-                <td> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
-                <td> <i class="fa fa-times remove" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ga.removeNewArticle($event)"></i> </td>
+                <td class="gr-table-row"> <button type="button" class="btn btn-primary" ng-click="ga.submitNewArticle($event)" ng-disabled="!ga.canSubmitNewArticleFn()">Save</button> </td>
+                <td class="gr-table-row"> <i class="fa fa-arrow-up" aria-hidden="true"></i> </td>       
+                <td class="gr-table-row"> <i class="fa fa-arrow-down" aria-hidden="true"></i> </td>      
+                <td class="gr-table-row"> <i class="fa fa-times remove" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ga.removeNewArticle($event)"></i> </td>
                 </tr>
               `)($scope)
             );

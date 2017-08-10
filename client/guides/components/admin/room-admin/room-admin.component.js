@@ -78,18 +78,18 @@ miz.directive("guideRoomAdmin", function ($compile) {
             $('#new-guides').append(
               $compile(`
               <tr class="injected-table-view">
-                <td> <a href="#" editable-text="ra.newGuide.title" e-label="Guide Title">{{ ra.newGuide.title || 'Guide Name' }}</a> </td>
-                <td> <a href="#" editable-text="ra.newGuide.adminDesc" e-label="Guide Description">{{ ra.newGuide.adminDesc || 'Guide Description' }}</a> </td>
-                <td> 
+                <td class="gr-table-row"> <a href="#" editable-text="ra.newGuide.title" e-label="Guide Title">{{ ra.newGuide.title || 'Guide Name' }}</a> </td>
+                <td class="gr-table-row"> <a href="#" editable-text="ra.newGuide.adminDesc" e-label="Guide Description">{{ ra.newGuide.adminDesc || 'Guide Description' }}</a> </td>
+                <td class="gr-table-row"> 
                   <a href="#" editable-select="ra.newGuide.publish" e-ng-options="s.value as s.text for s in ra.xEditableVisStatuses" buttons="no">
                     {{ ra.showXEditableVisStatus(ra.newGuide) }}
                   </a>
                 </td>
-                <td> - </td>
-                <td> <button type="button" class="btn btn-primary" ng-click="ra.submitNewGuide($event)" ng-disabled="!ra.canSubmitNewGuideFn()">Save</button> </td> 
-                <td> - </td>
-                <td> - </td>
-                <td> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ra.removeNewGuide($event)"></i> </td>
+                <td class="gr-table-row"> - </td>
+                <td class="gr-table-row"> <button type="button" class="btn btn-primary" ng-click="ra.submitNewGuide($event)" ng-disabled="!ra.canSubmitNewGuideFn()">Save</button> </td> 
+                <td class="gr-table-row"> - </td>
+                <td class="gr-table-row"> - </td>
+                <td class="gr-table-row"> <i class="fa fa-times" aria-hidden="true" style="color:red;cursor:pointer" ng-click="ra.removeNewGuide($event)"></i> </td>
               </tr>`
               )($scope)
             );
