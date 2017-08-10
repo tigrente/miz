@@ -370,9 +370,10 @@
 
 
             <!-- *** ACCEPTANCE REPORT PANEL *** -->
-            <div role="tabpanel" class="tab-pane fade " id="acceptance-report-panel"
+            <div role="tabpanel" class="tab-pane fade "
+                 id="acceptance-report-panel"
                  ng-if="(ed.focusEngagement.type === 'Early Innovation' ) && (ed.focusEngagement.earlyInnovationProjectData.acceptanceAndPayments.paymentSchedule.length > 0)"
-            >
+                 style="  overflow-x: hidden; overflow-y: auto; padding: 20px">
                 <div class="row">
                     <div class="col-xs-12">
                         <eng-ei-acceptance-reports-tab

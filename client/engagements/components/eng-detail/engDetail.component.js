@@ -589,6 +589,7 @@ miz.directive("engDetail", function () {
                     let tabHeight = bodyHeight - tabHeaderOffset - tabFooterOffset;
                     $('#payment-panel').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
                     $('#checklist-panel-wrapper').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
+                    $('#acceptance-report-panel').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
                 }, 1000);
 
                 $(window).resize(function () {
@@ -596,6 +597,7 @@ miz.directive("engDetail", function () {
                     let tabHeight = bodyHeight - tabHeaderOffset - tabFooterOffset;
                     $('#payment-panel').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
                     $('#checklist-panel-wrapper').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
+                    $('#acceptance-report-panel').css({'min-height': tabHeight + 'px', 'max-height': tabHeight + 'px;', 'height': tabHeight + 'px'});
                 }).resize();
 
 
